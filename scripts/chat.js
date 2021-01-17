@@ -6,6 +6,7 @@ refresh = true
 // load previous messages in thread
 window.onload = (()=>{
 	form.recip.value = urlParam('thread')// set form recipient val
+	// form.sender.value = 'read user cookie'
 	loadMessages()
 })
 
@@ -22,9 +23,9 @@ async function loadMessages(){
 
 		json.messages.forEach((msg, index) => {
 
-			if(index==0 || (json.messages[index-1].sender != msg.sender || !json.messages[index-1])){
+			if(!json.messages[index-1] || json.messages[index-1].sender != msg.sender){
 				let newSegment = document.createElement('div')
-				newSegment.classList.add(msg.sender==form.sender.value? 'othersMsg': 'yourMsg')
+				newSegment.classList.add(msg.sender==form.sender.value? 'yourMsg': 'othersMsg')
 				msgs.insertAdjacentElement('beforeend', newSegment)
 			}
 
@@ -35,12 +36,19 @@ async function loadMessages(){
 			newMsg.id = msg.id
 			newMsg.classList.add('msg')
 			// newThread.setAttribute('onclick')// show time sent
-			newMsg.innerHTML = `${msg.content}`
+			newMsg.innerHTML = msg.content// keep HTML for advanced features, i.e. location, ect.
 
 			msgContainer.append(newMsg)
 			msgs.lastChild.insertAdjacentElement('beforeend', msgContainer)
 
+			/* if(!json.messages[index+1] || readableTime(json.messages[index+1].time) != readableTime(msg.time)){
+				let newTime = document.createElement('div')
+				newTime.classList.add('timeSent')
+				newTime.innerText = readableTime(msg.time)
+				msgs.lastChild.insertAdjacentElement('beforeend', newTime)
+			} */
 
+			console.log(new Date(msg.time), readableTime(msg.time))
 			/* 
 			// msgs.append(newMsg)// check if theres a version to .append() at begining
 			// msgs.insertAdjacentElement('afterbegin', newMsg)
@@ -82,7 +90,7 @@ function postMsg(e){
 		newPost.id = json.id
 		newPost.classList.add('msg')
 		// newPost.setAttribute('onclick')// show time sent
-		newPost.innerHTML = json.content
+		newPost.innerText = json.content
 		// json.sender
 		// json.content
 		// json.read
@@ -104,4 +112,4 @@ function urlParam(param){
 	if(searchTerm) return searchTerm[1]
 }
 
-// console.log(atob('c0hNaHR3Mw=='), btoa('Nosson'))
+// console.log(btoa('Nosson'), atob('c0hNaHR3Mw=='))
