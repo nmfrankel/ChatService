@@ -1,0 +1,9 @@
+## All requets in folder get directed to './router.php' 
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) router.php [QSA,L]
+
+## Alternate default index page
+DirectoryIndex router.php

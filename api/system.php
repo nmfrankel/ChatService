@@ -1,12 +1,12 @@
 <?
-// ||\\   ||\\   //||||||||
-// || \\  || \\ // ||
-// ||  \\ ||  \\/  |||||
-// ||   \\||       ||
-
-// 	NOSSON M FRANKEL
-// 	nossonmfrankel@gmail.com
-// 	ALL RIGHTS RESERVED, © 2020
+//  ||\\   ||\\   //||||||||
+//  || \\  || \\ // ||
+//  ||  \\ ||  \\/  |||||
+//  ||   \\||       ||
+//
+//    NOSSON M FRANKEL
+//    nossonmfrankel@gmail.com
+//    ALL RIGHTS RESERVED, © 2020
 
 ## system main version 0.1
 
@@ -53,10 +53,44 @@ function autoLoad($className){
 
     include_once $fullPath;
 }
-
+// following 2 functions cover encryption and decryption
+function encrypt($string, $salt = 'Open-Source_Software', $static = true){
+	$string = rtrim($string);
+	$key = crypt('?.3#&6^','$6$'.md5(md5(md5($salt))).'^@@d55');
+	$ivlen = openssl_cipher_iv_length($cipher="AES-256-CBC");
+	if($static):
+		$iv = crypt('!#9+8*m','$6$@@***'.md5(md5(md5('yAY$8f29r'))));
+	else:
+		$iv = openssl_random_pseudo_bytes($ivlen);// random string every time encrypted
+	endif;
+	$iv = substr(hash('sha256', $iv), 0, 16);
+	$ciphertext_raw = openssl_encrypt($string, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+	$hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
+	return base64_encode($iv.$hmac.$ciphertext_raw);
+}
+function decrypt($string, $salt = 'Open-Source_Software'){
+	$string = rtrim($string);
+	$c = base64_decode($string);
+	$key = crypt('?.3#&6^','$6$'.md5(md5(md5($salt))).'^@@d55');
+	$ivlen = openssl_cipher_iv_length($cipher="AES-256-CBC");
+	$iv = substr($c, 0, $ivlen);
+	$hmac = substr($c, $ivlen, $sha2len=32);
+	$ciphertext_raw = substr($c, $ivlen+$sha2len);
+	$original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+	$calcmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
+	if (hash_equals($hmac, $calcmac)) return $original_plaintext;//PHP 5.6+ timing attack safe comparison
+}
 // Prevent cross-site scripting
 function escXSS($string){
 	return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}
+// generate random string
+function randomStr($len = 'null'){
+	if(!is_int($len)) $len = random_int(9, 19);
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()=+?";
+
+	$cipher = substr(str_shuffle($chars), 0, $len);
+	return $cipher;
 }
 // Format phone number to (XXX) XXX-XXXX
 function phoneNumber($string){
@@ -65,13 +99,4 @@ function phoneNumber($string){
 
 	$number = "(".$group[1][0].") ".$group[2][0]."-".$group[3][0];
 	return $number;
-}
-
-// generate random string
-function randomStr($len = 'null'){
-	if(!is_int($len)) $len = random_int(9, 19);
-	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()=+?";
-
-	$cipher = substr(str_shuffle($chars), 0, $len);
-	return $cipher;
 }
