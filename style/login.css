@@ -1,0 +1,290 @@
+/* .inputContainer{
+	position: relative;
+	display: inline-block;
+	/* height: 54px; *
+	width: 300px;
+	padding: 5px;
+
+	background: aqua;
+}
+input{
+	height: 28px;
+	width: 100%;
+	margin: 18px 0 0;
+	box-sizing: border-box;
+	font-size: 20px;
+	/* border: none; *
+	background: transparent;
+}
+input:active, input:focus{
+	outline: none;
+}
+.inputContainer .border{
+
+}
+label{
+	position: absolute;
+	top: 25px;
+	left: 10px;
+
+	background: transparent;
+	/* background: orange; *
+	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 175ms;
+}
+input:active + label, input:focus + label{
+	top: 0px;
+	left: 5px;
+}
+.error{
+	margin: 3px 0;
+	font-size: 14px;
+	font-weight: 700;
+	color: #ec1a23;
+} */
+
+
+
+
+
+
+
+.inputContainer{
+	display: inline-block;
+	position: relative;
+	width: 320px;
+	text-align: left;
+	margin: 15px;
+	z-index: 1;
+
+	/* background: tomato; */
+}
+.inputContainer label{
+	position: absolute;
+	top: 7px;
+	left: 3px;
+	padding: 0 5px;
+	background: transparent;
+	transition: all 100ms ease-in-out 0s;
+	z-index: 1;
+	border-radius: 5px;
+	background: #fff;
+}
+.inputContainer input:focus ~ label, .inputContainer input.filled ~ label, .inputContainer textarea:focus ~ label, .inputContainer textarea.filled ~ label{
+	top: -8px;
+	left: 0px;
+	color: #444;
+	font-size: .8em;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+.inputContainer input[type=text], .inputContainer input[type=password], .inputContainer textarea{
+	font-family: sans-serif;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-size: 1rem;
+	font-weight: 400;
+	letter-spacing: .009375em;
+	text-decoration: inherit;
+	text-transform: inherit;
+	-ms-flex-item-align: end;
+	align-self: flex-end;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding: 10px 8px 5px;
+	-webkit-transition: all 150ms cubic-bezier(.4,0,.2,1);
+	-o-transition: all 150ms cubic-bezier(.4,0,.2,1);
+	transition: all 150ms cubic-bezier(.4,0,.2,1);
+	border: none;
+	border-bottom: 2px solid #ccc;
+	background: transparent;
+	letter-spacing: 1px;
+	z-index: 5;
+	margin: 0px auto;
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-internal-autofill-selected{
+	/* -webkit-text-fill-color: #000; */
+	/* -webkit-box-shadow: 0 0 0px 1000px transparent inset; */
+	font-size: 1rem;
+}
+.inputContainer:hover input, .inputContainer:hover textarea{
+	border-bottom-color: #777;
+}
+input:focus, textarea:focus{
+	outline: none;
+}
+.inputContainer .focus-border{
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+	width: 0;
+	height: 2px;
+	background-color: #4caf50;
+	transition: 0.4s;
+}
+input:focus ~ .focus-border, input.filled ~ .focus-border, textarea:focus ~ .focus-border, textarea.filled ~ .focus-border{
+	width: 100%;
+	transition: 0.4s;
+	left: 0;
+}
+input.invalid ~ .focus-border, textarea.invalid ~ .focus-border{
+	width: 100%;
+	transition: 0.4s;
+	left: 0;
+	background: #b00020;
+}
+.inputContainer .error{
+	position: absolute;
+	color: #b00020;
+	-webkit-font-smoothing: antialiased;
+	font-size: .75rem;
+	font-weight: 700;
+	text-align: left;
+	padding: 5px 8px 0;
+	width: 100%;			
+	opacity: 0;
+	transition: all ease-in-out 175ms;
+}
+input.invalid ~ .error, textarea.invalid ~ .error{
+	opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+section{
+	height: calc(100vh - 65px);
+	display: flex;
+	vertical-align: middle;
+	justify-content: space-between;
+	justify-content: center;
+
+	/* background: linear-gradient(128deg, rgb(248, 248, 248) 0%, rgb(255, 255, 255) 47%); */
+}
+input{
+	display: block;
+	margin: 15px auto;
+}
+#formContainer{
+	margin: auto;
+	text-align: center;
+	max-width: 340px;
+	background: #fff;
+	border-radius: 5px;
+	padding: 10px 35px;
+	box-shadow: -1px 2px 20px 2px rgb(234 239 242);
+}
+#formContainer img{
+	height: 75px;
+	padding-bottom: 1rem;
+}
+#formContainer div#guide{
+	font-size: 1.5rem;
+	padding: 2rem 0 1rem;
+}
+#formContainer div#subGuide{
+	padding-bottom: 2rem;
+	color: #333;
+}
+#formContainer .input-container{
+	margin: 20px 0px;
+	right: 0;
+	transition: all cubic-bezier(0.6, 0, 0.2, 1) 1s;
+}
+#formContainer.disabled .input-container{
+	right: 130%;
+}
+/* #formContainer button, #formContainer input[type="button"], #formContainer input[type="submit"]{
+	min-width: unset;
+	margin-top: 40px;
+}
+#formContainer button, #formContainer input[type="submit"]{
+	float: left;
+	width: 145px;
+	color: rgb(38, 147, 255);
+	background: #fff;
+	border: 1px solid #eee;
+	/* box-shadow: none; *
+}
+#formContainer button, #formContainer input[type="submit"]{
+	float: right;
+	width: 80px;
+}
+ */
+
+/* form input[type="submit"]{
+	width: 80px;
+	margin-top: 40px;
+	padding: 8px 20px;
+	box-sizing: content-box;
+	float: right;
+	font-size: 1.05rem;
+	background: rgb(38, 147, 255);
+	color: #fff;
+	border: none;
+	border-radius: 7px;
+	cursor: pointer;
+} */
+
+form input[type="submit"]{
+	min-width: 64px;
+	width: unset;
+	margin: 40px 0 15px;
+	padding: 12px 24px;
+	float: right;
+	font-size: 1rem;
+	color: #fff;
+	background: rgb(38, 147, 255);
+	box-shadow: none;
+	border: none;
+	border-radius: 4px;
+	transition: all ease-in-out 250ms;
+	cursor: pointer;
+
+	font-weight: 700;
+}
