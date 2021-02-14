@@ -19,11 +19,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<link rel="stylesheet" href="./style/main.css?fileVer=<?=filesize('./style/main.css')?>">
 	<link rel="stylesheet" href="./style/msgs.css?fileVer=<?=filesize('./style/msgs.css')?>">
-	<script src="./scripts/msgs.js?fileVer=<?=filesize('./scripts/msgs.js')?>" defer></script>
 	<script src="./scripts/main.js?fileVer=<?=filesize('./scripts/main.js')?>" defer></script>
+	<script src="./scripts/msgs.js?fileVer=<?=filesize('./scripts/msgs.js')?>" defer></script>
     <title>Messages | ChatGroup</title>
 </head>
 <body>
+	<header>Chats&nbsp;</header>
 
 	<section>
 		<div class="container" id="threads">
