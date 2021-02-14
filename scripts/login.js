@@ -1,8 +1,15 @@
-let form = document.getElementsByTagName('form')[0]
+// load this page into ../login.php
+let form = document.forms[0]
 
+Promise.all([...form.elements].map(input => {
+	input.onchange = (()=>{
+		if(input.value === "") input.classList.remove('filled')
+		else input.classList.add('filled')
+	})
+}))
 
-async function login(e){
-    e.preventDefault()
+function login(e){
+	e.preventDefault()
 
 	// prep loginData for sending
 	let loginData = new FormData()
@@ -10,13 +17,23 @@ async function login(e){
 		if(form.elements[i].name.length) loginData.append(form.elements[i].name, form.elements[i].value)
 	}
 
-    fetch('./api/login', {
-        method: 'POST',
-        body: loginData
-    })
+	fetch('./api/login', {
+		method: 'POST',
+		body: loginData
+	})
 	.then(res => res.json())
 	.then(json => {
 		console.log(json)
+
+		if(json.loggedIn){
+			form.reset()
+			Promise.all([...form.elements].map(input => {
+				input.classList.remove('filled')
+			}))
+			window.location = json.redirect
+		}else{
+			
+		}
 
 	})
 	.catch(err => console.error(err))

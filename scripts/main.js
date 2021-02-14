@@ -47,3 +47,19 @@ function readableTime(timestamp){
 
 	return timeStr
 }
+function ripple(event) {
+	el = event.currentTarget
+
+	rippleEl = document.querySelector('span.ripple')
+	if(!rippleEl) rippleEl = document.createElement('span')
+	el.appendChild(rippleEl)
+
+	max = Math.max(el.offsetWidth, el.offsetHeight)
+	rippleEl.style.width = rippleEl.style.height = max + 'px'
+
+	rect = el.getBoundingClientRect()
+	rippleEl.style.left = event.clientX - rect.left - (max/2) + 'px'
+	rippleEl.style.top = event.clientY - rect.top - (max/2) + 'px'
+
+	rippleEl.classList.add('ripple')
+}

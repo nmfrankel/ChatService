@@ -1,4 +1,4 @@
-// load this page into ../messages.php
+// load this page into ../msgs.php
 let threads = document.getElementById('threads'),
 latestData = null,
 refresh = true
@@ -20,8 +20,8 @@ async function loadThreads(){
 			let newThread = document.createElement('div')
 			newThread.classList.add('thread')
 			if (item.new) newThread.classList.add('new')
-			// newThread.id = item.id
-			newThread.setAttribute('onclick', `openThread('${item.id}')`)
+			// newThread.handle = item.handle
+			newThread.setAttribute('onclick', `openThread('${item.handle}')`)
 			newThread.innerHTML = `
 				<span class='picContainer'>
 					<img class='userPicture' src='/V1/chatpic/${item.imgLoc}.png'>
@@ -45,8 +45,8 @@ function openThread(id){
 	refresh = false
 	threads.classList.add('slideOutLeft')
 	setTimeout(() => {
-		threads.innerHTML = '<div align="center">Loading...</div>'
-		threads.classList.remove('slideOutLeft')
-		window.location=`/chat?thread=${id}`
+		threads.style.textAlign = 'center'
+		threads.innerText = 'Loading...'
+		window.location = `./chat?thread=${id}`
 	}, 150);
 }
