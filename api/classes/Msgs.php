@@ -11,23 +11,38 @@ class Msgs{
 				[
 					'handle' => base64_encode('0'),
 					'name' => 'Shea Rubin',
-					'lastMsg' => 'Shloimy B: Where\'s the crib at tonight?',
+					// 'lastMsg' => 'Me: I can\'t find you, where you at?',
+					'lastMsg' => 'Me: I can\'t find you, where you at?',
 					'imgLoc' => 'LPlogo',
-					'time' => 0,
-					'new' => 1
+					'time' => date(U)-30,
+					'new' => 2
 				],[
 					'handle' => base64_encode('1'),
-					'name' => 'Nosson M Frankel',
-					'lastMsg' => 'Me: I cant find you, Where are you?',
-					'imgLoc' => '5de34a809a67f_1575176832',
-					'time' => 0,
+					'name' => 'Moti Taub',
+					'lastMsg' => 'Did you get a response yet?',
+					'imgLoc' => 'missing',
+					'time' => date(U)-150,
 					'new' => 0
 				],[
-					'handle' => base64_encode('3'),
-					'name' => 'Zobe Chat',
-					'lastMsg' => 'Capt. Joe: Vote for joe for oatmeal 2020',
+					'handle' => base64_encode('2'),
+					'name' => 'Another Person',
+					'lastMsg' => 'I think Tuesday will work out better 😊',
 					'imgLoc' => 'missing',
-					'time' => 0,
+					'time' => date(U)-4680,
+					'new' => 13
+				],[
+					'handle' => base64_encode('3'),
+					'name' => 'Nosson M Frankel',
+					'lastMsg' => 'Reminder: Set the tracker on.',
+					'imgLoc' => '5de34a809a67f_1575176832',
+					'time' => date(U)-129600,
+					'new' => 0
+				],[
+					'handle' => base64_encode('4'),
+					'name' => 'Zobe Chat',
+					'lastMsg' => 'KlatzCo: I think the fireworks display started.',
+					'imgLoc' => 'missing',
+					'time' => date(U)-626400,
 					'new' => 0
 				]
 			]
