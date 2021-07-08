@@ -1,3 +1,12 @@
+// get url parameters
+function urlParam(param){
+
+	let regex = new RegExp("[\\?&]"+param+"=([^&#]*)")
+	let searchTerm = regex.exec(window.location.href)
+
+	if(searchTerm) return searchTerm[1]
+}
+
 // logout user and reroute them to the homepage
 function logout(){
 	refresh = false
