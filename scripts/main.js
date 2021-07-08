@@ -1,4 +1,3 @@
-
 // logout user and reroute them to the homepage
 function logout(){
 	refresh = false
@@ -13,7 +12,7 @@ function logout(){
 }
 
 // transform timestamp to readable date
-function readableTime(timestamp){
+function readableTime(timestamp = new Date()){
 	let currentTime = Math.floor(new Date().getTime()/1000),
 	modTime = new Date(timestamp*1000),
 	timeStr = 'Time error',// 'Unavailable',
@@ -26,7 +25,8 @@ function readableTime(timestamp){
 	else if(currentTime-43140 < timestamp || modTime.getDate() == new Date().getDate()) timeStr = `${hr}:${min} ${meridian}`
 	else if(currentTime-172800 < timestamp && modTime.getDay()+7 == new Date().getDay()+6) timeStr = 'Yesterday'
 	else if (currentTime-691200 < timestamp && modTime.getDate()+7 >= new Date().getDate()) timeStr = modTime.toLocaleString('en-us', {weekday: 'long'})
-	else timeStr = `${modTime.getMonth()+1}/${modTime.getDate()}/${modTime.getFullYear().toString().substr(-2)}`// if within same year then skip year
+	else if (currentTime-2592000 < timestamp && modTime.getMonth() === new Date().getMonth()) timeStr = `${modTime.getMonth()+1}/${modTime.getDate()}`
+	else timeStr = `${modTime.getMonth()+1}/${modTime.getDate()}/${modTime.getFullYear().toString().substr(-2)}`
 
 	return timeStr
 }
