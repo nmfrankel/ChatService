@@ -5,6 +5,7 @@ RewriteCond %{SERVER_PORT} 80
 ## RewriteRule ^(.*)$ https://localhost/$1 [R,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^threads  /threads.html   [NC,L]
+RewriteRule ^offline  /offline.html   [NC,L]
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 ## Alternate default index page
