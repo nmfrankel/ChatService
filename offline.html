@@ -20,10 +20,10 @@
 	<meta name="theme-color" content="#ffffff">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<link rel="stylesheet" href="./style/main.css?fileVer=0000">
-	<script src="./scripts/offline.js?fileVer=0000" defer></script>
+	<script src="./scripts/main.js?fileVer=0000" defer></script>
 	<title>Can't connect | ChatGroup</title>
 </head>
-<body>
+<body ononline="window.location=urlParam('redirect')">
 	<header>
 		<div id="headerMain">
 			<a href="" id="backButton" class="hidden" onclick="back(event)">
