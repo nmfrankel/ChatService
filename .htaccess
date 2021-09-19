@@ -17,11 +17,10 @@ RewriteRule (.*) /frontend/$1 [L]
 
 # Append file extension to request
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^frontend/chat chat.php [NC,L]
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 
 ## Set fallbacks
 DirectoryIndex /README.md
-ErrorDocument 404 /frontend/missing.html
 ErrorDocument 403 /frontend/missing.html
+ErrorDocument 404 /frontend/missing.html

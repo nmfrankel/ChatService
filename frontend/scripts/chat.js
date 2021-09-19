@@ -1,3 +1,5 @@
+const msgs = document.getElementsByClassName('msgContainer')
+
 let refresh = true,
 lastLoad = null,
 msgData = [],
@@ -23,15 +25,34 @@ loadMsgs = ()=>{
 					document.getElementsByClassName('active')[0].children[0].append(newSegment)
 				}
 
-				let msgs = document.getElementsByClassName('active')[0].children[0],
-				tempTest = buildElements(`.msgContainer>.msg[id=${msg.id}][onclick=false]`)
+				const msgsConatiner = document.getElementsByClassName('active')[0].children[0]
+				let tempTest = buildElements(`.msgContainer>.msg[id=${msg.id}][onclick=false]`)
 				// use this to prevent XSS {${msg.content}}, but handle on server to prevent display error
 				tempTest.children[0].innerHTML = msg.content
 
-				msgs.lastChild.insertAdjacentElement('beforeend', tempTest)
+				msgsConatiner.lastChild.insertAdjacentElement('beforeend', tempTest)
 			})
 		})
 		.catch(err => console.error(err))
+}
+// go to threads page
+function goBack(e){
+	e?.preventDefault()
+	ripple(e)
+	form.classList.add('fadeOut')
+	document.body.style.overflow = 'hidden'
+
+	Array.from(msgs).reverse().map((child, i) => {
+		child.style.animationDelay = 75+(15*i) + 'ms'
+		child.classList.add('slideOutRight')
+	})
+
+	setTimeout(() => {
+		document.getElementById('chat').children[0].style.textAlign = 'center'
+		document.getElementById('chat').children[0].innerText = 'Loading...'
+		document.getElementsByTagName('header')[0].classList.add('fadeOut')
+		window.location = '/threads'
+	}, 250);
 }
 
 // after the page animate the page

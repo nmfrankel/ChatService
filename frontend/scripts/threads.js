@@ -55,7 +55,7 @@ openThread = (id, thread, e)=>{
 	setTimeout(() => {
 		document.getElementById('chats').classList.add('doubleCenter')
 		document.getElementById('chats').children[0].innerText = 'Loading...'
-		window.location = `./chat.html?t=${id}`
+		window.location = `./chat?t=${id}`
 	}, 300);
 }
 
