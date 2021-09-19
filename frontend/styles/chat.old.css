@@ -1,0 +1,131 @@
+/* header design */
+header #backButton{
+	/* position: absolute; */
+	/* margin-top: 2px; */
+	left: -10px;
+	height: 22px;
+	width: 22px;
+	padding: 8px;
+	border-radius: 50%;
+	overflow: hidden;
+	fill: var(--primaryText);
+}
+header #chatTitle{
+	position: relative;
+}
+
+/* message design */
+section:first-of-type{
+	min-height: calc(100vh - 70px);
+}
+.othersMsg:last-child, .yourMsg:last-child{
+	margin-bottom: 30px;
+}
+.yourMsg{
+	text-align: right;
+}
+.msgContainer{
+	display: inline-block;
+	width: 100%;
+	margin-top: 1px;
+}
+.othersMsg .msgContainer{
+	margin-top: 4px;
+}
+.msgContainer:first-child{
+	margin-top: 24px;
+}
+.msg{
+	width: fit-content;
+	padding: 8px 16px;
+	background: #fff;
+	background: #d2e3fc;
+	color: #1950a7;
+	box-shadow: -1px 2px 10px 2px var(--lightShadow);
+	z-index: 1;
+	user-select: none;
+}
+/* changes left sides corners */
+.othersMsg .msgContainer .msg{
+	background: #4284f4;
+	color: #fff;
+	background: #f1f3f4;
+	color: #242528;
+	box-shadow: -1px 2px 10px 2px var(--darkShadow);
+	border-top-right-radius: 18px;
+	border-bottom-right-radius: 18px;
+}
+.othersMsg .msgContainer:first-child .msg{
+	border-top-left-radius: 18px;
+}
+.othersMsg .msgContainer:last-child .msg{
+	border-bottom-left-radius: 18px;
+}
+/* changes rights sides corners */
+.yourMsg .msgContainer .msg{
+	float: right;
+	border-top-left-radius: 18px;
+	border-bottom-left-radius: 18px;
+}
+.yourMsg .msgContainer:first-child .msg{
+	border-top-right-radius: 18px;
+}
+.yourMsg .msgContainer:last-child .msg{
+	border-bottom-right-radius: 18px;
+}
+
+/* form (new message) design */
+#newMsg{
+	position: fixed;
+	bottom: 0px;
+	height: 40px;
+	width: 100%;
+	padding: 15px 0;
+	z-index: 10;
+	background: var(--background);/* fade top 5px to transparent */
+}
+input#options{
+	/* border: none;
+	height: 28px;
+	width: 28px;
+	float: left;
+	background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='rgb(120, 120, 120)'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z'/></svg>") no-repeat;
+	background-size: cover;
+	cursor: pointer; */
+
+	display: none;
+}
+#sending{
+	height: 40px;
+	width: 90%;
+	max-width: 700px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 5px 10px;
+	background: white;
+	border: 1px solid #f0f0f0;
+	border-radius: 18px;
+	box-shadow: -1px 2px 10px 2px var(--lightShadow);
+}
+input[type=text]{
+	background: transparent;
+	border: none;
+	outline: none;
+	height: 100%;
+	padding: 0px 0px 0px 6px;
+	font-size: 20px;
+	width: calc(100% - 40px);
+}
+input[type=text]::placeholder{
+	color: #677e89;
+}
+input#send{
+	border: none;
+	height: 28px;
+	width: 28px;
+	float: right;
+	/* margin: 0 10px; */
+	background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='rgb(143 163 173)'><path d='M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}

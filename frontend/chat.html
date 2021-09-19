@@ -1,0 +1,60 @@
+<!-- takeover chat.php -->
+<!-- 
+       _         _        _ _ _ _ _ _ _
+     /_/       /_//     /_/_/_/_/_/_/_/
+    /_/_/     /_//_/  /_//_/
+   /_/ /_/   /_/ /_//_/ /_/_ _ _ _
+  /_/   /_/ /_/   /_/  /_/_/_/_/_/
+ /_/     /_/_/        /_/
+/_/       /_/        /_/
+
+	NOSSON M FRANKEL
+	nossonmfrankel@gmail.com
+	ALL RIGHTS RESERVED, 2021
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="content-language" content="en">
+	<meta name="description" content="">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="./styles/chat.css?fileVer=0000">
+	<script src="./scripts/main.js?fileVer=0000" defer></script>
+	<script src="./scripts/chat.js?fileVer=0000" defer></script>
+	<title>Chat | ChatService</title>
+</head>
+<body>
+	<header>
+		<div id="headerMain">
+			<a href="" id="backButton" onclick="event.preventDefault();window.location.href='/threads';">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+			</a>
+			<span id="chatTitle">&nbsp;</span>
+		</div>
+		<div id="headerOptions">
+			<svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+		</div>
+	</header>
+
+	<main>
+		<section id="chats" class="active">
+			<div class="container">
+				<!-- autofill insert here -->
+			</div>
+		</section>
+	</main>
+
+	<form id="newMsg" action="" method='POST' onsubmit="postMsg(event)" enctype="multipart/form-data">
+		<!-- <input id="options" type="button" value=""> -->
+		<input type="hidden" name="authToken" value=''>
+		<input type="hidden" name="sender" value=''>
+		<input type="hidden" name="recip">
+		<div id="sending">
+			<input type="text" name="content" autocomplete="off" placeholder="Chat message">
+			<input id="send" type="submit" value="">
+		</div>
+	</form>
+</body>
+</html>

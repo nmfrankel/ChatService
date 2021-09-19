@@ -1,0 +1,117 @@
+@import url('main.css');
+
+/* thread design */
+.thread{
+	position: relative;
+	display: block;
+	border-bottom: 1px solid #f3f3f3;
+	padding: 18px calc(var(--edgePadding)/2);
+	color: #2f363d;
+	overflow: hidden;
+	user-select: none;
+	text-decoration: none;
+}
+.thread > div{
+	display: inline-block;
+	vertical-align: text-top;
+}
+.imgContainer{
+	position: relative;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	background-color: #ddd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	overflow: hidden;
+}
+/* temp */
+.thread:nth-child(5n+1) .imgContainer{
+	background-color: #af5cf7;
+	color: #fff;
+	fill: #fff;
+}
+.thread:nth-child(5n+2) .imgContainer{
+	background-color: #fdcfe8;
+	color: rgba(156,22,107,0.87);
+	fill: rgba(156,22,107,0.87);
+}
+.thread:nth-child(5n+3) .imgContainer{
+	background-color: #1a73e8;
+	color: #fff;
+	fill: #fff;
+}
+.thread:nth-child(5n+5) .imgContainer{
+	background-color: #fedfc8;
+	color: rgba(176,96,0,0.87);
+	fill: rgba(176,96,0,0.87);
+}
+
+.imgContainer img{
+	display: block;
+	height: 100%;
+	width: 100%;
+	background: white;
+}
+.imgContainer img[src='./images/anonymous.png']{
+	background: unset;
+}
+.imgContainer > div{
+    display: inline-block;
+	height: 100%;
+	width: 100%;
+	font-size: 24px;
+	line-height: 48px;
+	text-align: center;
+}
+.userInfo{
+	padding-left: calc(var(--edgePadding)/2);
+	box-sizing: border-box;
+	width: calc(100% - 135px);
+	overflow: hidden;
+	/* add elipses */
+	transition: all cubic-bezier(0.6, 0, 0.2, 1) 100ms;
+}
+.thread.unread .userInfo{
+	font-weight: 700;
+}
+.recip{
+	padding: 2px 0;
+}
+.lastMsg{
+	font-size: .875rem;
+	padding: 3px 0;
+	color: #24292e;
+	white-space: nowrap;
+}
+.metaData{
+	float: right;
+}
+.timestamp{
+	padding: 2px 0;
+	font-size: .75rem;
+	color: #959da5;
+	transition: all cubic-bezier(0.6, 0, 0.2, 1) 125ms;
+}
+.thread.unread .timestamp{
+	color: #02d25d;
+}
+.newCount{
+	opacity: 0;
+	float: right;
+	min-width: 12px;
+	height: 18px;
+	margin: 6px 0 0;
+	padding: 2px 5px;
+	border-radius: 11px;
+	font-weight: 700;
+	font-size: .775rem;
+	text-align: center;
+	color: #fff;
+	/* background-color: #02d25d; */
+	background-color: #34d058;
+	user-select: none;
+	transition: all cubic-bezier(0.6, 0, 0.2, 1) 150ms;
+}
+.thread.unread .newCount{
+	opacity: 1;
+}

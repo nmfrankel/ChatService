@@ -13,35 +13,35 @@ class Msgs{
 					'name' => 'Shea Rubin',
 					// 'lastMsg' => 'Me: I can\'t find you, where you at?',
 					'lastMsg' => 'Me: I can\'t find you, where you at?',
-					'imgLoc' => 'LPlogo',
+					'img' => 'avatar_anonymous',
 					'time' => date(U)-30,
 					'new' => 2
 				],[
 					'handle' => base64_encode('1'),
 					'name' => 'Moti Taub',
 					'lastMsg' => 'Did you get a response yet?',
-					'imgLoc' => 'missing',
+					'img' => null,
 					'time' => date(U)-150,
 					'new' => 0
 				],[
 					'handle' => base64_encode('2'),
 					'name' => 'Another Person',
 					'lastMsg' => 'I think Tuesday will work out better 😊',
-					'imgLoc' => 'missing',
+					'img' => null,
 					'time' => date(U)-4680,
 					'new' => 13
 				],[
 					'handle' => base64_encode('3'),
 					'name' => 'Nosson M Frankel',
 					'lastMsg' => 'Reminder: Set the tracker on.',
-					'imgLoc' => '5de34a809a67f_1575176832',
+					'img' => '5de34a809a67f_1575176832',
 					'time' => date(U)-129600,
 					'new' => 0
 				],[
 					'handle' => base64_encode('4'),
 					'name' => 'Zobe Chat',
 					'lastMsg' => 'KlatzCo: I think the fireworks display started.',
-					'imgLoc' => 'missing',
+					'img' => null,
 					'time' => date(U)-626400,
 					'new' => 0
 				]
@@ -58,7 +58,7 @@ class Msgs{
 			'resCode' => 200,
 			'fingerprint' => '456',
 			'chatTitle' => 'Other User\'s Name',
-			'messages' => [
+			'msgs' => [
 				[
 					'id' => base64_encode('0'),
 					'sender' => 'notMe',

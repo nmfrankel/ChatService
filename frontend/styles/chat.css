@@ -1,0 +1,38 @@
+@import url('main.css');
+
+
+/* temp for redesign */
+/* original design */
+@import url('chat.old.css');
+
+
+main{
+	padding: calc(var(--edgePadding)/2) calc(var(--edgePadding)*1.25);
+}
+
+
+
+
+/*overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis; */
+
+
+
+
+
+
+/* .loading{
+	border-radius: 7px;
+	background-color: lightgrey;
+	color: lightgrey;
+} */
+
+/* .chevron{
+	float: right;
+	height: 24px;
+	width: 24px;
+	margin: 15px 5px 0 0;
+	content: url("data:image/svg+xml;charset=utf-8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='rgb(153,153,153)'><path d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+	/* data:image/svg+xml;charset=utf-8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='rgb(153,153,153)'><path d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/><path d='M0 0h24v24H0z' fill='none'/></svg> *
+} */
