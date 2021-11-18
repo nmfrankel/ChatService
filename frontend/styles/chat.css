@@ -1,9 +1,15 @@
 @import url('main.css');
-
-
-/* temp for redesign */
-/* original design */
-/* @import url('chat.old.css'); */
+:root{
+	--incomingBgColor: #f2f2f2;
+	--incomingColor: var(--defaultText);
+	--outgoingBgColor: #ecf3fe;
+	--outgoingColor: var(--defaultText);
+}
+:root.dark{
+	--incomingBgColor: #303030;
+	--outgoingBgColor: #7cacf8;
+	--outgoingColor: var(--primaryBackground);
+}
 
 /* CONSIDER MOVING TO /main.css */
 header #backButton{
@@ -47,19 +53,23 @@ section:first-of-type{
 .msg{
 	width: fit-content;
 	padding: 8px 16px;
-	background: #fff;
+	/* background: #fff;
 	background: #d2e3fc;
-	color: #1950a7;
+	color: #1950a7; */
+	background: var(--outgoingBgColor);
+	color: var(--outgoingColor);
 	box-shadow: -1px 2px 10px 2px var(--lightShadow);
 	z-index: 1;
 	user-select: none;
 }
 /* changes left sides corners */
 .incoming .msgContainer .msg{
-	background: #4284f4;
+	/* background: #4284f4;
 	color: #fff;
 	background: #f1f3f4;
-	color: #242528;
+	color: #242528; */
+	background: var(--incomingBgColor);
+	color: var(--incomingColor);
 	box-shadow: -1px 2px 10px 2px var(--darkShadow);
 	border-top-right-radius: 18px;
 	border-bottom-right-radius: 18px;
@@ -113,8 +123,10 @@ input#options{
 	box-sizing: border-box;
 	margin: 0 auto;
 	padding: 5px 10px;
-	background: white;
-	border: 1px solid #f0f0f0;
+	background: var(--incomingBgColor);
+	border: 1px solid var(--disabledText);
+	/* background: white;
+	border: 1px solid #f0f0f0; */
 	border-radius: 18px;
 	box-shadow: -1px 2px 10px 2px var(--lightShadow);
 }
@@ -126,9 +138,10 @@ input[type=text]{
 	padding: 0px 0px 0px 6px;
 	font-size: 20px;
 	width: calc(100% - 40px);
+	color: var(--defaultText);
 }
 input[type=text]::placeholder{
-	color: #677e89;
+	color: var(--disabledText);
 }
 input#send{
 	border: none;
