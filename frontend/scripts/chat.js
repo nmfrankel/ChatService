@@ -21,7 +21,7 @@ loadMsgs = ()=>{
 
 			json.msgs?.forEach((msg, index) => {
 				if(!json.msgs[index-1] || json.msgs[index-1].sender != msg.sender){
-					let newSegment = buildElements(msg.sender==form.sender.value? '.yourMsg': '.othersMsg')
+					let newSegment = buildElements(msg.sender==form.sender.value? '.outgoing': '.incoming')
 					document.getElementsByClassName('active')[0].children[0].append(newSegment)
 				}
 
@@ -48,7 +48,7 @@ function goBack(e){
 	})
 
 	setTimeout(() => {
-		document.getElementById('chat').children[0].style.textAlign = 'center'
+		document.getElementById('chat').classList.add('doubleCenter')
 		document.getElementById('chat').children[0].innerText = 'Loading...'
 		document.getElementsByTagName('header')[0].classList.add('fadeOut')
 		window.location = '/threads'
