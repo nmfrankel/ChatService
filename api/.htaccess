@@ -1,8 +1,9 @@
 ## All requets in folder get directed to './router.php' 
 
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_FILENAME} !(.*)
+RewriteRule .*\.php$ router.php [L]
 RewriteRule (.*) router.php [QSA,L]
 
 ## Alternate default index page
