@@ -53,9 +53,6 @@ section:first-of-type{
 .msg{
 	width: fit-content;
 	padding: 8px 16px;
-	/* background: #fff;
-	background: #d2e3fc;
-	color: #1950a7; */
 	background: var(--outgoingBgColor);
 	color: var(--outgoingColor);
 	box-shadow: -1px 2px 10px 2px var(--lightShadow);
@@ -64,10 +61,6 @@ section:first-of-type{
 }
 /* changes left sides corners */
 .incoming .msgContainer .msg{
-	/* background: #4284f4;
-	color: #fff;
-	background: #f1f3f4;
-	color: #242528; */
 	background: var(--incomingBgColor);
 	color: var(--incomingColor);
 	box-shadow: -1px 2px 10px 2px var(--darkShadow);
