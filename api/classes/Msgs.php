@@ -11,8 +11,8 @@ class Msgs{
 				[
 					'handle' => base64_encode('0'),
 					'name' => 'Shea Rubin',
-					// 'lastMsg' => 'Me: I can\'t find you, where you at?',
-					'lastMsg' => 'Me: I can\'t find you, where you at?',
+					// 'lastMsg' => 'You: I can\'t find you, where you at?',
+					'lastMsg' => 'You: I can\'t find you, where you at?',
 					'img' => 'avatar_anonymous',
 					'time' => date(U)-30,
 					'new' => 2
@@ -78,6 +78,12 @@ class Msgs{
 					'read' => 0,
 					'time' => date(U)*1000 - 150000
 				],[
+					'id' => base64_encode('2'),
+					'sender' => 'notMe',
+					'content' => 'Where are you',
+					'read' => 0,
+					'time' => date(U)*1000 - 150000
+				],[
 					'id' => base64_encode('3'),
 					'sender' => '',
 					'content' => 'Hi <span style="background:#e91e63;">Moti</span>, on my way...',
@@ -89,6 +95,12 @@ class Msgs{
 					'content' => 'Sorry... <span style="background:lightblue;">Shea</span>',
 					'read' => 0,
 					'time' => date(U)*1000 - 300000
+				],[
+					'id' => base64_encode('4'),
+					'sender' => '',
+					'content' => 'Random long text.',
+					'read' => 0,
+					'time' => date(U)*1000 - 350000
 				]
 			]
 		];

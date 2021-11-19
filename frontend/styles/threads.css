@@ -111,7 +111,7 @@
 	font-size: .775rem;
     line-height: 1.1rem;
 	text-align: center;
-	color: #fff;
+	color: var(--hover);
 	/* background-color: #02d25d; */
 	background-color: #34d058;
 	user-select: none;

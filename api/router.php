@@ -21,7 +21,21 @@
 		'method' => escXSS($_SERVER['REQUEST_METHOD']),
 		'path' => preg_replace('#\?.*#', '', $_SERVER['REQUEST_URI'])  
 	];
-	$res = [];
+	$res = [
+		token => '',
+		team_id => '',
+		event => [
+			type => 'message',
+			channel => '',
+			user => '',
+			text => '',
+			ts => 0.0,
+			event_ts => 0.0,
+			channel_type => 'channel | dm'
+		],
+		event_id => '',
+		event_time => 0.0
+	];
 
 ## router ahead
 	if ($req[path] === '/api/login' && $req[method] === 'POST'):
