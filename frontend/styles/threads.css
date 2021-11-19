@@ -105,10 +105,11 @@
 	min-width: 12px;
 	height: 18px;
 	margin: 6px 0 0;
-	padding: 3px 5px 1px;
+	padding: 2px 5px;
 	border-radius: 11px;
 	font-weight: 700;
 	font-size: .775rem;
+    line-height: 1.1rem;
 	text-align: center;
 	color: #fff;
 	/* background-color: #02d25d; */
