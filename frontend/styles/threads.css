@@ -4,12 +4,16 @@
 .thread{
 	position: relative;
 	display: block;
-	border-bottom: 1px solid #f1f3f4;
+	border-bottom: 1px solid var(--hover);
 	padding: 16px calc(var(--edgePadding)/2);
-	color: #2f363d;
+	color: var(--defaultText);
 	overflow: hidden;
 	user-select: none;
 	text-decoration: none;
+	transition: all ease-in-out 150ms;
+}
+.thread:hover{
+	background: var(--hover);
 }
 .thread > div{
 	display: inline-block;
@@ -60,7 +64,7 @@
 	height: 100%;
 	width: 100%;
 	font-size: 22px;
-	line-height: 38px;
+	line-height: 40px;
 	text-align: center;
 }
 .userInfo{
@@ -80,7 +84,7 @@
 .lastMsg{
 	font-size: .875rem;
 	padding: 3px 0;
-	color: #24292e;
+	color: var(--secondaryText);
 	white-space: nowrap;
 }
 .metaData{

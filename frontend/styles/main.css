@@ -3,7 +3,9 @@
 
 	--defaultText: #202124;
 	--disabledText: #94a2a8;
+	--secondaryText: #5f6368;
 	--primaryBackground: #fff;
+	--hover: #f5f6f7;
 	--primary: #2b56c6;
 	--lightShadow: 0 2px 6px 0 rgba(60,64,67,0.15);
 	--darkShadow: none;
@@ -11,7 +13,9 @@
 :root.dark{
 	--defaultText: #E8EAED;
 	--disabledText: #a5b2b8;
+	--secondaryText: #9aa0a6;
 	--primaryBackground: #202124;
+	--hover: #37373a;
 	--lightShadow: 0 2px 6px 0 rgba(0,0,0,0.45);
 }
 ::-webkit-scrollbar {
