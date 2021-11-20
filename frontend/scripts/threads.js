@@ -6,7 +6,7 @@ threadData = []
 
 // load data for the threads
 loadThreads = ()=>{
-	fetch('./api/threads')
+	fetch('./api/msgs/')
 		.then(res => res.json())
 		.then(json => {
 			// prevent same messages from being displayed twice
