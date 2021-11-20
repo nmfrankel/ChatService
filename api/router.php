@@ -44,15 +44,16 @@
 	elseif ($req[path] === '/api/logout'):
 		# route: /*
 		$res = Users::logout();
-	elseif ($req[path] === '/api/threads' && $req[method] === 'GET'):
+	elseif (in_array($req[path], ['/api/msgs', '/api/msgs/']) && $req[method] === 'GET'):
 		# route: /msgs
 		$res = Msgs::threads();
-	elseif (preg_match('/\/api\/cluster\/([\w\d]+)/', $req[path], $id) && $req[method] === 'GET'):
-		# route: /chat
+	elseif (preg_match('/\/api\/msgs\/([\w\d]+)/', $req[path], $id) && $req[method] === 'GET'):
+		# route: /msgs
 		$res = Msgs::cluster($id[1]);
-	elseif ($req[path] === '/api/msg' && $req[method] === 'POST'):
-		# route: /chat
+	elseif (in_array($req[path], ['/api/msgs', '/api/msgs/']) && $req[method] === 'POST'):
+		# route: /msgs
 		$res = Msgs::create();
+
 	else:
 		// header('HTTP/1.1 401 Unauthorized');
 		// print 'Error 401 Unauthorized access';
