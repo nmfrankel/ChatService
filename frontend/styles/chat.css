@@ -55,7 +55,6 @@ div .msgContainer:first-child{
 	border-radius: 4px;
 	box-shadow: -1px 2px 10px 2px var(--lightShadow);
 	z-index: 1;
-	user-select: none;
 }
 /* changes incoming msg's corners */
 .incoming .msgContainer .msg{
@@ -87,6 +86,13 @@ div .msgContainer:first-child{
 .outgoing .msgContainer:last-child .msg{
 	border-bottom-right-radius: 20px;
 }
+.msgContainer .status{
+	font: 400 12px/16px Roboto,Helvetica Neue,sans-serif,NotoColorEmoji,apple color emoji,windows emoji,windows symbol;
+	letter-spacing: .3px;
+	color: var(--secondaryText);
+	padding-top: 3px;
+}
+/* #0b57d0 linear-gradient(130deg,#1b79f3 20%,#0b57d0) */
 
 
 
