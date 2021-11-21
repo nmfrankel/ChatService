@@ -1,68 +1,81 @@
-const msgs = document.getElementsByClassName('msgContainer')
+const form = document.forms[0],
+endpoint = './api/msgs/'+urlParam('t'),
+mainParent = document.getElementById('chat'),
+msgContainers = document.getElementsByClassName('msgContainer')
 
 let refresh = true,
-lastLoad = null,
 msgData = [],
-form = document.forms[0]
+metadata = null
 
-// load data for the threads
-loadMsgs = ()=>{
-	fetch(`./api/cluster/${form.recip.value}`)
-		.then(res => res.json())
-		.then(json => {
-			console.log(json)
-
-			// prevent same messages from being inserted twice
-			if(msgData===json.fingerprint || !json.fetched || json.resCode!==200 || !refresh) return
-			msgData = json.fingerprint
-
-			// set group title or other username
-			chatTitle.innerText = json.chatTitle
-
-			json.msgs?.forEach((msg, index) => {
-				if(!json.msgs[index-1] || json.msgs[index-1].sender != msg.sender){
-					let newSegment = buildElements(msg.sender==form.sender.value? '.outgoing': '.incoming')
-					document.getElementsByClassName('active')[0].children[0].append(newSegment)
-				}
-
-				const msgsConatiner = document.getElementsByClassName('active')[0].children[0]
-				let tempTest = buildElements(`.msgContainer>.msg[id=${msg.id}][onclick=false]`)
-				// use this to prevent XSS {${msg.content}}, but handle on server to prevent display error
-				tempTest.children[0].innerHTML = msg.content
-
-				msgsConatiner.lastChild.insertAdjacentElement('beforeend', tempTest)
-			})
-		})
-		.catch(err => console.error(err))
-}
 // go to threads page
-function goBack(e){
+const goBack = e=>{
 	e?.preventDefault()
+	refresh = 0
 	ripple(e)
 	form.classList.add('fadeOut')
 	document.body.style.overflow = 'hidden'
 
-	Array.from(msgs).reverse().map((child, i) => {
+	Array.from(msgContainers).reverse().map((child, i) => {
 		child.style.animationDelay = 75+(15*i) + 'ms'
 		child.classList.add('slideOutRight')
 	})
 
 	setTimeout(() => {
 		document.getElementById('chat').classList.add('doubleCenter')
-		document.getElementById('chat').children[0].innerText = 'Loading...'
+		document.getElementById('chat').innerText = 'Loading...'
 		document.getElementsByTagName('header')[0].classList.add('fadeOut')
 		window.location = '/threads'
 	}, 250);
 }
 
-// after the page animate the page
+// Manage displaying messages to screen
+const displayMsgs = ()=>{
+	while(mainParent.firstElementChild) mainParent.firstElementChild.remove()
+
+	msgData.forEach((msg, i) => {
+		// wrap cluster of msgs together based on same sender 
+		if(msgData[i-1]?.sender !== msg.sender){
+			const wrapper = buildElements(msg.sender==form.sender.value? '.outgoing': '.incoming')
+			mainParent.append(wrapper)
+		}
+
+		// build and display msg component
+		let markup = `.msgContainer>.msg[id=${msg.id}][onclick=false]{${new XMLSerializer().serializeToString(document.createTextNode(msg.content))}}`
+		const msgComponent = buildElements(markup)
+		mainParent.lastChild.append(msgComponent)
+
+		// support HTML be passed in as content {} with an option to override default (safe) and insert as innerHTML
+		// tempTest.children[0].innerHTML = msg.content
+	})
+}
+// load new messages
+const fetchData = ()=>{
+	fetch(endpoint)
+	.then(res => res.json())
+	.then(json => {
+		// skip if no new msgs
+		// if(msgData===json.fingerprint || !json.fetched || json.resCode!==200 || !refresh) return
+
+		// metadata = json.fingerprint
+		chatTitle.innerText = json.chatTitle
+		msgData = json.msgs// update doubles
+		displayMsgs()
+	})
+	.catch(err => console.error(err))
+}
+// post a new message on chat
+const postMsg = e=>{
+
+}
+
+// init page
 window.onload = ()=>{
 	if(urlParam('t') == undefined) window.location.href = './threads'
 	form.recip.value = urlParam('t')
 	// form.sender.value = 'read user cookie'
 
-	loadMsgs()
-	// setInterval(()=>{
-	// 	loadMsgs()
-	// }, 10000)
+	fetchData()
+	setInterval(()=>{
+		fetchData()
+	}, 10000)
 }

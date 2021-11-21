@@ -33,22 +33,26 @@ section:first-of-type{
 }
 
 /* message design */
-#chat > .container > :last-child{
+/* #chat > .container > :last-child{ */
+#chat > :last-child{
 	margin-bottom: 30px;
 }
 .msgContainer{
 	display: inline-block;
 	width: 100%;
+	font-size: .9rem;
 }
 .msgContainer{
 	margin-top: 2px;
 }
-.msgContainer:first-child{
-	margin-top: 24px;
+div .msgContainer:first-child{
+	margin-top: 16px;
 }
 .msg{
 	display: inline-block;
+	max-width: 450px;
 	padding: 10px 12px;
+	border-radius: 4px;
 	box-shadow: -1px 2px 10px 2px var(--lightShadow);
 	z-index: 1;
 	user-select: none;

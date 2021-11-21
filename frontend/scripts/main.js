@@ -69,7 +69,7 @@ function buildElements(markup){
 		id = blueprint.match(/#[\w\d-]+/)?.[0],
 		attributes = blueprint.match(/(?<=\[)([^\]]*)(?=\])/g) ?? [],
 		classes = blueprint.match(/(?<=\.|class=)\w+/g) ?? [],
-		content = blueprint.match(/\{.*\}/)?.[0]
+		content = blueprint.match(/(?<=\{)[^\}]*(?=\})/)?.[0]
 		let multipleCopies = Number(blueprint.match(/(?<=\*)\d+/)?.[0])
 
 		// create & set attributes
@@ -77,7 +77,7 @@ function buildElements(markup){
 		if (id) newNode.id = id.slice(1)
 		for (const attr of attributes) newNode.setAttribute(attr.split('=')[0], attr.split('=').slice(1).join('=') ?? '')
 		for (const cls of classes) newNode.classList.add(cls)
-		if (content) newNode.innerHTML = content.slice(1).slice(0, -1)
+		if (content) newNode.innerText = content
 
 		// handle close parenthesis
 		let levelDiff = 0
@@ -113,4 +113,16 @@ function buildElements(markup){
 		}
 	})
 	return parentElement.children.length===1? parentElement.firstChild: parentElement.childNodes
+}
+
+// FINISH \\
+// FINISH \\
+function generUsersColor(userIndex, userCount){
+	let colorCode = '#'+(userIndex.toString().length%255).toString(16)
+	colorCode += (Number(userCount)%255).toString(16)[0]
+	colorCode += '5'
+	colorCode += (Number(userCount)%255).toString(16)[1] ?? 'd'
+	colorCode += '2'
+	
+	return colorCode// #(uid.length to hex val)()(user count % 255 to hex val)
 }
