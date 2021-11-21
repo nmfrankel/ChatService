@@ -33,7 +33,7 @@ const displayMsgs = ()=>{
 	while(mainParent.firstElementChild) mainParent.firstElementChild.remove()
 
 	msgData.forEach((msg, i) => {
-		// wrap cluster of msgs together based on same sender 
+		// wrap cluster of msgs together based on same sender
 		if(msgData[i-1]?.sender !== msg.sender){
 			const wrapper = buildElements(msg.sender==form.sender.value? '.outgoing': '.incoming')
 			mainParent.append(wrapper)
@@ -65,7 +65,31 @@ const fetchData = ()=>{
 }
 // post a new message on chat
 const postMsg = e=>{
+	e?.preventDefault()
+	e.submitter.blur()
+	if(form.content.value === '') return
 
+	const newMsg = new FormData()
+	Array.from(form.elements).forEach(input => {
+		if(input.name.length) newMsg.append(input.name, input.value)
+	})
+
+	fetch('./api/msgs/', {
+		method: 'POST',
+		body: newMsg
+	})
+	.then(res => res.json())
+	.then(json => {
+		console.log(json)
+
+		if(!json.id) return
+
+		// check the msg wasn't loaded already; for slow connections
+		msgData.push(json)
+		displayMsgs()
+		form.reset()
+	})
+	.catch(err => console.error(err))
 }
 
 // init page

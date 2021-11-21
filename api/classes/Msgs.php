@@ -98,7 +98,7 @@ class Msgs{
 					'time' => date(U)*1000 - 300000
 				],[
 					'id' => UUIDv4(),
-					'sender' => '',
+					'sender' => 'notMe',
 					'content' => 'Random long message about nothing important.',
 					'read' => 0,
 					'time' => date(U)*1000 - 350000
