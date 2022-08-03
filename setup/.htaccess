@@ -1,4 +1,0 @@
-## All requets in folder get directed to './index.php' 
-
-RewriteEngine On
-DirectoryIndex index.php

@@ -1,0 +1,9 @@
+# Folders
+node_modules
+V1.0-php
+*-temp
+
+# Files
+*.temp.*
+temp.*
+output.*
