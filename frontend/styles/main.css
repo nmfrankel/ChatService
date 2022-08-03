@@ -107,7 +107,7 @@ header #headerOptions svg{
 }
 /* content section structure */
 main{
-	/* height: 100%; */
+	height: 100%;
 	padding: calc(var(--edgePadding)/2) var(--edgePadding);
 	box-sizing: border-box;
 }
@@ -130,7 +130,7 @@ main section{
 .btn{
 	display: flex;
 	align-items: center;
-	padding: .75rem 1rem;
+	padding: 1rem;
 	background-color: #1a73e8;
 	font-size: 1rem;
 	letter-spacing: .0107em;

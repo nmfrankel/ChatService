@@ -19,7 +19,7 @@
 	$req = [
 		'auth' => false, // look for auth header
 		'method' => escXSS($_SERVER['REQUEST_METHOD']),
-		'path' => preg_replace('#\?.*#', '', $_SERVER['REQUEST_URI'])  
+		'path' => preg_replace('#\?.*#', '', $_SERVER['REQUEST_URI'])
 	];
 	$res = [
 		token => '',

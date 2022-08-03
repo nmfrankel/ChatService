@@ -23,5 +23,5 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 
 ## Set fallbacks
-DirectoryIndex /frontend/index.html
+DirectoryIndex /frontend/threads.html
 ErrorDocument 404 /frontend/missing.html

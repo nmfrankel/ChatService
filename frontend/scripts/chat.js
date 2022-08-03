@@ -1,5 +1,5 @@
 const form = document.forms[0],
-endpoint = './api/msgs/'+urlParam('t'),
+endpoint = './api/msgs/'+urlParam('handle'),
 mainParent = document.getElementById('chat'),
 msgContainers = document.getElementsByClassName('msgContainer')
 
@@ -84,7 +84,13 @@ const postMsg = e=>{
 
 		if(!json.id) return
 
-		// check the msg wasn't loaded already; for slow connections
+		// json.id
+		// json.sender
+		// json.content
+		// json.read
+		// json.time
+
+		// check the msg wasn't loaded already through fetchData; for slow connections
 		msgData.push(json)
 		displayMsgs()
 		form.reset()
@@ -94,8 +100,8 @@ const postMsg = e=>{
 
 // init page
 window.onload = ()=>{
-	if(urlParam('t') == undefined) window.location.href = './threads'
-	form.recip.value = urlParam('t')
+	if(urlParam('handle') == undefined) window.location.href = './threads'
+	form.recip.value = urlParam('handle')
 	// form.sender.value = 'read user cookie'
 
 	fetchData()
