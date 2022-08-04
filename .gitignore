@@ -1,9 +1,14 @@
 # Folders
+.DS_Store
 node_modules
-V1.0-php
+dist
+build
+.svelte-kit
+package
 *-temp
 
 # Files
 *.temp.*
 temp.*
 output.*
+*.env*

@@ -1,0 +1,33 @@
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider	= "sqlite"
+	url			= env("DATABASE_URL")
+}
+
+model User {
+	id			Int			@id @default(autoincrement())
+	role		String		@default("USER")
+	email		String
+	pswd		String?
+	handle		String?
+	first		String
+	last		String
+	phone		String
+	asSender	Msg[]		@relation("asSender")
+	asReceiver	Msg[]		@relation("asReceiver")
+}
+
+model Msg {
+	id			Int			@id @default(autoincrement())
+	sender		User		@relation("asSender", fields: [senderId], references: [id])
+	senderId	Int
+	receiver	User		@relation("asReceiver", fields: [receiverId], references: [id])
+	receiverId	Int
+	msgType		String
+	content		String
+	posted		DateTime	@default(now())
+	metadata	String
+}
