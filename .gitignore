@@ -6,6 +6,7 @@ build
 .svelte-kit
 package
 *-temp
+migrations
 
 # Files
 *.temp.*

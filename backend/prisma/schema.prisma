@@ -15,7 +15,7 @@ model User {
 	handle		String?
 	first		String
 	last		String
-	phone		String
+	phone		String		@unique
 	asSender	Msg[]		@relation("asSender")
 	asReceiver	Msg[]		@relation("asReceiver")
 }
