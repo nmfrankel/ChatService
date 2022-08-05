@@ -103,7 +103,7 @@ router.get("/:id", async (req, res) => {
 	})
 
 	// mark last message as read
-	if(!messages[0].metadata.match('read')){
+	if(messages[0] && !messages[0].metadata.match('read')){
 		await prisma.msg.update({
 			data: {
 			  	metadata: {
@@ -117,46 +117,21 @@ router.get("/:id", async (req, res) => {
 	}
 
 	res.json(messages)
-
-	// await prisma.msg.updateMany({
-	// 	where: {
-	// 		OR: [
-	// 			{
-	// 				senderId: my_id,
-	// 				receiverId: id
-	// 			},
-	// 			{
-	// 				senderId: id,
-	// 				receiverId: my_id
-	// 			}
-	// 		],
-	// 		NOT: {
-	// 			metadata: {
-	// 				contains: 'read',
-	// 			},
-	// 		},
-	// 	},
-	// 	data: {
-	// 		metadata: '',
-	// 	},
-	// 	take: 1,
-	// 	orderBy: {
-	// 		posted: 'desc',
-	// 	}
-	// })
 })
 
-router.post("/", async (req, res) => {
-	const { senderId, receiverId, msgType, content, posted, metadata }: 
-	{ senderId: string, receiverId: string, msgType: string, content: string, posted: string, metadata: string } = req.body
+router.post("/:id", async (req, res) => {
+	const id: number = Number(req.params.id) || 0,
+	my_id: number = 1,
+	{ msgType, content, posted, metadata }: 
+	{ msgType: string, content: string, posted: string, metadata: string } = req.body
 
 	const result = await prisma.msg.create({
 		data: {
-			senderId: Number(senderId),
-			receiverId: Number(receiverId),
+			senderId: my_id,
+			receiverId: Number(id),
 			msgType: msgType ?? "text/plain",
 			content,
-			posted,
+			// posted,
 			metadata: metadata ?? ""
 		}
 	})
@@ -173,8 +148,8 @@ router.delete("/:id", async (req, res) => {
 		where: {
 			id
 		}
-	  })
-	  res.json(deleteMsg)
+	})
+	res.json(deleteMsg)
 })
 
 module.exports = router

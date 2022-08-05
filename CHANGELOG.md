@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Releases
 -	Added endpoints for reading and sending messages
 -	Added endpoint to view all threads with their most recent messages and read status.
+-	Built UI shell of app | Header, Button and Icon
+-	Started building UI for threads page, loading static data.
 
 ## Aug 4, 2022 Update
 

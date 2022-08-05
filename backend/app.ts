@@ -28,5 +28,8 @@ app.use('/users', require('./routes/users'))
 
 app.use('/messages', require('./routes/messages'))
 
+// 404 handler
+app.use((req, res, next) => res.status(404).json({ message: req.url + ' is not a valid endpoint' }))
+
 const PORT = Number(process.env.PORT) || 3000
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`))
