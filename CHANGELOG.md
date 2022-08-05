@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 -	Added endpoint to view all threads with their most recent messages and read status.
 -	Built UI shell of app | Header, Button and Icon
 -	Started building UI for threads page, loading static data.
+-	Preload back arrow by loading it and hiding when not in use.
 
 ## Aug 4, 2022 Update
 

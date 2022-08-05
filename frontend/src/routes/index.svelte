@@ -8,6 +8,7 @@
 </svelte:head>
 
 <p>This is the homepage, view threads <a href="/threads">here</a>.</p>
+<p>This is the homepage, view a specific conversation <a href="/conversation">here</a>.</p>
 
 <style>
 

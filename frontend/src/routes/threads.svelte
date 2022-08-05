@@ -1,5 +1,5 @@
 <script lang="ts">
-import Button from "$lib/Button.svelte";
+	import Button from "$lib/Button.svelte";
 
 	let data: thread[] | Promise<thread[]> = []
 	const loadThreads = () => data = fetch('messages_thread.json').then(res => res.json())
@@ -28,7 +28,7 @@ import Button from "$lib/Button.svelte";
 					<div>{thread.receiver.handle[0]}</div>
 				</div>
 				<div class="info">
-					<div class="receiver">{thread.sender?.fullname} | {thread.receiver?.fullname}</div>
+					<div class="receiver">{thread.sender?.fullname} | {thread.receiver?.fullname} | Sender's name</div>
 					<div class="content">
 						{#if thread.msgType === 'text/plain'}
 							{thread.content}
@@ -43,7 +43,7 @@ import Button from "$lib/Button.svelte";
 				</div>
 			</a>
 		{:else}
-			No data
+			No threads
 		{/each}
 	{:catch err}
 		An error occured {err}

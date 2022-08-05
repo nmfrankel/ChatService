@@ -1,17 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/stores'
 	import Button from '$lib/Button.svelte'
 	
-	export const title: string = 'ChatService'
-	const path: string = $page.url.pathname
+	export let title: string = 'ChatService',
+	path: string
 </script>
 
 <header>
 	<nav class="row">
 		<div class="row">
-			{#if path !== '/' && path !== '/threads'}
-				<Button icon='back' classes='minimal' style='margin-right: .25em;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' on:click={() => history.back()} />
-			{/if}
+			<Button icon='back' classes={path !== '/' && path !== '/threads'? 'minimal': 'hidden'} style='margin-right: .25em;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' on:click={() => history.back()} />
 			<div id="pageTitle">{title}</div>
 		</div>
 		<div class='row'>
