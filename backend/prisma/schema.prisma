@@ -21,12 +21,12 @@ model User {
 }
 
 model Msg {
-	id			Int			@id @default(autoincrement())
+	id			String		@id @default(cuid())
 	sender		User		@relation("asSender", fields: [senderId], references: [id])
 	senderId	Int
 	receiver	User		@relation("asReceiver", fields: [receiverId], references: [id])
 	receiverId	Int
-	msgType		String
+	msgType		String		@default("text/plain")
 	content		String
 	posted		DateTime	@default(now())
 	metadata	String

@@ -3,7 +3,6 @@ import { Prisma, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-
 // @desc    Gets All Users
 // @route   GET /users
 export const getUsers = async (req: Request, res: Response) => {

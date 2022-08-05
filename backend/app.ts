@@ -1,28 +1,32 @@
 import express from 'express'
 import 'dotenv/config'
-import cookieParser from 'cookie-parser'
+// import cookieParser from 'cookie-parser'
+const cookieParser = require('cookie-parser')
 import cors from 'cors'
 
 const app = express()
 
-// Read req body as JSON
-app.use(express.json())
+// serve static sample data
+app.use(express.static("sample"))
 
 // enable reading cookies
 app.use(cookieParser())
 
+//Security
+app.use(require("./middleware/security"))
+
+// Read req body as JSON
+app.use(express.json())
+
 // enable CORS from *
 app.use(cors())
-
-// serve static sample data
-app.use(express.static("sample"))
 
 // Routes
 app.use('/access_control', require('./routes/access_control'))
 
 app.use('/users', require('./routes/users'))
 
-app.use('/message', require('./routes/message'))
+app.use('/messages', require('./routes/messages'))
 
 const PORT = Number(process.env.PORT) || 3000
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`))
