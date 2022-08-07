@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 
 router.get('/', async (req: Request, res: Response) => {
 	const my_id: number = 1
-	const messages = await prisma.msg.findMany({
+	let messages = await prisma.msg.findMany({
 		distinct: ['senderId', 'receiverId'],
 		where: {
 			OR: [
@@ -21,10 +21,16 @@ router.get('/', async (req: Request, res: Response) => {
 		orderBy: {
 			posted: 'desc',
 		},
+		// include:{
+		// 	_count: {
+		// 		select:{ id: my_id }
+		// 	}
+		// },
 		select: {
 			id: true,
 			sender: {
 				select: {
+					id: true,
 					email: true,
 					handle: true,
 					first: true,
@@ -34,6 +40,7 @@ router.get('/', async (req: Request, res: Response) => {
 			},
 			receiver: {
 				select: {
+					id: true,
 					email: true,
 					handle: true,
 					first: true,
@@ -47,6 +54,20 @@ router.get('/', async (req: Request, res: Response) => {
 			metadata: true
 		}
 	})
+
+	let distinct: number[] = []
+	messages = messages.filter((msg: any) => {
+		msg.youSent = msg.sender.id===my_id
+		msg.otherUser = msg.youSent? msg.receiver: msg.sender
+		delete msg.sender
+		delete msg.receiver
+		if(distinct.indexOf(msg.otherUser.id)===-1){
+			distinct.push(msg.otherUser.id)
+			return true
+		}
+		return false
+	})
+
 	res.json(messages)
 })
 
@@ -102,18 +123,20 @@ router.get("/:id", async (req, res) => {
 		}
 	})
 
-	// mark last message as read
+	// mark messages as read
 	if(messages[0] && !messages[0].metadata.match('read')){
-		await prisma.msg.update({
-			data: {
-			  	metadata: {
-					set: messages[0].metadata.length?
-						`${messages[0].metadata},read|${my_id}|${new Date().toISOString()}`:
+		await prisma.$transaction(
+			messages.map(msg => prisma.msg.update({
+				data: {
+					metadata: {
+					set: msg.metadata.length?
+						`${msg.metadata},read|${my_id}|${new Date().toISOString()}`:
 						`read|${my_id}|${new Date().toISOString()}`,
-			  },
-			},
-			where: { id: messages[0].id },
-		})
+					},
+				},
+				where: { id: msg.id },
+			}))
+		)
 	}
 
 	res.json(messages)

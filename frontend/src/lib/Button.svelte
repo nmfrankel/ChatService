@@ -30,6 +30,7 @@
 		padding: 0 0.75rem;
 		border: none;
 		border-radius: var(--borderRadius);
+		border-radius: 4px;
 		text-align: center;
 		font-size: 1rem;
 		height: 2em;

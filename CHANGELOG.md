@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Aug 7, 2022 Update
+
+### Releases
+-	Sorted messages on backend to be truly DISTINCT
+-	Finished general ``./threads`` page's UI (still need to create ``colorHash()``)
+
 ## Aug 5, 2022 Update
 
 ### Releases

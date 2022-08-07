@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
+:root{
+	--primaryColor: #fff;
+	--primaryBgColor: #fff;
+	--defaultText: #202222;
+	--secondaryText: #586069;
+	--placeholderText: #6a737d;
+	--disabledText: #959da5;
+}
 html, body{
 	margin: 0;
 	font-size: 16px;
@@ -9,6 +17,14 @@ html, body{
 .row{
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+}
+.trueCenter{
+	position: relative;
+	/* min-height: 100%; */
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	align-items: center;
 }
 
