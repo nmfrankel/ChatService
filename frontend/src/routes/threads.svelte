@@ -36,11 +36,6 @@
 			if(letter) colorCode += letter.charCodeAt(0)*2
 		}
 		return 'avatarColor_' + (colorCode%11).toString()
-
-		// let color = '#'
-		// color += (colorCode%310).toString(16)
-		// color += colorCode.toString(16)
-		// color += (Math.floor(colorCode/15)%255).toString(16)
 	}
 
 	$: loadThreads()
@@ -53,7 +48,7 @@
 
 <Button
 	classes='minimal small'
-	style='margin: 0 auto;display: flex;'
+	style='margin: 0 0 1rem 1rem;display: flex;'
 	icon='refresh'
 	text='reload'
 	on:click={loadThreads} />
@@ -177,6 +172,24 @@
 		color: #5f6368;
 		fill: #5f6368;
 	}
+/*  .ios-color-dark-blue { background-color: rgb(10,132,255);}
+	.ios-color-dark-brown { background-color: rgb(172,142,104);}
+	.ios-color-dark-cyan { background-color: rgb(100,210,255);}
+	.ios-color-dark-gray { background-color: rgb(142,142,147);}
+	.ios-color-dark-gray2 { background-color: rgb(99,99,102);}
+	.ios-color-dark-gray3 { background-color: rgb(72,72,74);}
+	.ios-color-dark-gray4 { background-color: rgb(58,58,60);}
+	.ios-color-dark-gray5 { background-color: rgb(44,44,46);}
+	.ios-color-dark-gray6 { background-color: rgb(28,28,30);}
+	.ios-color-dark-green { background-color: rgb(48,209,88);}
+	.ios-color-dark-indigo { background-color: rgb(94,92,230);}
+	.ios-color-dark-mint { background-color: rgb(102,212,207);}
+	.ios-color-dark-orange { background-color: rgb(255,159,10);}
+	.ios-color-dark-pink { background-color: rgb(255,55,95);}
+	.ios-color-dark-purple { background-color: rgb(191,90,242);}
+	.ios-color-dark-red { background-color: rgb(255,69,58);}
+	.ios-color-dark-teal { background-color: rgb(64,200,224);}
+	.ios-color-dark-yellow { background-color: rgb(255,214,10);} */
 	/* .imgContainer img{
 		display: block;
 		height: 100%;
