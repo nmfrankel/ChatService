@@ -48,7 +48,7 @@
 
 <Button
 	classes='minimal small'
-	style='margin: 0 0 1rem 1rem;display: flex;'
+	style='margin: 0 0 .5rem 1rem;display: flex;'
 	icon='refresh'
 	text='reload'
 	on:click={loadThreads} />
@@ -84,10 +84,10 @@
 				</div>
 			</a>
 		{:else}
-			No threads
+			<div class="trueCenter">No threads, start chatting</div>
 		{/each}
 	{:catch err}
-		An error occured {err}
+		<div class="trueCenter">An error occured | {err}</div>
 	{/await}
 </div>
 

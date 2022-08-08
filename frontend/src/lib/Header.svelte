@@ -12,8 +12,12 @@
 			<div id="pageTitle">{title}</div>
 		</div>
 		<div class='row'>
-			<Button icon='search' classes='minimal' style='margin-right: 0;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' />
-			<Button icon='more' classes='minimal' style='margin-right: 0;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' />
+			{#if path === '/'}
+				<Button classes='small' text='Login' on:click={() => window.location.href = 'login'} />
+			{:else}
+				<Button icon='search' classes='minimal' style='margin-right: 0;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' />
+				<Button icon='more' classes='minimal' style='margin-right: 0;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;' />
+			{/if}
 		</div>
 	</nav>
 </header>

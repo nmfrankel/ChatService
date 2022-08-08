@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## Aug 8, 2022 Update
 
 ### Releases
+-	Started experimenting on the homepage UI
 -	Created colorHash function (using Apple's color pallete | Google's are the commented out colors)
 
 ## Aug 7, 2022 Update

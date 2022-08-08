@@ -5,6 +5,6 @@
 </script>
 
 <Header path={$page.url.pathname} />
-<main style="padding-top: 1em;">
+<main style="padding-top: 1px;">
 	<slot />
 </main>

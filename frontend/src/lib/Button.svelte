@@ -63,6 +63,7 @@
 	button.default:hover {
 		background-color: #1065c5;
 		color: var(--offWhite);
+		color: #eff2f7;
 	}
 	button.default:active {
 		background-color: #0a52a4;
