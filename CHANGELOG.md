@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Aug 8, 2022 Update
+
+### Releases
+-	Created colorHash function (using Apple's color pallete | Google's are the commented out colors)
+
 ## Aug 7, 2022 Update
 
 ### Releases

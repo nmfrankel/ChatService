@@ -30,8 +30,17 @@
 
 		return displayTime
 	}
-	const colorHash = (seed: number): string => {
-		return ''
+	const colorHash = (seed: string): string => {
+		let colorCode = 0
+		for (const letter of seed) {
+			if(letter) colorCode += letter.charCodeAt(0)*2
+		}
+		return 'avatarColor_' + (colorCode%11).toString()
+
+		// let color = '#'
+		// color += (colorCode%310).toString(16)
+		// color += colorCode.toString(16)
+		// color += (Math.floor(colorCode/15)%255).toString(16)
 	}
 
 	$: loadThreads()
@@ -58,7 +67,7 @@
 			<a href='conversation' class='thread row' class:unread={!thread.metadata}>
 				<div class="imgContainer">
 					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
-					<div>{thread.otherUser.handle[0]}</div>
+					<div class={colorHash(thread.otherUser.handle[0])}>{thread.otherUser.handle[0]}</div>
 				</div>
 				<div class="info row">
 					<div>
@@ -110,32 +119,64 @@
 
 		border-radius: 50%;
 		background-color: #ddd;
+		color: #fff;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 		overflow: hidden;
 	}
-
-	/* temp */
-	.thread:nth-child(5n+1) .imgContainer{
-		background-color: #af5cf7;
-		color: #fff;
-		fill: #fff;
+	.thread .imgContainer .avatarColor_0{
+		background-color: #ee675c;
+		background-color: #007aff;
 	}
-	.thread:nth-child(5n+2) .imgContainer{
-		background-color: #fdcfe8;
-		color: rgba(156,22,107,0.87);
-		fill: rgba(156,22,107,0.87);
+	.thread .imgContainer .avatarColor_1{
+		background-color: #fcc934;
+		background-color: #ffcc00;
 	}
-	.thread:nth-child(5n+3) .imgContainer{
+	.thread .imgContainer .avatarColor_2{
 		background-color: #1a73e8;
-		color: #fff;
-		fill: #fff;
+		background-color: #32ade6;
 	}
-	.thread:nth-child(5n+5) .imgContainer{
-		background-color: #fedfc8;
-		color: rgba(176,96,0,0.87);
-		fill: rgba(176,96,0,0.87);
+	.thread .imgContainer .avatarColor_3{
+		background-color: #af5cf7;
+		background-color: #00c7be;
 	}
-
+	.thread .imgContainer .avatarColor_4{
+		background-color: #4ecde6;
+		background-color: #30b0c7;
+	}
+	.thread .imgContainer .avatarColor_5{
+		background-color: #5bb974;
+		background-color: #34c759;
+	}
+	.thread .imgContainer .avatarColor_6{
+		background-color: #fa903e;
+		background-color: #ff9500;
+	}
+	.thread .imgContainer .avatarColor_7{
+		background-color: #ff63b8;
+		background-color: #ff2d55;
+	}
+	.thread .imgContainer .avatarColor_8{
+		background-color: #af5cf7;
+		background-color: #af52de;
+	}
+	.thread .imgContainer .avatarColor_9{
+		background-color: #1967d2;
+		background-color: #5856d6;
+	}
+	.thread .imgContainer .avatarColor_10{
+		background-color: #b52480;
+		background-color: #a2845e;
+	}
+	.thread .imgContainer .spam{
+		background-color: #d93025;
+		background-color: #ff3037;
+		color: #f1f3f4;
+		fill: #f1f3f4;
+	}
+	.thread .imgContainer .blocked{
+		color: #5f6368;
+		fill: #5f6368;
+	}
 	/* .imgContainer img{
 		display: block;
 		height: 100%;
