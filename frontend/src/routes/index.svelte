@@ -10,7 +10,7 @@
 		align-items: flex-start;
 		padding: 2em;
 		min-height: 400px;
-		background: url('hero.svg') #e9edf0;
+		background: url('/hero.svg') #e9edf0;
 		background-repeat: no-repeat;
 		background-position: right bottom;
 		overflow: hidden;
