@@ -1,0 +1,66 @@
+[
+	{
+		"id": "cl6g9kiqh0042pov4hvr4mfkw",
+		"msgType": "text/plain",
+		"content": "It's PM's bithrday 🙂🎉🎈🥳",
+		"posted": "2022-08-05T09:27:00.441Z",
+		"metadata": "modified,read|1|2022-08-05T09:27:58.973Z",
+		"youSent": false,
+		"otherUser": {
+			"id": 4,
+			"email": "nachibohen@gmail.com",
+			"handle": "DJ Nachman",
+			"first": "Nachman",
+			"last": "Tester",
+			"phone": "7189304820"
+		}
+	},
+	{
+		"id": "cl6g7i7zv0017scv4ua4s8pe0",
+		"msgType": "text/plain",
+		"content": "Happy bithrday 🙂🎉🎈🥳",
+		"posted": "2022-08-05T08:30:00.441Z",
+		"metadata": "read|1|2022-08-05T09:26:48.327Z",
+		"youSent": true,
+		"otherUser": {
+			"id": 5,
+			"email": "pmingber@gmail.com",
+			"handle": "PM Ingber",
+			"first": "PM",
+			"last": "Ingber",
+			"phone": "0533180351"
+		}
+	},
+	{
+		"id": "cl6g7a2gz0006scv4hzkb0ryx",
+		"msgType": "text/plain",
+		"content": "This is a test on the new type of id through cuid()",
+		"posted": "2022-08-05T08:23:00.441Z",
+		"metadata": "read|1|2022-08-05T09:24:01.714Z",
+		"youSent": false,
+		"otherUser": {
+			"id": 3,
+			"email": "leue54@gmail.com",
+			"handle": "nm_frankel",
+			"first": "Dev",
+			"last": "Frankel",
+			"phone": "534733971"
+		}
+	},
+	{
+		"id": "5",
+		"msgType": "text/plain",
+		"content": "Here's the link for the new phone that I told you about...",
+		"posted": "2022-08-04T19:53:45.000Z",
+		"metadata": "read|1|2022-08-05T09:27:04.839Z",
+		"youSent": false,
+		"otherUser": {
+			"id": 7,
+			"email": "aharin26@gmail.com",
+			"handle": "AM Leonard",
+			"first": "Aharon Meir",
+			"last": "Leonard",
+			"phone": "3235615952"
+		}
+	}
+]
