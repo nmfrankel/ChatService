@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Aug 9, 2022 Update
+
+### Releases
+-	Vercel auto-deploy setup
+
 ## Aug 8, 2022 Update
 
 ### Releases
