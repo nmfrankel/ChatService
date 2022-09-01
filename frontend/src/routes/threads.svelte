@@ -1,31 +1,39 @@
 <script lang="ts">
-	import Button from "$lib/Button.svelte";
+	import Button from '$lib/Button.svelte'
+	import { userState } from '../userState'
 
 	let data: Thread[] | Promise<Thread[]> = []
-	const loadThreads = () => data = fetch('messages_thread.json').then(res => res.json())
+	const loadThreads = () => (data = fetch('messages_thread.json').then((res) => res.json()))
 	const readableTime = (timestamp: string): string => {
 		const inputTime = new Date(timestamp),
-		inputTimestamp = new Date(timestamp).getTime()/1000,
-		currentTime = new Date(),
-		currentTimestamp = new Date().getTime()/1000,
-		hr = (inputTime.getHours()%12 || 12).toString(),
-		min = inputTime.getMinutes().toString().padStart(2, '0'),
-		meridian = inputTime.getHours()<12? 'AM': 'PM'
+			inputTimestamp = new Date(timestamp).getTime() / 1000,
+			currentTime = new Date(),
+			currentTimestamp = new Date().getTime() / 1000,
+			hr = (inputTime.getHours() % 12 || 12).toString(),
+			min = inputTime.getMinutes().toString().padStart(2, '0'),
+			meridian = inputTime.getHours() < 12 ? 'AM' : 'PM'
 		let displayTime: string
 
 		// Convert to readable format
-		if(currentTimestamp - inputTimestamp < 60){
-			displayTime = 'Now'// 'Under a min'
-		}else if(currentTimestamp - inputTimestamp < 3600*11.9){
+		if (currentTimestamp - inputTimestamp < 60) {
+			displayTime = 'Now' // 'Under a min'
+		} else if (currentTimestamp - inputTimestamp < 3600 * 11.9) {
 			displayTime = `${hr}:${min} ${meridian}`
-		}else if(currentTimestamp - inputTimestamp < 3600*48 && currentTime.getDay()+6 === inputTime.getDay()+7){
+		} else if (
+			currentTimestamp - inputTimestamp < 3600 * 48 &&
+			currentTime.getDay() + 6 === inputTime.getDay() + 7
+		) {
 			displayTime = 'Yesterday'
-		}else if(currentTimestamp - inputTimestamp < 3600*24*7){
-			displayTime = inputTime.toLocaleString('en-us', {weekday: 'long'})
-		}else if(currentTimestamp - inputTimestamp < 3600*24*364){
-			displayTime = `${ inputTime.toLocaleString('default', { month: 'short' }) } ${ inputTime.getDate() }`
-		}else{
-			displayTime = `${ inputTime.getMonth()+1 }/${ inputTime.getDate() }/${ inputTime.getFullYear()-2000 }`
+		} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 7) {
+			displayTime = inputTime.toLocaleString('en-us', { weekday: 'long' })
+		} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 364) {
+			displayTime = `${inputTime.toLocaleString('default', {
+				month: 'short'
+			})} ${inputTime.getDate()}`
+		} else {
+			displayTime = `${inputTime.getMonth() + 1}/${inputTime.getDate()}/${
+				inputTime.getFullYear() - 2000
+			}`
 		}
 
 		return displayTime
@@ -33,9 +41,9 @@
 	const colorHash = (seed: string): string => {
 		let colorCode = 0
 		for (const letter of seed) {
-			if(letter) colorCode += letter.charCodeAt(0)*2
+			if (letter) colorCode += letter.charCodeAt(0) * 2
 		}
-		return 'avatarColor_' + (colorCode%11).toString()
+		return 'avatarColor_' + (colorCode % 11).toString()
 	}
 
 	$: loadThreads()
@@ -47,19 +55,24 @@
 </svelte:head>
 
 <Button
-	classes='minimal small'
-	style='margin: 0 0 .5rem 1rem;display: flex;'
-	icon='refresh'
-	text='reload'
-	on:click={loadThreads} />
+	classes="minimal small"
+	style="margin: .5rem 0 0 1rem;"
+	icon="refresh"
+	text="reload"
+	on:click={loadThreads}
+/>
 
 <div class="container">
 	{#await data}
-		<div class="trueCenter">Loading...</div>
+		<div class="trueCenter" style="margin-top: 38vh;">Loading...</div>
 	{:then threads}
 		{#each threads as thread}
-			<!-- <a on:click|preventDefault={() => window.location.href = './conversation'}> -->
-			<a href='conversation' class='thread row' class:unread={!thread.metadata}>
+			<a
+				href="chat"
+				class="thread row"
+				class:unread={!thread.metadata}
+				on:click|once={() => ($userState.otherUser = thread.otherUser)}
+			>
 				<div class="imgContainer">
 					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
 					<div class={colorHash(thread.otherUser.handle[0])}>{thread.otherUser.handle[0]}</div>
@@ -71,15 +84,15 @@
 						</div>
 						<div class="content">
 							{#if thread.msgType === 'text/plain'}
-								{thread.youSent? 'You: ': ''}{thread.content}
+								{thread.youSent ? 'You: ' : ''}{thread.content}
 							{:else}
-								{thread.youSent? 'You: ': ''}sent a {thread.msgType}
+								{thread.youSent ? 'You: ' : ''}sent a {thread.msgType}
 							{/if}
 						</div>
 					</div>
 					<div class="metaData">
 						<div class="timestamp">{readableTime(thread.posted)}</div>
-						<div class="unreadCount"></div>
+						<div class="unreadCount" />
 					</div>
 				</div>
 			</a>
@@ -92,10 +105,13 @@
 </div>
 
 <style>
-	.thread{
+	.container {
+		padding-top: 0.33rem;
+	}
+	.thread {
 		position: relative;
-		padding: 16px calc(var(--edgePadding)/2);
-		padding: .5rem 1rem;
+		padding: 16px calc(var(--edgePadding) / 2);
+		padding: 0.5rem 1rem;
 		color: var(--defaultText);
 		border-bottom: 1px solid var(--hover);
 		overflow: hidden;
@@ -103,11 +119,11 @@
 		text-decoration: none;
 		transition: all ease-in-out 75ms;
 	}
-	.thread:hover{
+	.thread:hover {
 		background: var(--hover);
 		background: #f7f8fb;
 	}
-	.imgContainer{
+	.imgContainer {
 		position: relative;
 		height: 40px;
 		min-width: 40px;
@@ -115,64 +131,64 @@
 		border-radius: 50%;
 		background-color: #ddd;
 		color: #fff;
-		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 		overflow: hidden;
 	}
-	.thread .imgContainer .avatarColor_0{
+	.thread .imgContainer .avatarColor_0 {
 		background-color: #ee675c;
 		background-color: #007aff;
 	}
-	.thread .imgContainer .avatarColor_1{
+	.thread .imgContainer .avatarColor_1 {
 		background-color: #fcc934;
 		background-color: #ffcc00;
 	}
-	.thread .imgContainer .avatarColor_2{
+	.thread .imgContainer .avatarColor_2 {
 		background-color: #1a73e8;
 		background-color: #32ade6;
 	}
-	.thread .imgContainer .avatarColor_3{
+	.thread .imgContainer .avatarColor_3 {
 		background-color: #af5cf7;
 		background-color: #00c7be;
 	}
-	.thread .imgContainer .avatarColor_4{
+	.thread .imgContainer .avatarColor_4 {
 		background-color: #4ecde6;
 		background-color: #30b0c7;
 	}
-	.thread .imgContainer .avatarColor_5{
+	.thread .imgContainer .avatarColor_5 {
 		background-color: #5bb974;
 		background-color: #34c759;
 	}
-	.thread .imgContainer .avatarColor_6{
+	.thread .imgContainer .avatarColor_6 {
 		background-color: #fa903e;
 		background-color: #ff9500;
 	}
-	.thread .imgContainer .avatarColor_7{
+	.thread .imgContainer .avatarColor_7 {
 		background-color: #ff63b8;
 		background-color: #ff2d55;
 	}
-	.thread .imgContainer .avatarColor_8{
+	.thread .imgContainer .avatarColor_8 {
 		background-color: #af5cf7;
 		background-color: #af52de;
 	}
-	.thread .imgContainer .avatarColor_9{
+	.thread .imgContainer .avatarColor_9 {
 		background-color: #1967d2;
 		background-color: #5856d6;
 	}
-	.thread .imgContainer .avatarColor_10{
+	.thread .imgContainer .avatarColor_10 {
 		background-color: #b52480;
 		background-color: #a2845e;
 	}
-	.thread .imgContainer .spam{
+	.thread .imgContainer .spam {
 		background-color: #d93025;
 		background-color: #ff3037;
 		color: #f1f3f4;
 		fill: #f1f3f4;
 	}
-	.thread .imgContainer .blocked{
+	.thread .imgContainer .blocked {
 		color: #5f6368;
 		fill: #5f6368;
 	}
-/*  .ios-color-dark-blue { background-color: rgb(10,132,255);}
+	/*  .ios-color-dark-blue { background-color: rgb(10,132,255);}
 	.ios-color-dark-brown { background-color: rgb(172,142,104);}
 	.ios-color-dark-cyan { background-color: rgb(100,210,255);}
 	.ios-color-dark-gray { background-color: rgb(142,142,147);}
@@ -199,7 +215,7 @@
 	.imgContainer img[src='./images/anonymous.png']{
 		background: unset;
 	} */
-	.imgContainer > div{
+	.imgContainer > div {
 		display: block;
 		height: 100%;
 		width: 100%;
@@ -208,39 +224,39 @@
 		text-align: center;
 		text-transform: uppercase;
 	}
-	.info{
+	.info {
 		box-sizing: border-box;
 		width: calc(100% - 135px);
 		width: 100%;
-		padding-left: calc(var(--edgePadding)/2);
+		padding-left: calc(var(--edgePadding) / 2);
 		padding-left: 1rem;
 		justify-content: space-between;
 		overflow: hidden;
 		/* add elipses */
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 100ms;
 	}
-	.thread.unread .info{
+	.thread.unread .info {
 		font-weight: 700;
 	}
-	.receiver{
+	.receiver {
 		padding: 2px 0;
 	}
-	.content{
-		font-size: .875rem;
+	.content {
+		font-size: 0.875rem;
 		padding: 3px 0;
 		color: var(--secondaryText);
 		white-space: nowrap;
 	}
-	.timestamp{
+	.timestamp {
 		padding: 2px 0;
-		font-size: .75rem;
+		font-size: 0.75rem;
 		color: #959da5;
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 125ms;
 	}
-	.thread.unread .timestamp{
+	.thread.unread .timestamp {
 		color: #02d25d;
 	}
-	.unreadCount{
+	.unreadCount {
 		opacity: 0;
 		float: right;
 		min-width: 12px;
@@ -249,7 +265,7 @@
 		padding: 2px 5px;
 		border-radius: 11px;
 		font-weight: 700;
-		font-size: .775rem;
+		font-size: 0.775rem;
 		line-height: 1.1rem;
 		text-align: center;
 		color: var(--hover);

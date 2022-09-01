@@ -1,7 +1,7 @@
 interface User {
-	id: number
+	id: string
 	email: string
-	handle: string
+	handle: string | null
 	first: string
 	last: string
 	phone: string

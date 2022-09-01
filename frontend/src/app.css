@@ -1,25 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
-:root{
+:root {
 	--primaryColor: #fff;
 	--primaryBgColor: #fff;
 	--defaultText: #202222;
 	--secondaryText: #586069;
 	--placeholderText: #6a737d;
 	--disabledText: #959da5;
+
+	--headerHeight: 60px;
 }
-html, body{
+html,
+body {
 	margin: 0;
 	font-size: 16px;
 	font-family: 'Rubik', sans-serif;
-	letter-spacing: .4px;
+	letter-spacing: 0.4px;
 }
-.row{
+body,
+body > div {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	flex-grow: 1;
+}
+.row {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
-.trueCenter{
+.trueCenter {
 	position: relative;
 	/* min-height: 100%; */
 	display: flex;
@@ -28,7 +38,7 @@ html, body{
 	align-items: center;
 }
 
-.hidden{
+.hidden {
 	max-height: 0px;
 	max-width: 0px;
 	margin: 0px !important;

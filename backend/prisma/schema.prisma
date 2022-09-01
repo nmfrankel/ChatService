@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-	id			Int			@id @default(autoincrement())
+	id			String		@id @default(cuid())
 	role		String		@default("USER")
 	email		String
 	pswd		String?
@@ -23,11 +23,13 @@ model User {
 model Msg {
 	id			String		@id @default(cuid())
 	sender		User		@relation("asSender", fields: [senderId], references: [id])
-	senderId	Int
+	senderId	String
 	receiver	User		@relation("asReceiver", fields: [receiverId], references: [id])
-	receiverId	Int
+	receiverId	String
 	msgType		String		@default("text/plain")
 	content		String
 	posted		DateTime	@default(now())
 	metadata	String
 }
+
+// npx prisma migrate dev --name init
