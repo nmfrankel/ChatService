@@ -6,6 +6,7 @@
 	import '../app.css'
 
 	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
+	console.log(browser, analyticsId)
 
 	$: if (browser && analyticsId) {
 		webVitals({
