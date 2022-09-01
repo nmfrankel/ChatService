@@ -5,8 +5,7 @@
 	import Header from '$lib/Header.svelte'
 	import '../app.css'
 
-	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID ?? process.env.VERCEL_ANALYTICS_ID
-	console.log(browser, analyticsId)
+	const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
 
 	$: if (browser && analyticsId) {
 		webVitals({
