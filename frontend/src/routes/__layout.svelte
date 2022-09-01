@@ -5,6 +5,8 @@
 	import Header from '$lib/Header.svelte'
 	import '../app.css'
 
+	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
+
 	$: if (browser && analyticsId) {
 		webVitals({
 			path: $page.url.pathname,
