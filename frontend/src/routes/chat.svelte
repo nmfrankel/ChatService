@@ -9,15 +9,15 @@
 
 <!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
 
-<div class="container">
+<div class="container" on:dblclick={() => loadMsgs()}>
 	{#await data}
 		<div class="trueCenter" style="margin-top: 38vh;">Loading...</div>
 	{:then msgs}
 		{#each msgs as msg, id}
 			<div
 				class="msg {msg.sender.id == $userState.user.id ? 'outgoing' : 'incoming'}"
-				class:first={msgs[id-1]?.sender.id !== msg.sender.id}
-				class:last={msgs[id+1]?.sender.id !== msg.sender.id}
+				class:first={msgs[id - 1]?.sender.id !== msg.sender.id}
+				class:last={msgs[id + 1]?.sender.id !== msg.sender.id}
 				on:click={() => false}
 			>
 				{#if msg.msgType === 'text/plain'}
@@ -47,7 +47,7 @@
 		--hover: #f5f6f7;
 		--primary: #2b56c6;
 		--darkShadow: none;
-		--lightShadow: 0 2px 6px 0 rgba(60,64,67,0.15);
+		--lightShadow: 0 2px 6px 0 rgba(60, 64, 67, 0.15);
 
 		--incomingBgColor: #f2f2f2;
 		--incomingColor: var(--defaultText);
@@ -70,7 +70,7 @@
 		background: var(--incomingBgColor);
 		color: var(--incomingColor);
 		border-radius: 0px 20px 20px 0px;
-		font-size: .875rem;
+		font-size: 0.875rem;
 	}
 	.msg.first {
 		border-top-left-radius: 20px;
