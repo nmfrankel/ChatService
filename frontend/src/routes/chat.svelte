@@ -69,12 +69,22 @@
 		<div class="trueCenter">Loading...</div>
 	{:then msgs}
 		<div class="scrollContainer">
-			{#each msgs as msg, id}
+			{#each msgs.reverse() as msg, id}
+				{@const timeSpread =
+					new Date(msgs[id - 1]?.posted ?? 0).getTime() / 1000 <
+					new Date(msg.posted).getTime() / 1000 - 3600}
+				{@const nextTimeSpread =
+					new Date(msgs[id + 1]?.posted ?? 0).getTime() / 1000 - 3600 >
+					new Date(msg.posted).getTime() / 1000}
+				{#if timeSpread}
+					<div class="timeSpacer">{readableTime(msg.posted)}</div>
+				{/if}
+
 				<div
 					id={msg.id}
 					class="{msg.sender.id === $userState.user.id ? 'outgoing' : 'incoming'} row"
-					class:first={msgs[id - 1]?.sender.id !== msg.sender.id}
-					class:last={msgs[id + 1]?.sender.id !== msg.sender.id}
+					class:first={msgs[id - 1]?.sender.id !== msg.sender.id || timeSpread}
+					class:last={msgs[id + 1]?.sender.id !== msg.sender.id || nextTimeSpread}
 					on:click={() => toggleTime(msg.id)}
 				>
 					<div class="row">
@@ -156,6 +166,12 @@
 		justify-content: flex-end;
 		padding: 0.25rem 1rem 1rem;
 		box-sizing: border-box;
+	}
+	.timeSpacer {
+		padding: 1rem 0 0.25rem;
+		color: #5f6388;
+		text-align: center;
+		font-size: 0.75rem;
 	}
 	.incoming,
 	.outgoing {
