@@ -64,7 +64,7 @@
 
 <div class="container">
 	{#await data}
-		<div class="trueCenter" style="margin-top: 38vh;">Loading...</div>
+		<div class="trueCenter">Loading...</div>
 	{:then threads}
 		{#each threads as thread}
 			<a
@@ -106,6 +106,11 @@
 
 <style>
 	.container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex-grow: 1;
+		justify-content: flex-start;
 		padding-top: 0.33rem;
 	}
 	.thread {

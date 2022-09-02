@@ -17,6 +17,16 @@
 </script>
 
 <Header path={$page.url.pathname} />
-<main style="padding-top: 1px;">
+<main>
 	<slot />
 </main>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex-grow: 1;
+		padding-top: 1px;
+	}
+</style>
