@@ -75,7 +75,7 @@
 			>
 				<div class="imgContainer">
 					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
-					<div class={colorHash(thread.otherUser.handle[0])}>{thread.otherUser.handle[0]}</div>
+					<div class={colorHash(thread.otherUser.first[0] ?? '_')}>{thread.otherUser.first[0]}</div>
 				</div>
 				<div class="info row">
 					<div>

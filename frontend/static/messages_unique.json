@@ -92,6 +92,52 @@
 		"metadata": ""
 	},
 	{
+		"id": "cl6g9lkli0058pov4qn88ca2d",
+		"sender": {
+			"id": "4",
+			"email": "nachibohen@gmail.com",
+			"handle": "DJ Nachman",
+			"first": "Nachman",
+			"last": "Tester",
+			"phone": "7189304820"
+		},
+		"receiver": {
+			"id": "1",
+			"email": "nossonmfrankel@gmail.com",
+			"handle": "nmfrankel",
+			"first": "Nosson",
+			"last": "Frankel",
+			"phone": "0534733971"
+		},
+		"msgType": "text/plain",
+		"content": "Please remind me tomorrow, I want to suprise him with a gift.",
+		"posted": "2022-08-05T09:27:00.441Z",
+		"metadata": "modified"
+	},
+	{
+		"id": "2",
+		"sender": {
+			"id": "1",
+			"email": "nossonmfrankel@gmail.com",
+			"handle": "nmfrankel",
+			"first": "Nosson",
+			"last": "Frankel",
+			"phone": "0534733971"
+		},
+		"receiver": {
+			"id": "4",
+			"email": "nachibohen@gmail.com",
+			"handle": "DJ Nachman",
+			"first": "Nachman",
+			"last": "Tester",
+			"phone": "7189304820"
+		},
+		"msgType": "text/plain",
+		"content": "Doing great and thanks for asking.",
+		"posted": "2022-08-04T19:54:24.977Z",
+		"metadata": ""
+	},
+	{
 		"id": "1",
 		"sender": {
 			"id": "1",
