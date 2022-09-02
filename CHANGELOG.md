@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file.
 -	Built most of the /chat page
 -	Added Vercel analytics to project
 
+### Fixes
+-	Prevent iPhone from auto zooming in on chat message input 
+
 ## Aug 9, 2022 Update
 
 ### Releases

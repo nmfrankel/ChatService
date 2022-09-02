@@ -183,6 +183,9 @@
 	.outgoing {
 		align-items: flex-end;
 	}
+	.incoming .row {
+		margin-right: 44px;
+	}
 	.avatar {
 		height: 0px;
 		min-width: 36px;
