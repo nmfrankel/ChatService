@@ -2,7 +2,7 @@ interface Msg {
 	id: string
 	msgType: string
 	content: string
-	posted: Date
+	posted: string
 	metadata: string
 	sender: {
 		id: string

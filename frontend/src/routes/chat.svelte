@@ -5,6 +5,40 @@
 	let data: Msg[] | Promise<Msg[]> = [],
 		messageValue = ''
 	const loadMsgs = () => (data = fetch('messages_unique.json').then((res) => res.json())),
+		readableTime = (timestamp: string): string => {
+			const inputTime = new Date(timestamp),
+				inputTimestamp = new Date(timestamp).getTime() / 1000,
+				currentTime = new Date(),
+				currentTimestamp = new Date().getTime() / 1000,
+				hr = (inputTime.getHours() % 12 || 12).toString(),
+				min = inputTime.getMinutes().toString().padStart(2, '0'),
+				meridian = inputTime.getHours() < 12 ? 'AM' : 'PM'
+			let displayTime: string
+
+			// Convert to readable format
+			if (currentTimestamp - inputTimestamp < 60) {
+				displayTime = 'Now' // 'Under a min'
+			} else if (currentTimestamp - inputTimestamp < 3600 * 11.9) {
+				displayTime = `${hr}:${min} ${meridian}`
+			} else if (
+				currentTimestamp - inputTimestamp < 3600 * 48 &&
+				currentTime.getDay() + 6 === inputTime.getDay() + 7
+			) {
+				displayTime = 'Yesterday'
+			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 7) {
+				displayTime = inputTime.toLocaleString('en-us', { weekday: 'long' })
+			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 364) {
+				displayTime = `${inputTime.toLocaleString('default', {
+					month: 'short'
+				})} ${inputTime.getDate()}`
+			} else {
+				displayTime = `${inputTime.getMonth() + 1}/${inputTime.getDate()}/${
+					inputTime.getFullYear() - 2000
+				}`
+			}
+
+			return displayTime
+		},
 		colorHash = (seed: string): string => {
 			let colorCode = 0
 			for (const letter of seed) {
@@ -36,17 +70,21 @@
 				class:last={msgs[id + 1]?.sender.id !== msg.sender.id}
 				on:click={() => toggleTime(msg.id)}
 			>
-				<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
-					{msg.sender.first[0] || '_'}
+				<div class="row">
+					<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
+						{msg.sender.first[0] || '_'}
+					</div>
+					<div>
+						<div class="msg" on:click={() => false}>
+							{#if msg.msgType === 'text/plain'}
+								{msg.content}
+							{:else}
+								Invalid message type
+							{/if}
+						</div>
+						<div class="timestamp">{readableTime(msg.posted)}</div>
+					</div>
 				</div>
-				<div class="msg" on:click={() => false}>
-					{#if msg.msgType === 'text/plain'}
-						{msg.content}
-					{:else}
-						Invalid message type
-					{/if}
-				</div>
-				<div class="timestamp" />
 			</div>
 
 			<!-- <div>{JSON.stringify(msg)}</div> -->
@@ -61,11 +99,7 @@
 
 <div id="inputOptions">
 	<div id="inputContainer" class="row">
-		<textarea
-			id="inputMsg"
-			placeholder="Chat message"
-			bind:value={messageValue}
-		/>
+		<textarea id="inputMsg" placeholder="Chat message" bind:value={messageValue} />
 		<Button
 			icon="send"
 			classes="minimal"
@@ -102,19 +136,22 @@
 	}
 	.incoming,
 	.outgoing {
-		justify-content: flex-start;
-		align-items: center;
+		flex-direction: column;
+		align-items: flex-start;
 		width: 100%;
 		margin-top: 4px;
 	}
 	.outgoing {
-		justify-content: flex-end;
+		align-items: flex-end;
 	}
 	.avatar {
 		height: 0px;
 		width: 36px;
 		margin-inline-end: 0.5rem;
 		overflow: hidden;
+	}
+	.outgoing .avatar {
+		display: none;
 	}
 	.incoming.last .avatar {
 		height: 36px;
@@ -191,9 +228,6 @@
 		font-size: 0.875rem;
 		cursor: pointer;
 	}
-	:global(.showTime .msg) {
-		background-color: #00c7be !important;
-	}
 	.first .msg {
 		border-top-left-radius: 20px;
 	}
@@ -210,6 +244,19 @@
 	}
 	.outgoing.last .msg {
 		border-bottom-right-radius: 20px;
+	}
+	.timestamp {
+		height: 0px;
+		padding: 0 10px;
+		overflow: hidden;
+		font-size: 0.75rem;
+		transition: height ease-in-out 50ms;
+	}
+	.outgoing .timestamp {
+		text-align: end;
+	}
+	:global(.showTime .timestamp) {
+		height: 14px !important;
 	}
 
 	#inputOptions {
