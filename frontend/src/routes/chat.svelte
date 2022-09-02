@@ -301,7 +301,7 @@
 	}
 	:global(.showTime .timestamp) {
 		margin-top: 4px;
-		height: 0.875rem !important;
+		height: 1rem !important;
 		overflow: visible;
 	}
 
