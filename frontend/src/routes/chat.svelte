@@ -24,17 +24,18 @@
 				currentTimestamp - inputTimestamp < 3600 * 48 &&
 				currentTime.getDay() + 6 === inputTime.getDay() + 7
 			) {
-				displayTime = 'Yesterday'
+				displayTime = `Yesterday ${hr}:${min} ${meridian}`
 			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 7) {
-				displayTime = inputTime.toLocaleString('en-us', { weekday: 'long' })
+				displayTime =
+					inputTime.toLocaleString('en-us', { weekday: 'long' }) + ` ${hr}:${min} ${meridian}`
 			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 364) {
 				displayTime = `${inputTime.toLocaleString('default', {
 					month: 'short'
-				})} ${inputTime.getDate()}`
+				})} ${inputTime.getDate()} ${hr}:${min} ${meridian}`
 			} else {
 				displayTime = `${inputTime.getMonth() + 1}/${inputTime.getDate()}/${
 					inputTime.getFullYear() - 2000
-				}`
+				} ${hr}:${min} ${meridian}`
 			}
 
 			return displayTime
