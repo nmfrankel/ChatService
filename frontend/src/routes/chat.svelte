@@ -67,36 +67,38 @@
 	{#await data}
 		<div class="trueCenter">Loading...</div>
 	{:then msgs}
-		{#each msgs as msg, id}
-			<div
-				id={msg.id}
-				class="{msg.sender.id === $userState.user.id ? 'outgoing' : 'incoming'} row"
-				class:first={msgs[id - 1]?.sender.id !== msg.sender.id}
-				class:last={msgs[id + 1]?.sender.id !== msg.sender.id}
-				on:click={() => toggleTime(msg.id)}
-			>
-				<div class="row">
-					<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
-						{msg.sender.first[0] || '_'}
-					</div>
-					<div>
-						<div class="msg" on:click={() => false}>
-							{#if msg.msgType === 'text/plain'}
-								{msg.content}
-							{:else}
-								Invalid message type
-							{/if}
+		<div class="scrollContainer">
+			{#each msgs as msg, id}
+				<div
+					id={msg.id}
+					class="{msg.sender.id === $userState.user.id ? 'outgoing' : 'incoming'} row"
+					class:first={msgs[id - 1]?.sender.id !== msg.sender.id}
+					class:last={msgs[id + 1]?.sender.id !== msg.sender.id}
+					on:click={() => toggleTime(msg.id)}
+				>
+					<div class="row">
+						<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
+							{msg.sender.first[0] || '_'}
 						</div>
-						<div class="timestamp">{readableTime(msg.posted)}</div>
+						<div>
+							<div class="msg" on:click={() => false}>
+								{#if msg.msgType === 'text/plain'}
+									{msg.content}
+								{:else}
+									Invalid message type
+								{/if}
+							</div>
+							<div class="timestamp">{readableTime(msg.posted)}</div>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- <div>{JSON.stringify(msg)}</div> -->
-		{:else}
-			<!-- <div class="trueCenter">No threads, start chatting</div> -->
-			No messages
-		{/each}
+				<!-- <div>{JSON.stringify(msg)}</div> -->
+			{:else}
+				<!-- <div class="trueCenter">No threads, start chatting</div> -->
+				No messages
+			{/each}
+		</div>
 	{:catch err}
 		<div class="trueCenter">An error occured | {err}</div>
 	{/await}
@@ -132,12 +134,27 @@
 		--outgoingColor: var(--defaultText);
 	}
 	.container {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+		max-height: 100%;
+		flex-grow: 1;
+		justify-content: flex-end;
+		overflow: auto;
+	}
+	.container .scrollContainer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
 		flex-grow: 1;
 		justify-content: flex-end;
 		padding: 0.25rem 1rem 1rem;
+		box-sizing: border-box;
 	}
 	.incoming,
 	.outgoing {
@@ -151,6 +168,7 @@
 	}
 	.avatar {
 		height: 0px;
+		min-width: 36px;
 		width: 36px;
 		margin-inline-end: 0.5rem;
 		overflow: hidden;
@@ -261,7 +279,8 @@
 		text-align: end;
 	}
 	:global(.showTime .timestamp) {
-		height: 14px !important;
+		height: 16px !important;
+		overflow: visible;
 	}
 
 	#inputOptions {
