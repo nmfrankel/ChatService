@@ -54,11 +54,16 @@
 	$: loadMsgs()
 </script>
 
-<!-- <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src https://*; child-src 'none';"> -->
+<svelte:head>
+	<title>{$userState.otherUser.first} {$userState.otherUser.last} | Chat | ChatService</title>
+	<meta name="description" content="See all the threads you have between your friends." />
+	<!-- <meta http-equiv="Content-Security-Policy"
+		  content="default-src 'self'; img-src https://*; child-src 'none';"> -->
+</svelte:head>
+
 <!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
 
-<div class="container" on:dblclick={() => loadMsgs()}>
+<div class="container" on:contextmenu|preventDefault={() => loadMsgs()}>
 	{#await data}
 		<div class="trueCenter">Loading...</div>
 	{:then msgs}

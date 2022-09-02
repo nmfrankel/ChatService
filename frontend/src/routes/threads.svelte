@@ -54,15 +54,7 @@
 	<meta name="description" content="See all the threads you have between your friends." />
 </svelte:head>
 
-<Button
-	classes="minimal small"
-	style="margin: .5rem 0 0 1rem;"
-	icon="refresh"
-	text="reload"
-	on:click={loadThreads}
-/>
-
-<div class="container">
+<div class="container" on:contextmenu|preventDefault={() => loadThreads()}>
 	{#await data}
 		<div class="trueCenter">Loading...</div>
 	{:then threads}
