@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Sep 1-2, 2022 Update
+
+### Changes
+-	Looking into also running the backend through sveltekit [coming soon]
+
+### Releases
+-	Setup global stores of current user w/ svelte
+-	Built most of the /chat page
+-	Added Vercel analytics to project
+
 ## Aug 9, 2022 Update
 
 ### Releases

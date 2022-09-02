@@ -290,13 +290,15 @@
 		padding: 0 10px;
 		overflow: hidden;
 		font-size: 0.75rem;
+		user-select: none;
 		transition: height ease-in-out 50ms;
 	}
 	.outgoing .timestamp {
 		text-align: end;
 	}
 	:global(.showTime .timestamp) {
-		height: 16px !important;
+		margin-top: 4px;
+		height: 0.875rem !important;
 		overflow: visible;
 	}
 
