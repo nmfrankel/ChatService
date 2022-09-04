@@ -46,7 +46,7 @@ export const getUser = async (req: Request, res: Response) => {
 	const { id } = req.params
 
 	const user = await prisma.user.findUnique({
-	  where: { id: Number(id) },
+	  where: { id },
 	})
 	res.json(user)
 }
@@ -57,7 +57,7 @@ export const updateUser = async (req: Request, res: Response) => {
 	const { id } = req.params
 
 	const user = await prisma.user.findUnique({
-		where: { id: Number(id) },
+		where: { id },
 	})
 
 	if(!user)
@@ -68,7 +68,7 @@ export const updateUser = async (req: Request, res: Response) => {
 	{ role?: string, email: string, pswd:string, handle?:string, first: string, last: string, phone: string } = req.body
 	
 	const updatedUser = await prisma.user.update({
-		where: { id: Number(id) },
+		where: { id },
 		data: {
 			role: role ?? user.role,
 			email: email ?? user.email,
@@ -89,7 +89,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 	const { id } = req.params
 
 	const user = await prisma.user.findUnique({
-		where: { id: Number(id) },
+		where: { id },
 	})
 
 	if(!user)
@@ -98,7 +98,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 	await prisma.user.delete({
 		where: {
-			id: Number(id),
+			id,
 		}
 	})
 	res.json({ message: 'User deleted successfully' })

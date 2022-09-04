@@ -29,7 +29,7 @@
 					<div class={colorHash(thread.otherUser.first[0] ?? '_')}>{thread.otherUser.first[0]}</div>
 				</div>
 				<div class="info row">
-					<div>
+					<div class="threadDetails">
 						<div class="receiver">
 							{thread.otherUser.first + ' ' + thread.otherUser.last}
 						</div>
@@ -182,14 +182,15 @@
 	}
 	.info {
 		box-sizing: border-box;
-		width: calc(100% - 135px);
 		width: 100%;
+		justify-content: space-between;
 		padding-left: calc(var(--edgePadding) / 2);
 		padding-left: 1rem;
-		justify-content: space-between;
 		overflow: hidden;
-		/* add elipses */
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 100ms;
+	}
+	.threadDetails {
+		width: 80%;
 	}
 	.thread.unread .info {
 		font-weight: 700;
@@ -201,7 +202,14 @@
 		font-size: 0.875rem;
 		padding: 3px 0;
 		color: var(--secondaryText);
+		overflow: hidden;
 		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.metaData {
+		width: 75px;
+		min-width: 75px;
+		text-align: end;
 	}
 	.timestamp {
 		padding: 2px 0;

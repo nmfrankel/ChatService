@@ -13,9 +13,11 @@
 		},
 		sendMsg = () => {
 			sending.push({
+				senderId: $userState.otherUser.id,
+				receiverId: $userState.user.id,
 				msgType: 'text/plain',
-				posted: new Date().toISOString(),
 				content: messageValue.trim(),
+				posted: new Date().toISOString(),
 				metadata: ''
 			})
 			messageValue = ''
