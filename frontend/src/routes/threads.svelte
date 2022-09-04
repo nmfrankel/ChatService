@@ -192,7 +192,7 @@
 	.threadDetails {
 		width: 80%;
 	}
-	.thread.unread .info {
+	.thread.unread:not(:focus) .info {
 		font-weight: 700;
 	}
 	.receiver {
@@ -237,13 +237,14 @@
 		background-color: #34d058;
 		user-select: none;
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 150ms;
-	}
-	.thread.unread .unreadCount {
-		opacity: 1;
-		color: #fff;
+		
 		height: 3px;
 		width: 3px;
-		margin-top: 8px;
+		margin: 12px 0 4px;
 		padding: 2px 2px;
+	}
+	.thread.unread:not(:focus) .unreadCount {
+		opacity: 1;
+		color: #fff;
 	}
 </style>
