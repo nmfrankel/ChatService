@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Sep 4, 2022 Update
+
+### Releases
+-	Added read reciepts to sent msgs
+
 ## Sep 1-2, 2022 Update
 
 ### Changes

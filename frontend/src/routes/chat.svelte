@@ -76,6 +76,7 @@
 				{@const nextTimeSpread =
 					new Date(msgs[id + 1]?.posted ?? 0).getTime() / 1000 - 3600 >
 					new Date(msg.posted).getTime() / 1000}
+
 				{#if timeSpread}
 					<div class="timeSpacer">{readableTime(msg.posted)}</div>
 				{/if}
@@ -99,7 +100,17 @@
 									Invalid message type
 								{/if}
 							</div>
-							<div class="timestamp">{readableTime(msg.posted)}</div>
+							<div class="timestamp">
+								{#if msg.metadata.search(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/) >= 0}
+									<span class="receipt">Read • </span>
+									{readableTime(
+										msg.metadata.match(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/)?.[0] ?? ''
+									)}
+								{:else}
+									<span class="receipt">Sent • </span>
+									{readableTime(msg.posted)}
+								{/if}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -111,7 +122,7 @@
 			{/each}
 		</div>
 	{:catch err}
-		<div class="trueCenter">An error occured | {err}</div>
+		<div class="trueCenter">An error occured <br /> {err}</div>
 	{/await}
 </div>
 
@@ -290,17 +301,20 @@
 	}
 	.timestamp {
 		height: 0px;
+		margin-top: 4px;
 		padding: 0 10px;
 		overflow: hidden;
 		font-size: 0.75rem;
 		user-select: none;
 		transition: height ease-in-out 50ms;
 	}
+	.incoming .timestamp .receipt {
+		display: none;
+	}
 	.outgoing .timestamp {
 		text-align: end;
 	}
 	:global(.showTime .timestamp) {
-		margin-top: 4px;
 		height: 1rem !important;
 		overflow: visible;
 	}

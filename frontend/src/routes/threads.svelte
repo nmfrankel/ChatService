@@ -92,7 +92,7 @@
 			<div class="trueCenter">No threads, start chatting</div>
 		{/each}
 	{:catch err}
-		<div class="trueCenter">An error occured | {err}</div>
+		<div class="trueCenter">An error occured <br /> {err}</div>
 	{/await}
 </div>
 
