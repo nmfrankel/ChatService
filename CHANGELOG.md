@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ### Releases
 -	Added read reciepts to sent msgs
+-	By default show time reciept of last msg in thread
+-	Started implementing message post
 
 ## Sep 1-2, 2022 Update
 

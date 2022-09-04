@@ -2,7 +2,8 @@
 	import Button from '$lib/Button.svelte'
 	import { userState } from '../userState'
 
-	let data: Msg[] | Promise<Msg[]> = [],
+	let data: Promise<Msg[]>,
+		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () => (data = fetch('messages_unique.json').then((res) => res.json())),
 		readableTime = (timestamp: string): string => {
@@ -50,6 +51,16 @@
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
+		},
+		sendMsg = () => {
+			sending.push({
+				msgType: 'text/plain',
+				posted: new Date().toISOString(),
+				content: messageValue.trim(),
+				metadata: ''
+			})
+			messageValue = ''
+			console.log(sending)
 		}
 
 	$: loadMsgs()
@@ -86,6 +97,7 @@
 					class="{msg.sender.id === $userState.user.id ? 'outgoing' : 'incoming'} row"
 					class:first={msgs[id - 1]?.sender.id !== msg.sender.id || timeSpread}
 					class:last={msgs[id + 1]?.sender.id !== msg.sender.id || nextTimeSpread}
+					class:showTime={msgs.length === id + 1}
 					on:click={() => toggleTime(msg.id)}
 				>
 					<div class="row">
@@ -117,8 +129,7 @@
 
 				<!-- <div>{JSON.stringify(msg)}</div> -->
 			{:else}
-				<!-- <div class="trueCenter">No threads, start chatting</div> -->
-				No messages
+				<div class="trueCenter">No messages found</div>
 			{/each}
 		</div>
 	{:catch err}
@@ -133,7 +144,7 @@
 			icon="send"
 			classes="minimal"
 			style="margin-right: 0;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;"
-			on:click={() => console.log('Send message (%s) to server', messageValue.trim())}
+			on:click={() => sendMsg()}
 		/>
 	</div>
 </div>
@@ -175,7 +186,7 @@
 		min-height: 100%;
 		flex-grow: 1;
 		justify-content: flex-end;
-		padding: 0.25rem 1rem 1rem;
+		padding: 0.25rem 1rem 0;
 		box-sizing: border-box;
 	}
 	.timeSpacer {
@@ -320,7 +331,7 @@
 	}
 
 	#inputOptions {
-		padding: 0 1rem 1rem;
+		padding: 1rem;
 	}
 	#inputContainer {
 		padding: 2px 0.5rem 2px 1rem;
