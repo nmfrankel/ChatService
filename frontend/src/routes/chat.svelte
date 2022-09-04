@@ -1,53 +1,12 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
+	import { readableTime, colorHash } from '$lib/utils'
 	import { userState } from '../userState'
 
 	let data: Promise<Msg[]>,
 		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () => (data = fetch('messages_unique.json').then((res) => res.json())),
-		readableTime = (timestamp: string): string => {
-			const inputTime = new Date(timestamp),
-				inputTimestamp = new Date(timestamp).getTime() / 1000,
-				currentTime = new Date(),
-				currentTimestamp = new Date().getTime() / 1000,
-				hr = (inputTime.getHours() % 12 || 12).toString(),
-				min = inputTime.getMinutes().toString().padStart(2, '0'),
-				meridian = inputTime.getHours() < 12 ? 'AM' : 'PM'
-			let displayTime: string
-
-			// Convert to readable format
-			if (currentTimestamp - inputTimestamp < 60) {
-				displayTime = 'Now' // 'Under a min'
-			} else if (currentTimestamp - inputTimestamp < 3600 * 11.9) {
-				displayTime = `${hr}:${min} ${meridian}`
-			} else if (
-				currentTimestamp - inputTimestamp < 3600 * 48 &&
-				currentTime.getDay() + 6 === inputTime.getDay() + 7
-			) {
-				displayTime = `Yesterday ${hr}:${min} ${meridian}`
-			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 7) {
-				displayTime =
-					inputTime.toLocaleString('en-us', { weekday: 'long' }) + ` ${hr}:${min} ${meridian}`
-			} else if (currentTimestamp - inputTimestamp < 3600 * 24 * 364) {
-				displayTime = `${inputTime.toLocaleString('default', {
-					month: 'short'
-				})} ${inputTime.getDate()} ${hr}:${min} ${meridian}`
-			} else {
-				displayTime = `${inputTime.getMonth() + 1}/${inputTime.getDate()}/${
-					inputTime.getFullYear() - 2000
-				} ${hr}:${min} ${meridian}`
-			}
-
-			return displayTime
-		},
-		colorHash = (seed: string): string => {
-			let colorCode = 0
-			for (const letter of seed) {
-				if (letter) colorCode += letter.charCodeAt(0) * 2
-			}
-			return 'avatarColor_' + (colorCode % 11).toString()
-		},
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
@@ -89,7 +48,7 @@
 					new Date(msg.posted).getTime() / 1000}
 
 				{#if timeSpread}
-					<div class="timeSpacer">{readableTime(msg.posted)}</div>
+					<div class="timeSpacer">{readableTime(msg.posted, true)}</div>
 				{/if}
 
 				<div
@@ -109,18 +68,22 @@
 								{#if msg.msgType === 'text/plain'}
 									{msg.content}
 								{:else}
-									Invalid message type
+									Unsupported message type
 								{/if}
 							</div>
 							<div class="timestamp">
-								{#if msg.metadata.search(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/) >= 0}
-									<span class="receipt">Read • </span>
+								{#if msg.sender.id !== $userState.user.id}
+									{readableTime(msg.posted, true)}
+								{:else if msg.metadata.search(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/) >= 0}
+									Read •
 									{readableTime(
-										msg.metadata.match(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/)?.[0] ?? ''
+										msg.metadata.match(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/)?.[0] ??
+											msg.posted,
+										true
 									)}
 								{:else}
-									<span class="receipt">Sent • </span>
-									{readableTime(msg.posted)}
+									Sent •
+									{readableTime(msg.posted, true)}
 								{/if}
 							</div>
 						</div>
@@ -318,9 +281,6 @@
 		font-size: 0.75rem;
 		user-select: none;
 		transition: height ease-in-out 50ms;
-	}
-	.incoming .timestamp .receipt {
-		display: none;
 	}
 	.outgoing .timestamp {
 		text-align: end;
