@@ -5,7 +5,8 @@ const router = Router()
 const prisma = new PrismaClient()
 
 router.get('/', async (req: Request, res: Response) => {
-	const my_id: string = '1'
+	const my_id: string = req.body.id
+	console.log(my_id, req.body)
 	let messages = await prisma.msg.findMany({
 		distinct: ['senderId', 'receiverId'],
 		where: {
@@ -143,17 +144,18 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/:id", async (req, res) => {
-	const id: string = req.params.id || '',
-	my_id: string = '1',
-	{ msgType, content, posted, metadata }: 
-	{ msgType: string, content: string, posted: string, metadata: string } = req.body
+	const my_id: string = req.params.id,
+	{ otherUsersId, msgType, content, posted, metadata }: 
+	{ otherUsersId: string, msgType: string, content: string, posted: string, metadata: string } = req.body
+
+	console.log(my_id, otherUsersId)
 
 	const result = await prisma.msg.create({
 		data: {
 			senderId: my_id,
-			receiverId: id,
+			receiverId: otherUsersId,
 			msgType: msgType ?? "text/plain",
-			content,
+			content: content,
 			// posted,
 			metadata: metadata ?? ""
 		}

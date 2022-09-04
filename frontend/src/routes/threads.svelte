@@ -218,12 +218,12 @@
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 125ms;
 	}
 	.thread.unread .timestamp {
-		color: #02d25d;
+		/* color: #02d25d; */
 	}
 	.unreadCount {
 		opacity: 0;
 		float: right;
-		min-width: 12px;
+		/* min-width: 12px; */
 		height: 18px;
 		margin: 6px 0 0;
 		padding: 2px 5px;
@@ -238,8 +238,12 @@
 		user-select: none;
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 150ms;
 	}
-	/* .thread.unread .unreadCount{
+	.thread.unread .unreadCount {
 		opacity: 1;
 		color: #fff;
-	} */
+		height: 3px;
+		width: 3px;
+		margin-top: 8px;
+		padding: 2px 2px;
+	}
 </style>

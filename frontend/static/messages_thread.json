@@ -7,7 +7,7 @@
 		"metadata": "modified,read|1|2022-08-05T09:27:58.973Z",
 		"youSent": false,
 		"otherUser": {
-			"id": 4,
+			"id": "4",
 			"email": "nachibohen@gmail.com",
 			"handle": "DJ Nachman",
 			"first": "Nachman",
@@ -23,7 +23,7 @@
 		"metadata": "read|1|2022-08-05T09:26:48.327Z",
 		"youSent": true,
 		"otherUser": {
-			"id": 5,
+			"id": "5",
 			"email": "pmingber@gmail.com",
 			"handle": "PM Ingber",
 			"first": "PM",
@@ -39,7 +39,7 @@
 		"metadata": "read|1|2022-08-05T09:24:01.714Z",
 		"youSent": false,
 		"otherUser": {
-			"id": 3,
+			"id": "3",
 			"email": "leue54@gmail.com",
 			"handle": "nm_frankel",
 			"first": "Dev",
@@ -48,19 +48,35 @@
 		}
 	},
 	{
-		"id": "5",
+		"id": "6",
 		"msgType": "text/plain",
-		"content": "Here's the link for the new phone that I told you about...",
-		"posted": "2022-08-04T19:53:45.000Z",
-		"metadata": "read|1|2022-08-05T09:27:04.839Z",
+		"content": "This message should not show up",
+		"posted": "2022-08-04T19:53:50.000Z",
+		"metadata": "",
 		"youSent": false,
 		"otherUser": {
-			"id": 7,
+			"id": "7",
 			"email": "aharin26@gmail.com",
 			"handle": "AM Leonard",
 			"first": "Aharon Meir",
 			"last": "Leonard",
 			"phone": "3235615952"
+		}
+	},
+	{
+		"id": "7",
+		"msgType": "text/plain",
+		"content": "This message should also not show up",
+		"posted": "2022-08-04T19:53:50.000Z",
+		"metadata": "",
+		"youSent": false,
+		"otherUser": {
+			"id": "8",
+			"email": "ajlichtschein@gmail.com",
+			"handle": "AJ 23",
+			"first": "AJ",
+			"last": "Lichtshein",
+			"phone": "9179692634"
 		}
 	}
 ]

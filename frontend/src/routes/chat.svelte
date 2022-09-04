@@ -12,15 +12,21 @@
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
 		},
 		sendMsg = () => {
-			sending.push({
-				senderId: $userState.otherUser.id,
-				receiverId: $userState.user.id,
+			const body = {
+				receiverId: $userState.otherUser.id,
 				msgType: 'text/plain',
 				content: messageValue.trim(),
 				posted: new Date().toISOString(),
 				metadata: ''
-			})
+			}
 			messageValue = ''
+
+			// fetch('http://localhost:3000/messages/'+$userState.user.id, {
+			// 	method: 'POST',
+			// 	body: JSON.stringify(body)
+			// }).then(res => console.log(res))
+
+			sending.push(body)
 			console.log(sending)
 		}
 
