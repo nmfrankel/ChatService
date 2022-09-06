@@ -4,10 +4,9 @@ generator client {
 
 datasource db {
 	provider	= "cockroachdb"
-	url			= process.env.DATABASE_URL ?? import.meta.env.DATABASE_URL
+	url			= env(import.meta.env.DATABASE_URL)
 }
-console.log(JSON.stringify(process.env.DATABASE_URL))
-console.log(import.meta.env.DATABASE_URL)
+
 model User {
 	id			String		@id @default(cuid())
 	role		String		@default("USER")

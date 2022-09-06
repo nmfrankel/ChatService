@@ -1,8 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import type { UserConfig } from 'vite'
 
-// console.log(JSON.stringify(process.env.DATABASE_URL))
-
 const config: UserConfig = {
 	plugins: [sveltekit()],
 	define: {
