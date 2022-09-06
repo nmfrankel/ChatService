@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-	provider	= "sqlite"
-	url			= "file: dev.db" // env("DATABASE_URL")
+	provider	= "cockroachdb"
+	url			= env("DATABASE_URL")
 }
 
 model User {

@@ -20,16 +20,16 @@ export const GET: Action = async ({ request, url }) => {
 	const my_id: string = url.searchParams.get('id') ?? '0'
 	let messages = await prisma.msg.findMany({
 		distinct: ['senderId', 'receiverId'],
-		// where: {
-		// 	OR: [
-		// 		{
-		// 			senderId: my_id,
-		// 		},
-		// 		{
-		// 			receiverId: my_id
-		// 		},
-		// 	]
-		// },
+		where: {
+			OR: [
+				{
+					senderId: my_id,
+				},
+				{
+					receiverId: my_id
+				},
+			]
+		},
 		orderBy: {
 			posted: 'desc'
 		},
