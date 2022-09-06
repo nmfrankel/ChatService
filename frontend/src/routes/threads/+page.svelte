@@ -4,7 +4,7 @@
 
 	let data: Thread[] | Promise<Thread[]> = []
 	const loadThreads = () =>
-		(data = fetch('/messages_unique.json').then((res) => res.json()))
+		(data = fetch('/messages_thread.json').then((res) => res.json()))
 
 	$: loadThreads()
 </script>
