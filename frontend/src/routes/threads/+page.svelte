@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { readableTime, colorHash } from '$lib/utils'
-	import { userState } from '../userState'
+	import { userState } from '../../userState'
 
 	let data: Thread[] | Promise<Thread[]> = []
-	const loadThreads = () => (data = fetch('messages_thread.json').then((res) => res.json()))
+	const loadThreads = () =>
+		(data = fetch('/messages_unique.json').then((res) => res.json()))
 
 	$: loadThreads()
 </script>
@@ -237,7 +238,7 @@
 		background-color: #34d058;
 		user-select: none;
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 150ms;
-		
+
 		height: 3px;
 		width: 3px;
 		margin: 12px 0 4px;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { webVitals } from '$lib/vitals'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import { page } from '$app/stores'
 	import Header from '$lib/Header.svelte'
 	import '../app.css'

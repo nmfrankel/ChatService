@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
 	import { readableTime, colorHash } from '$lib/utils'
-	import { userState } from '../userState'
+	import { userState } from '../../userState'
 
 	let data: Promise<Msg[]>,
 		sending: object[] = [],
 		messageValue = ''
-	const loadMsgs = () => (data = fetch('messages_unique.json').then((res) => res.json())),
+	const loadMsgs = () => (data = fetch('/messages_unique.json').then((res) => res.json())),
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')

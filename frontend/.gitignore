@@ -1,0 +1,18 @@
+# Folders
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+*-temp
+migrations
+.env
+.env.*
+!.env.example
+.vercel
+.output
+
+# Files
+*.temp.*
+temp.*
+output.*
