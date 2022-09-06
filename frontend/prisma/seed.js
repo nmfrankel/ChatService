@@ -1,10 +1,10 @@
 import { PrismaClient, Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient(),
-currentTime = new Date().getTime(),
-generateTimestamp = (secondsOffset) => {
-	return new Date(currentTime - (secondsOffset * 1000)).toISOString()
-}
+	currentTime = new Date().getTime(),
+	generateTimestamp = (secondsOffset) => {
+		return new Date(currentTime - secondsOffset * 1000).toISOString()
+	}
 
 // Prisma.UserCreateInput[]
 let pushedUsers = []
@@ -92,17 +92,17 @@ async function main() {
 			sender: {
 				connect: {
 					id: pushedUsers[2].id
-				},
+				}
 			},
 			receiver: {
 				connect: {
 					id: pushedUsers[0].id
-				},
+				}
 			},
 			msgType: 'text/plain',
 			content: "It's PM's bithrday 🙂🎉🎈🥳",
 			posted: generateTimestamp(604700),
-			metadata: 'modified,read|1|'+generateTimestamp(604630)
+			metadata: 'modified,read|1|' + generateTimestamp(604630)
 		},
 		{
 			sender: {
@@ -134,7 +134,7 @@ async function main() {
 			msgType: 'text/plain',
 			content: 'Happy bithrday 🙂🎉🎈🥳',
 			posted: generateTimestamp(604630),
-			metadata: 'read|1|'+generateTimestamp(603630)
+			metadata: 'read|1|' + generateTimestamp(603630)
 		},
 		{
 			sender: {
@@ -166,7 +166,7 @@ async function main() {
 			msgType: 'text/plain',
 			content: 'This is a test on the new type of id through cuid()',
 			posted: generateTimestamp(50630),
-			metadata: 'read|1|'+generateTimestamp(50430)
+			metadata: 'read|1|' + generateTimestamp(50430)
 		},
 		{
 			sender: {
@@ -230,7 +230,7 @@ async function main() {
 			msgType: 'text/plain',
 			content: "Here's the link for the new phone that I told you about...",
 			posted: generateTimestamp(4000),
-			metadata: 'read|1|'+generateTimestamp(3000)
+			metadata: 'read|1|' + generateTimestamp(3000)
 		},
 		{
 			sender: {

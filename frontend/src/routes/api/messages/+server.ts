@@ -23,11 +23,11 @@ export const GET: Action = async ({ request, url }) => {
 		where: {
 			OR: [
 				{
-					senderId: my_id,
+					senderId: my_id
 				},
 				{
 					receiverId: my_id
-				},
+				}
 			]
 		},
 		orderBy: {
