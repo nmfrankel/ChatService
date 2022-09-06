@@ -15,7 +15,7 @@ const prisma = new PrismaClient()
 // };
 
 // export async function GET({ request, url }) {
-/** @type {import('./$types').RequestHandler} */
+// /** @type {import('./$types').RequestHandler} */
 export const GET: Action = async ({ request, url }) => {
 	const my_id: string = url.searchParams.get('id') ?? '0'
 	let messages = await prisma.msg.findMany({
@@ -80,5 +80,5 @@ export const GET: Action = async ({ request, url }) => {
 		return false
 	})
 
-	return new Response(JSON.stringify(messages))
+	return json(messages)
 }

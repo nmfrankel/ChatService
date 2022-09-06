@@ -191,9 +191,9 @@
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 100ms;
 	}
 	.threadDetails {
-		width: 80%;
+		width: 73%;
 	}
-	.thread.unread:not(:focus) .info {
+	.thread.unread:not(:focus):not(:active) .info {
 		font-weight: 700;
 	}
 	.receiver {
@@ -218,9 +218,9 @@
 		color: #959da5;
 		transition: all cubic-bezier(0.6, 0, 0.2, 1) 125ms;
 	}
-	.thread.unread .timestamp {
-		/* color: #02d25d; */
-	}
+	/* .thread.unread:not(:focus):not(:active) .timestamp {
+		color: #02d25d;
+	} */
 	.unreadCount {
 		opacity: 0;
 		float: right;
@@ -244,7 +244,7 @@
 		margin: 12px 0 4px;
 		padding: 2px 2px;
 	}
-	.thread.unread:not(:focus) .unreadCount {
+	.thread.unread:not(:focus):not(:active) .unreadCount {
 		opacity: 1;
 		color: #fff;
 	}
