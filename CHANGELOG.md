@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Sep 6, 2022 Update
+
+### Changes
+-	Upgraded to newest version of svelte w/ changed page routing
+-	Starting to implement backend through Svelte-kit instead of deticated server
+
 ## Sep 4, 2022 Update
 
 ### Releases
