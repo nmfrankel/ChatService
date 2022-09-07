@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Sep 7, 2022 Update
+
+### Added
+-	Started adding login/register page | not operational
+
 ## Sep 6, 2022 Update
 
 ### Changes

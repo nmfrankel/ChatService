@@ -14,15 +14,21 @@
 		<div class="row">
 			<Button
 				icon="back"
-				classes={path !== '/' && path !== '/threads' ? 'minimal' : 'hidden'}
+				classes={path === '/chat' ? 'minimal' : 'hidden'}
 				style="margin-right: .25em;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;"
-				on:click={() => history.back()}
+				on:click={() => (window.location.href = '/threads')}
 			/>
 			<div id="pageTitle">{title}</div>
 		</div>
 		<div class="row">
 			{#if path === '/'}
-				<Button classes="small" text="Login" on:click={() => (window.location.href = 'login')} />
+				<Button
+					classes="link small"
+					text="Login"
+					on:click={() => (window.location.href = 'login')}
+				/>
+			{:else if path === '/login'}
+				&nbsp;
 			{:else}
 				<Button
 					icon="search"

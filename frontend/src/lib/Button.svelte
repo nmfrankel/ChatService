@@ -39,9 +39,28 @@
 		-webkit-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+
+		/* default */
+		background-color: #10b981;
+		color: #fff;
+		fill: #fff;
+		/* box-shadow:
+			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
 	}
 	button:hover {
 		transition: background-color 0.12s ease-out, color 0.12s ease-out;
+
+		/* default */
+		background-color: #059669;
+		color: var(--offWhite);
+		color: #eff2f7;
+	}
+	button:active {
+		/* default */
+		background-color: #059669;
+		color: #fff;
 	}
 	button.small {
 		font-size: 0.875rem;
@@ -50,25 +69,6 @@
 	/* button.bold{
 		font-weight: 700;
 	} */
-
-	button.default {
-		background-color: #0969da;
-		color: #fff;
-		fill: #fff;
-		/* box-shadow:
-			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
-	}
-	button.default:hover {
-		background-color: #1065c5;
-		color: var(--offWhite);
-		color: #eff2f7;
-	}
-	button.default:active {
-		background-color: #0a52a4;
-		color: #fff;
-	}
 
 	button.muted {
 		/* background-color: var(--offWhite); */
@@ -99,6 +99,13 @@
 	}
 	button.minimal:active {
 		background-color: rgba(180, 186, 192, 0.32);
+	}
+
+	button.link {
+		background-color: transparent;
+		color: #000;
+		font: 1rem/1.5 'Rubik', sans-serif;
+		text-decoration: underline;
 	}
 
 	/* button{
