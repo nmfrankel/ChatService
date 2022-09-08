@@ -1,22 +1,45 @@
 # ChatService
 
-A full featured chat app to help connect people with friends
+A full featured chat app to help connect people with friends.
 
-## Benefits
+## How does it work?
 
 DETaILS COMING SOON
 
-## Getting set up
+## Development
 
-As of now if you clone the repo, you are as far as I am 🙂.
+You need [Node.js v16](https://nodejs.org/en/) for the frontend and a hosted database (I personally used [CockroachDB](https://cockroachlabs.com/)).
+
+### Setting up the database
+
+Prisma will do all the heavy lifting, all you need to do is update the [`DATABASE_URL`](https://github.com/nmfrankel/ChatService/blob/main/.env.example) enviornment variable.  
+Note: When the database is created it gets seeded with some demo accounts to play around with.
+
+```
+npx prisma generate
+```
+
+### Running the server
+
+The app is usually served at `http://localhost:5173/` if the port is available.
+
+```
+npm run dev
+```
+
+## Deployment
+
+To deploy on Vercel click on the following button and remember to enter your `DATABASE_URL` variable for your database. If you plan to deploy the app elsewhere, you'll need to update the script names ``"vercel-build"`` and ``"vercel-postbuild"`` inside ``/package.json``.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnmfrankel%2FChatService)
 
 ## Contributing
 
-At the current time there are no tasks available for those who are willing to help. Sorry 😟
+Thank you for offering your services, I currently don't have the time to deligate tasks. Sorry 😟.
 
 ## What I learned from V2
 
-- Developed a REST API with role based access control (RBAC) using **[Express.js](https://expressjs.com/)**.
-- Created tables and interacted with **[Prisma ORM](https://prisma.io/)** to a cloud hosted database.
-- Utilized **[Svelte-kit](https://kit.svelte.dev/)** with and **[TypeScript](https://www.typescriptlang.org/)** for the user interface.
-- Implemented CI/CD practices triggered by each code push to **[Github](https://github.com/)**.
+<!-- - Developed a REST API with role based access control (RBAC). -->
+- Programmatically initialized and interacted with **[cloud hosted database](https://cockroachlabs.com/)**, using **[Prisma ORM](https://prisma.io/)**.
+- Utilized **[Svelte-kit](https://kit.svelte.dev/)** with and **[TypeScript](https://typescriptlang.org/)** for the user interface.
+- Implemented CI/CD practices to auto-deploy on **[Vercel](https://vercel.com/)**, triggered by each code push to **[Github](https://github.com/)**.

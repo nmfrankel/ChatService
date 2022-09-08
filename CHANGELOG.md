@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Updated file system layout, removing files nested within `/frontend` folder
+- Updated fs layout, removed `/frontend` folder
+- Improved/updated details inside the `README.md` file
 
 ## Sep 8, 2022 Update
 
