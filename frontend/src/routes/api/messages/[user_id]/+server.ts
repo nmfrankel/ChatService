@@ -7,10 +7,10 @@ const prisma = new PrismaClient()
 // export async function GET({ request, url }) {
 export const GET: Action = async ({ request, url, params }) => {
 	const body = await request.text() // .json()
-	console.log(
-		'url.searchParams: ' + url.searchParams + ' params: ' + JSON.stringify(params),
-		' body: ' + JSON.stringify(body)
-	)
+	// console.log(
+	// 	'url.searchParams: ' + url.searchParams + ' params: ' + JSON.stringify(params),
+	// 	' body: ' + JSON.stringify(body)
+	// )
 
 	const id: string = params.user_id || '',
 		my_id: string = url.searchParams.get('my_id')
@@ -83,12 +83,28 @@ export const GET: Action = async ({ request, url, params }) => {
 	return json(messages)
 }
 
-export const POST: Action = async ({ request, url }) => {
-	const form = request
-	console.log(form)
-	return json({})
+export const POST: Action = async ({ request, params }) => {
+	const senderId: string = params.user_id,
+		{
+			receiverId,
+			msgType,
+			content,
+			posted,
+			metadata
+		}: { receiverId: string; msgType: string; content: string; posted: string; metadata: string } =
+			await request.json()
 
-	// await api('POST', `todos/${locals.userid}`, {
-	// 	text: form.get('text')
-	// })
+	// console.log(senderId, receiverId)
+
+	const result = await prisma.msg.create({
+		data: {
+			senderId,
+			receiverId,
+			msgType: msgType ?? 'text/plain',
+			content,
+			// posted,
+			metadata: metadata ?? ''
+		}
+	})
+	return json(result)
 }

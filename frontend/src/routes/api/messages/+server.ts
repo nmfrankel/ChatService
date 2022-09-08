@@ -82,13 +82,3 @@ export const GET: Action = async ({ request, url }) => {
 
 	return json(messages)
 }
-
-export const POST: Action = async ({ request, url }) => {
-	const form = await request.json()
-	console.log(form)
-	return json({})
-
-	// await api('POST', `todos/${locals.userid}`, {
-	// 	text: form.get('text')
-	// })
-}

@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 -	Added persistent 'svelte/store' on page reload
 -	Use chat_id in /chat URL and load db data for /chat page
 -	Removed ``/backend`` folder, will be using Svelte-kit +server.ts instead
+-	Got ``env(DATABASE_URL)`` to be read after many hours of googling
+-	Message input on /chat works
 
 ## Sep 7, 2022 Update
 

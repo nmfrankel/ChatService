@@ -8,10 +8,7 @@
 		messageValue = ''
 	const loadMsgs = () =>
 			(data = fetch(
-				'/api/messages/' +
-					$userState.otherUser.id +
-					'?my_id=' +
-					$userState.user.id
+				'/api/messages/' + $userState.otherUser.id + '?my_id=' + $userState.user.id
 			).then((res) => res.json())),
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
@@ -27,10 +24,10 @@
 			}
 			messageValue = ''
 
-			// fetch('http://localhost:3000/messages/'+$userState.user.id, {
-			// 	method: 'POST',
-			// 	body: JSON.stringify(body)
-			// }).then(res => console.log(res))
+			fetch(`/api/messages/${$userState.user.id}`, {
+				method: 'POST',
+				body: JSON.stringify(body)
+			}).then((res) => console.log(res))
 
 			sending.push(body)
 			console.log(sending)
@@ -177,7 +174,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		width: 100%;
-		margin-top: 4px;
+		margin-top: 2px;
 	}
 	.outgoing {
 		align-items: flex-end;
