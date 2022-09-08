@@ -8,7 +8,7 @@
 		messageValue = ''
 	const loadMsgs = () =>
 			(data = fetch(
-				'http://localhost:5173/api/messages/' +
+				'/api/messages/' +
 					$userState.otherUser.id +
 					'?my_id=' +
 					$userState.user.id
