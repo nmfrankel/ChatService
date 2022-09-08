@@ -1,15 +1,18 @@
 # Folders
 .DS_Store
-node_modules
-dist
-build
-.svelte-kit
-package
+/node_modules
+/dist
+/build
+/.svelte-kit
+/package
 *-temp
-migrations
+/prisma/migrations
 
 # Files
 *.temp.*
 temp.*
 output.*
 *.env*
+!.env.example
+.vercel
+.output

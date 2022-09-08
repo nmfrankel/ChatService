@@ -63,7 +63,7 @@ export const GET: Action = async ({ request, url, params }) => {
 	})
 
 	// mark messages as read
-	// if (messages[0] && !messages[0].metadata.match('read')) {
+	// if (messages[0] /* && messages[0].id !== my_id */ && !messages[0].metadata.match('read')) {
 	// 	await prisma.$transaction(
 	// 		messages.map((msg) =>
 	// 			prisma.msg.update({

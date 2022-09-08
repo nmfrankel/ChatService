@@ -31,7 +31,7 @@
 		align-items: flex-start;
 		padding: 2em;
 		min-height: 400px;
-		background: url('/hero.svg') #f1f6f9;
+		background: url('/images/hero.svg') #f1f6f9;
 		background-repeat: no-repeat;
 		background-position: right bottom;
 		overflow: hidden;
