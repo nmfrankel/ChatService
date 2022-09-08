@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Sep 8, 2022 Update
+
+### Added
+-	Added persistent 'svelte/store' on page reload
+
 ## Sep 7, 2022 Update
 
 ### Added

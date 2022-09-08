@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store'
+import storage from '$lib/store'
 
 let user: User = {
 		id: '1',
@@ -17,7 +17,12 @@ let user: User = {
 		handle: 'missing'
 	}
 
-export const userState = writable({
+interface Users {
+	user: User
+	otherUser: User
+}
+
+export const userState = storage<Users>('userData', {
 	user,
 	otherUser
 })
