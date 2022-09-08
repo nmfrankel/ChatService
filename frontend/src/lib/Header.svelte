@@ -5,8 +5,9 @@
 	export let title = 'ChatService',
 		path: string
 
-	$: title =
-		path === '/chat' ? `${$userState.otherUser.first} ${$userState.otherUser.last}` : 'ChatService'
+	$: title = path.startsWith('/chat')
+		? `${$userState.otherUser.first} ${$userState.otherUser.last}`
+		: 'ChatService'
 </script>
 
 <header>
@@ -14,7 +15,7 @@
 		<div class="row">
 			<Button
 				icon="back"
-				classes={path === '/chat' ? 'minimal' : 'hidden'}
+				classes={path.startsWith('/chat') ? 'minimal' : 'hidden'}
 				style="margin-right: .25em;border-radius:50%;padding: 6px;width: 1em;height: 1em;font-size: 2.1em;"
 				on:click={() => (window.location.href = '/threads')}
 			/>

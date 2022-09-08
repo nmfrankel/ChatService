@@ -6,7 +6,13 @@
 	let data: Promise<Msg[]>,
 		sending: object[] = [],
 		messageValue = ''
-	const loadMsgs = () => (data = fetch('/messages_unique.json').then((res) => res.json())),
+	const loadMsgs = () =>
+			(data = fetch(
+				'http://localhost:5173/api/messages/' +
+					$userState.otherUser.id +
+					'?my_id=' +
+					$userState.user.id
+			).then((res) => res.json())),
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
@@ -272,6 +278,7 @@
 	}
 	.outgoing .msg {
 		border-radius: 20px 0px 0px 20px;
+		--outgoingBgColor: #ecfaf5;
 		background-color: var(--outgoingBgColor);
 		color: var(--outgoingColor);
 	}

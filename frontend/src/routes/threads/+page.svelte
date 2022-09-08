@@ -20,7 +20,7 @@
 	{:then threads}
 		{#each threads as thread}
 			<a
-				href="chat"
+				href={'chat/' + thread.otherUser.id}
 				class="thread row"
 				class:unread={!thread.metadata}
 				on:click|once={() => ($userState.otherUser = thread.otherUser)}

@@ -17,7 +17,7 @@ const prisma = new PrismaClient()
 // export async function GET({ request, url }) {
 // /** @type {import('./$types').RequestHandler} */
 export const GET: Action = async ({ request, url }) => {
-	const my_id: string = url.searchParams.get('id') ?? '0'
+	const my_id: string = url.searchParams.get('id') ?? ''
 	let messages = await prisma.msg.findMany({
 		distinct: ['senderId', 'receiverId'],
 		where: {
@@ -81,4 +81,14 @@ export const GET: Action = async ({ request, url }) => {
 	})
 
 	return json(messages)
+}
+
+export const POST: Action = async ({ request, url }) => {
+	const form = await request.json()
+	console.log(form)
+	return json({})
+
+	// await api('POST', `todos/${locals.userid}`, {
+	// 	text: form.get('text')
+	// })
 }
