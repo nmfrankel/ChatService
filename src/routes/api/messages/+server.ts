@@ -1,22 +1,8 @@
 import { json } from '@sveltejs/kit'
-import { PrismaClient } from '@prisma/client'
-import type { Action } from './$types'
+import type { RequestHandler } from './$types'
+import { prisma } from '$lib/db'
 
-const prisma = new PrismaClient()
-
-// /** @type {import('./$types').RequestHandler} */
-// export function GET({ url }) {
-// 	const min = Number(url.searchParams.get('min') ?? '0');
-
-// /** @type {import('./$types').RequestHandler} */
-// export const GET: Action = async ({ locals }) => {
-// 	const response = await api('GET', `todos/${locals.userid}`);
-// 	return await new Response(String(JSON.stringify(response.json())));
-// };
-
-// export async function GET({ request, url }) {
-// /** @type {import('./$types').RequestHandler} */
-export const GET: Action = async ({ request, url }) => {
+export const GET: RequestHandler = async ({ url }) => {
 	const my_id: string = url.searchParams.get('id') ?? ''
 	let messages = await prisma.msg.findMany({
 		distinct: ['senderId', 'receiverId'],

@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 - Updated fs layout, removed `/frontend` folder
 - Improved/updated details inside the `README.md` file
 
+### Changes
+
+- Implemented global PrismaClient utiling a single db connection
+
 ## Sep 8, 2022 Update
 
 ### Added
