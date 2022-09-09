@@ -7,24 +7,20 @@
 		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () =>
-			(data = fetch(
-				'/api/messages/' + $userState.otherUser.id + '?my_id=' + $userState.user.id
-			).then((res) => res.json())),
+			(data = fetch(`/api/messages/${$userState.user.id}/messages/${$userState.otherUser.id}`).then(
+				(res) => res.json()
+			)),
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
 		},
 		sendMsg = () => {
 			const body = {
-				receiverId: $userState.otherUser.id,
-				msgType: 'text/plain',
-				content: messageValue.trim(),
-				posted: new Date().toISOString(),
-				metadata: ''
+				content: messageValue.trim()
 			}
 			messageValue = ''
 
-			fetch(`/api/messages/${$userState.user.id}`, {
+			fetch(`/api/messages/${$userState.user.id}/messages/${$userState.otherUser.id}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
 			}).then((res) => console.log(res))
@@ -265,7 +261,7 @@
 		max-width: 450px;
 		padding: 10px 12px;
 		border-radius: 4px;
-		border-radius: 0px 20px 20px 0px;
+		border-radius: 4px 20px 20px 4px;
 		box-shadow: -1px 2px 10px 2px var(--lightShadow);
 		background-color: var(--incomingBgColor);
 		color: var(--incomingColor);
@@ -281,7 +277,7 @@
 	.outgoing .msg {
 		display: inline-block;
 		align-self: flex-end;
-		border-radius: 20px 0px 0px 20px;
+		border-radius: 20px 4px 4px 20px;
 		--outgoingBgColor: #ecfaf5;
 		background-color: var(--outgoingBgColor);
 		color: var(--outgoingColor);

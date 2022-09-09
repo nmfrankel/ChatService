@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - Implemented global PrismaClient utiling a single db connection
+- Updated `METHOD: /api/[userId]/function/[partnerId]` routing | API docs are coming soon
 
 ## Sep 8, 2022 Update
 
