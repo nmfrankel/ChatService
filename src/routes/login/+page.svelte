@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
-	let showLogin = true
+	
+	let showLogin = true,
+	email = '',
+	emailErr = '',
+	pswd = '',
+	pswdErr = 'There was an issue reading your password, try again later.'
 </script>
 
 <div class="container row">
@@ -18,7 +23,16 @@
 			<h1>Login to continue chatting</h1>
 			<p>Catch up from where you left off.</p>
 
-			<!-- <input type="text"> -->
+			<div class="inputContainer">
+				<label for="email">Email</label>
+				<input id="email" type="text" autocomplete="email" bind:value={email}>
+				<div class="err">{emailErr}&nbsp;</div>
+			</div>
+			<div class="inputContainer">
+				<label for="pswd">Password</label>
+				<input id="pswd" type="text" autocomplete="current-password" bind:value={pswd}>
+				<div class="err">{pswdErr}&nbsp;</div>
+			</div>
 
 			<Button
 				text="Login"
@@ -28,20 +42,44 @@
 			<Button
 				text="Signup"
 				classes="link"
-				style="display:block;margin-top: 1rem;width: 348px;justify-content: center"
+				style="display:block;margin: 1rem 0;width: 348px;justify-content: center"
 				on:click={() => (showLogin = false)}
 			/>
 		{:else}
 			<h1>Start chatting with your friends</h1>
 			<p>Get on the platform that everyone moved to and claim your handle before it gets taken.</p>
 
-			<!-- <input type="text"> -->
+			<!-- <div class="inputContainer">
+				<label for="email">First name</label>
+				<input id="email" type="text" autocomplete="given-name">
+				<div class="err">&nbsp;</div>
+			</div>
+			<div class="inputContainer">
+				<label for="email">Last name</label>
+				<input id="email" type="text" autocomplete="family-name">
+				<div class="err">&nbsp;</div>
+			</div>
+			<div class="inputContainer">
+				<label for="email">Email address</label>
+				<input id="email" type="text" autocomplete="email">
+				<div class="err">&nbsp;</div>
+			</div>
+			<div class="inputContainer">
+				<label for="phone">Phone number</label>
+				<input id="phone" type="text" autocomplete="phone">
+				<div class="err">&nbsp;</div>
+			</div>
+			<div class="inputContainer">
+				<label for="pswd">Choose a password</label>
+				<input id="pswd" type="password" autocomplete="new-password">
+				<div class="err">&nbsp;</div>
+			</div> -->
 
 			<Button text="Signup" style="width: 348px;justify-content: center" />
 			<Button
 				text="Login"
 				classes="link"
-				style="display:block;margin-top: 1rem;width: 348px;justify-content: center"
+				style="display:block;margin: 1rem 0;width: 348px;justify-content: center"
 				on:click={() => (showLogin = true)}
 			/>
 		{/if}
@@ -73,6 +111,43 @@
 	.form > * {
 		width: 348px;
 	}
+	h1 {
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		margin: 0 0 0.5rem;
+	}
+	p {
+		margin-bottom: 3rem;
+		color: #9ca3af;
+		color: #50545a;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+	}
+	.inputContainer {
+		margin-bottom: 1rem;
+		color: #50545a;
+		/* background-color: #9ca3af; */
+	}
+	.inputContainer:last-of-type {
+		margin-bottom: 3rem;
+	}
+	.inputContainer label {
+		display: block;
+		margin-bottom: .5rem;
+	}
+	.inputContainer input {
+		height: 2rem;
+		width: 100%;
+		margin-bottom: .5rem;
+		padding: 0 .5rem;
+		box-sizing: border-box;
+		border: 1px solid #50545a;
+		border-radius: 4px;
+	}
+	.inputContainer .err {
+		font-size: .875rem;
+		color: #e53e3e;
+	}
 	.support {
 		min-height: 100%;
 		width: 40%;
@@ -93,18 +168,6 @@
 		overflow-x: hidden;
 		white-space: nowrap;
 		white-space: pre;
-	}
-	h1 {
-		font-size: 1.875rem;
-		line-height: 2.25rem;
-		margin: 0 0 0.5rem;
-	}
-	p {
-		margin-bottom: 3rem;
-		color: #9ca3af;
-		color: #50545a;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
 	}
 	.title {
 		font-size: 0.75rem;
