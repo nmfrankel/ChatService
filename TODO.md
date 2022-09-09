@@ -1,4 +1,4 @@
-Updated: 09/08/22
+Updated: 09/09/22
 
 Here you will be able to find the project plan. The timeline is based on commits/features pushed.
 
@@ -7,11 +7,14 @@ Here you will be able to find the project plan. The timeline is based on commits
 - Build login/register features
 - Add SSR for /threads and /chat
 - Only check whether other user's message was unread, not including yours [/threads]
+- Update readableTime() where it's used every minute
 
 ## Eventual
 
-- Coming soon
-- Coming soon
+- Add a dark mode
+- Design a homepage
+- Create a PWA from the site (service workers and notifications)
+- Use JWT for auth
 
 ## IDEAS
 

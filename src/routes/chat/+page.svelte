@@ -74,7 +74,7 @@
 						<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
 							{msg.sender.first[0] || '_'}
 						</div>
-						<div>
+						<div class="column">
 							<div class="msg" on:click={() => false}>
 								{#if msg.msgType === 'text/plain'}
 									{msg.content}
@@ -256,6 +256,11 @@
 		color: #5f6368;
 		fill: #5f6368;
 	}
+	.outgoing .column {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
 	.msg {
 		max-width: 450px;
 		padding: 10px 12px;
@@ -274,6 +279,8 @@
 		border-bottom-left-radius: 20px;
 	}
 	.outgoing .msg {
+		display: inline-block;
+		align-self: flex-end;
 		border-radius: 20px 0px 0px 20px;
 		--outgoingBgColor: #ecfaf5;
 		background-color: var(--outgoingBgColor);

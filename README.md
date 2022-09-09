@@ -15,7 +15,7 @@ You need [Node.js v16](https://nodejs.org/en/) for the frontend and a hosted dat
 Prisma will do all the heavy lifting, all you need to do is update the [`DATABASE_URL`](https://github.com/nmfrankel/ChatService/blob/main/.env.example) enviornment variable.  
 Note: When the database is created it gets seeded with some demo accounts to play around with.
 
-```
+```bash
 npx prisma generate
 ```
 
@@ -23,7 +23,7 @@ npx prisma generate
 
 The app is usually served at `http://localhost:5173/` if the port is available.
 
-```
+```bash
 npm run dev
 ```
 
@@ -35,11 +35,12 @@ To deploy on Vercel click on the following button and remember to enter your `DA
 
 ## Contributing
 
-Thank you for offering your services, I currently don't have the time to deligate tasks. Sorry 😟.
+Thank you for offering your services, I currently don't have the time to deligate tasks.  
+Sorry 😟
 
 ## What I learned from V2
 
 <!-- - Developed a REST API with role based access control (RBAC). -->
-- Programmatically initialized and interacted with **[cloud hosted database](https://cockroachlabs.com/)**, using **[Prisma ORM](https://prisma.io/)**.
-- Utilized **[Svelte-kit](https://kit.svelte.dev/)** with and **[TypeScript](https://typescriptlang.org/)** for the user interface.
+- Programmatically initialized and interacted with a **[cloud hosted database](https://cockroachlabs.com/)** using **[Prisma ORM](https://prisma.io/)**.
+- Utilized **[Svelte-kit](https://kit.svelte.dev/)** and **[TypeScript](https://typescriptlang.org/)** for the user interface.
 - Implemented CI/CD practices to auto-deploy on **[Vercel](https://vercel.com/)**, triggered by each code push to **[Github](https://github.com/)**.
