@@ -7,7 +7,7 @@
 		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () =>
-			(data = fetch(`/api/messages/${$userState.user.id}/messages/${$userState.otherUser.id}`).then(
+			(data = fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`).then(
 				(res) => res.json()
 			)),
 		toggleTime = (id: string) => {
@@ -20,7 +20,7 @@
 			}
 			messageValue = ''
 
-			fetch(`/api/messages/${$userState.user.id}/messages/${$userState.otherUser.id}`, {
+			fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
 			}).then((res) => console.log(res))
