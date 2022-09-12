@@ -30,8 +30,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		// 		select:{ id: my_id }
 		// 	}
 		// },
-		select: {
-			id: true,
+		include: {
 			sender: {
 				select: {
 					id: true,
@@ -51,29 +50,31 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 					last: true,
 					phone: true
 				}
-			},
-			msgType: true,
-			content: true,
-			posted: true,
-			metadata: true
+			}
 		}
 	})
 
 	let distinct: string[] = []
-	messages = messages.filter((msg: any) => {
-		msg.youSent = msg.sender.id === userId
-		msg.otherUser = msg.youSent ? msg.receiver : msg.sender
-		delete msg.sender
-		delete msg.receiver
+	const modifiedMessages = messages
+		.map((thread) => {
+			const outgoing = thread.sender.id === userId,
+				otherUser = outgoing ? thread.receiver : thread.sender
 
-		// escape if already in new messages list
-		if (distinct.indexOf(msg.otherUser.id) >= 0) return false
+			if (distinct.indexOf(otherUser.id) >= 0) return
+			distinct.push(otherUser.id)
 
-		distinct.push(msg.otherUser.id)
-		return true
-	})
+			return {
+				...thread,
+				isRead: false,
+				outgoing,
+				otherUser,
+				sender: undefined,
+				receiver: undefined
+			}
+		})
+		.filter((thread) => thread != null)
 
-	return json(messages)
+	return json(modifiedMessages)
 }
 
 // PATCH:  Gives the option to archive a thread

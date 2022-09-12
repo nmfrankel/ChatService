@@ -27,7 +27,9 @@
 			>
 				<div class="imgContainer">
 					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
-					<div class={colorHash(thread.otherUser.first[0] ?? '_')}>{thread.otherUser.first[0]}</div>
+					<div class={colorHash(thread.otherUser.first[0] ?? '_')}>
+						{thread.otherUser.first[0]}
+					</div>
 				</div>
 				<div class="info row">
 					<div class="threadDetails">
@@ -36,9 +38,9 @@
 						</div>
 						<div class="content">
 							{#if thread.msgType === 'text/plain'}
-								{thread.youSent ? 'You: ' : ''}{thread.content}
+								{thread.outgoing ? 'You: ' : ''}{thread.content}
 							{:else}
-								{thread.youSent ? 'You: ' : ''}sent a {thread.msgType}
+								{thread.outgoing ? 'You: ' : ''}sent a {thread.msgType}
 							{/if}
 						</div>
 					</div>

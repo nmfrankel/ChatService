@@ -5,5 +5,6 @@ interface Thread {
 	content: string
 	posted: string
 	metadata: string
-	youSent: boolean
+	outgoing: boolean
+	isRead: boolean
 }
