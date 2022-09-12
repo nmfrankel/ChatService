@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 12, 2022 Update
+
+### Added
+
+- Cleaned up data modifier function which guarantees unique value, adding TS support on output
+- Added value `isRead` to threads data
+
 ## Sep 9, 2022 Update
 
 ### Added

@@ -54,25 +54,42 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		}
 	})
 
-	let distinct: string[] = []
-	const modifiedMessages = messages
-		.map((thread) => {
-			const outgoing = thread.sender.id === userId,
-				otherUser = outgoing ? thread.receiver : thread.sender
+	let distinct: (string | boolean)[] = []
+	const modifiedMessages = await Promise.all(
+		messages
+			.map(async (thread) => {
+				const outgoing = thread.sender.id === userId,
+					otherUser = outgoing ? thread.receiver : thread.sender
 
-			if (distinct.indexOf(otherUser.id) >= 0) return
-			distinct.push(otherUser.id)
+				// keep track if otherUser is unique
+				if (distinct.indexOf(otherUser.id) >= 0) return distinct.push(false)
+				distinct.push(otherUser.id)
 
-			return {
-				...thread,
-				isRead: false,
-				outgoing,
-				otherUser,
-				sender: undefined,
-				receiver: undefined
-			}
-		})
-		.filter((thread) => thread != null)
+				// run query to check whether thread is unread
+				const isRead = await prisma.msg.findFirst({
+					where: {
+						senderId: otherUser.id,
+						receiverId: userId
+					},
+					orderBy: {
+						posted: 'desc'
+					},
+					select: {
+						metadata: true
+					}
+				})
+
+				return {
+					...thread,
+					isRead: isRead ? isRead.metadata.search(userId) >= 0 : false,
+					outgoing,
+					otherUser,
+					sender: undefined,
+					receiver: undefined
+				}
+			})
+			.filter((undefined, i) => distinct[i] !== false)
+	)
 
 	return json(modifiedMessages)
 }

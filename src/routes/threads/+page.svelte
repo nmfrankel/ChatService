@@ -22,7 +22,7 @@
 			<a
 				href={'chat/' + thread.otherUser.id}
 				class="thread row"
-				class:unread={!thread.metadata}
+				class:unread={!thread.isRead}
 				on:click|once={() => ($userState.otherUser = thread.otherUser)}
 			>
 				<div class="imgContainer">
