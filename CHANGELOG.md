@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Cleaned up data modifier function which guarantees unique value, adding TS support on output
 - Added value `isRead` to threads data
+- Scroll to bottom of chat | Not perfect
 
 ## Sep 9, 2022 Update
 

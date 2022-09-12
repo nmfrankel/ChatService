@@ -4,11 +4,12 @@
 	import { userState } from '../../userState'
 
 	let data: Promise<Msg[]>,
+		msgContainer: HTMLDivElement,
 		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () =>
-			(data = fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`).then(
-				(res) => res.json()
+			(data = fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`).then((res) =>
+				res.json()
 			)),
 		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
@@ -29,6 +30,10 @@
 			console.log(sending)
 		}
 
+	$: if (msgContainer)
+		setTimeout(() => {
+			msgContainer.scrollTop = msgContainer.scrollHeight
+		}, 25)
 	$: loadMsgs()
 </script>
 
@@ -41,7 +46,11 @@
 
 <!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
 
-<div class="container" on:contextmenu|preventDefault={() => loadMsgs()}>
+<div
+	class="container test"
+	bind:this={msgContainer}
+	on:contextmenu|preventDefault={() => loadMsgs()}
+>
 	{#await data}
 		<div class="trueCenter">Loading...</div>
 	{:then msgs}
@@ -258,6 +267,7 @@
 		justify-content: flex-end;
 	}
 	.msg {
+		display: inline-block;
 		max-width: 450px;
 		padding: 10px 12px;
 		border-radius: 4px;
