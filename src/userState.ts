@@ -1,4 +1,4 @@
-import storage from '$lib/store'
+import storage from '$lib/utils/store'
 
 let user: User = {
 		id: '1',

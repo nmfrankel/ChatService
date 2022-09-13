@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
-	import { readableTime, colorHash } from '$lib/utils'
+	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import { userState } from '../../userState'
 
 	let data: Promise<Msg[]>,

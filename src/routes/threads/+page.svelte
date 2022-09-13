@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { readableTime, colorHash } from '$lib/utils'
+	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import { userState } from '../../userState'
 
 	let data: Thread[] | Promise<Thread[]> = []

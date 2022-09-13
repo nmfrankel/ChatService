@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { prisma } from '$lib/db'
+import { prisma } from '$lib/utils/db'
 
 // GET:    loads distinct messages (threads) between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
@@ -25,11 +25,6 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		orderBy: {
 			posted: 'desc'
 		},
-		// include:{
-		// 	_count: {
-		// 		select:{ id: my_id }
-		// 	}
-		// },
 		include: {
 			sender: {
 				select: {

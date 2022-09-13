@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { webVitals } from '$lib/vitals'
+	import { webVitals } from '$lib/utils/vitals'
 	import { browser } from '$app/environment'
 	import { page } from '$app/stores'
 	import Header from '$lib/Header.svelte'

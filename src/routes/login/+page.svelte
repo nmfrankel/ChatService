@@ -1,12 +1,17 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
-	
+
 	let showLogin = true,
-	email = '',
-	emailErr = '',
-	pswd = '',
-	pswdErr = 'There was an issue reading your password, try again later.'
+		email = '',
+		emailErr = '',
+		pswd = '',
+		pswdErr = 'There was an issue reading your password, try again later.'
 </script>
+
+<svelte:head>
+	<title>Login | ChatService</title>
+	<meta name="description" content="Join your friends and catch up with people you know." />
+</svelte:head>
 
 <div class="container row">
 	<div class="support" class:hide={showLogin}>
@@ -25,12 +30,12 @@
 
 			<div class="inputContainer">
 				<label for="email">Email</label>
-				<input id="email" type="text" autocomplete="email" bind:value={email}>
+				<input id="email" type="text" autocomplete="email" bind:value={email} />
 				<div class="err">{emailErr}&nbsp;</div>
 			</div>
 			<div class="inputContainer">
 				<label for="pswd">Password</label>
-				<input id="pswd" type="text" autocomplete="current-password" bind:value={pswd}>
+				<input id="pswd" type="text" autocomplete="current-password" bind:value={pswd} />
 				<div class="err">{pswdErr}&nbsp;</div>
 			</div>
 
@@ -133,19 +138,19 @@
 	}
 	.inputContainer label {
 		display: block;
-		margin-bottom: .5rem;
+		margin-bottom: 0.5rem;
 	}
 	.inputContainer input {
 		height: 2rem;
 		width: 100%;
-		margin-bottom: .5rem;
-		padding: 0 .5rem;
+		margin-bottom: 0.5rem;
+		padding: 0 0.5rem;
 		box-sizing: border-box;
 		border: 1px solid #50545a;
 		border-radius: 4px;
 	}
 	.inputContainer .err {
-		font-size: .875rem;
+		font-size: 0.875rem;
 		color: #e53e3e;
 	}
 	.support {
