@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { prisma } from '$lib/db'
+import prisma from '$lib/utils/db'
 
 // GET:    loads messages between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
@@ -89,7 +89,7 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 		partnerId = params.partnerId,
 		{ msgType, content, posted, metadata } = await request.json()
 
-	if (!content) throw error(400, '')
+	if (!content) throw error(400, 'You cannot send an empty message.')
 
 	const result = await prisma.msg.create({
 		data: {

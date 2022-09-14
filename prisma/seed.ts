@@ -1,34 +1,36 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
+import prisma from '$lib/utils/db'
+import { hash } from '$lib/utils/encryption'
 
-const prisma = new PrismaClient(),
-	currentTime = new Date().getTime(),
-	generateTimestamp = (secondsOffset) => {
+const currentTime = new Date().getTime(),
+	generateTimestamp = (secondsOffset: number) => {
 		return new Date(currentTime - secondsOffset * 1000).toISOString()
 	}
 
-// Prisma.UserCreateInput[]
-let pushedUsers = []
+let pushedUsers: Prisma.UserCreateInput[] = []
 const userData = [
 	{
 		id: '1',
 		role: 'USER',
 		email: 'nosson_frankel@gmail.com',
-		pswd: 'Testing123!',
+		pswd: hash('Testing123!'),
 		handle: 'nmfrankel',
 		first: 'Nosson',
 		last: 'Frankel',
 		phone: '0534733971'
 	},
 	{
+		id: undefined,
 		role: 'USER',
 		email: 'leue__@gmail.com',
-		pswd: 'S3curE!10',
+		pswd: hash('S3curE!10'),
 		handle: 'nm_frankel',
 		first: 'Dev',
 		last: 'Frankel',
 		phone: '534733971'
 	},
 	{
+		id: undefined,
 		role: 'USER',
 		email: 'nachibohen@gmail.com',
 		pswd: 'must_reset',
@@ -38,6 +40,7 @@ const userData = [
 		phone: '7189304820'
 	},
 	{
+		id: undefined,
 		role: 'USER',
 		email: 'pmingber@gmail.com',
 		pswd: 'must_reset',
@@ -47,6 +50,7 @@ const userData = [
 		phone: '0533180351'
 	},
 	{
+		id: undefined,
 		role: 'USER',
 		email: 'another_person@gmail.com',
 		pswd: 'must_reset',
@@ -56,6 +60,7 @@ const userData = [
 		phone: '7182534630'
 	},
 	{
+		id: undefined,
 		role: 'ADMIN',
 		email: 'aharin26@gmail.com',
 		pswd: 'must_reset',
@@ -65,6 +70,7 @@ const userData = [
 		phone: '3235615952'
 	},
 	{
+		id: undefined,
 		role: 'USER',
 		email: 'ajlichtschein@gmail.com',
 		pswd: 'must_reset',
@@ -79,15 +85,14 @@ async function main() {
 	console.log(`Start seeding ...`)
 	// Seed User table
 	for (const u of userData) {
-		const user = await prisma.user.create({
+		const user: Prisma.UserCreateInput = await prisma.user.create({
 			data: u
 		})
 		pushedUsers.push(user)
 		console.log(`Created user with id: ${user.id}`)
 	}
 
-	// Prisma.MsgCreateInput[]
-	const msgData = [
+	const msgData: Prisma.MsgCreateInput[] = [
 		{
 			sender: {
 				connect: {
