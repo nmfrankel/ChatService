@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client'
-import prisma from '$lib/utils/db'
+import { prisma } from '$lib/utils/db'
 import { hash } from '$lib/utils/encryption'
 
 const currentTime = new Date().getTime(),

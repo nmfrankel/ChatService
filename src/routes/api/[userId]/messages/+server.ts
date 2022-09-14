@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import prisma from '$lib/utils/db'
+import { prisma } from '$lib/utils/db'
 
 // GET:    loads distinct messages (threads) between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
