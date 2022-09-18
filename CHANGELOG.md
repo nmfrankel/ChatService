@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 18, 2022 Update
+
+### Added
+
+- Added pusher to for WebSockets implementation [dev]
+
 ## Sep 12, 2022 Update
 
 ### Added
