@@ -9,12 +9,12 @@
 		var pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
 			cluster: 'eu',
 			// userAuthentication: {
-			// 	endpoint: "/api/pusher/auth_channel",
-			// 	transport: "ajax",
+				// endpoint: "/api/pusher/auth_channel",
+				// transport: "ajax",
 			// },
-			channelAuthentication: {
-				endpoint: "/api/pusher/auth_channel",
-				transport: "ajax",
+			channelAuthorization: {
+				endpoint: '/api/pusher/auth_channel',
+				transport: 'ajax'
 			}
 		})
 
@@ -26,11 +26,9 @@
 		// });
 		// var channel = pusher.subscribe('my-channel')
 		var channel = pusher.subscribe('private-chat-userId')
-		channel.bind('message', data => {
+		channel.bind('message', (data) => {
 			alert(JSON.stringify(data))
 			console.log(JSON.stringify(data))
 		})
-	})
-</script>})
 	})
 </script>
