@@ -30,7 +30,7 @@ export const readableTime = (timestamp: string, detailed = false): string => {
 		}`
 	}
 
-	if (detailed) displayTime += ` ${hr}:${min} ${meridian}`
+	if (detailed) displayTime += `, ${hr}:${min} ${meridian}`
 
 	return displayTime
 }

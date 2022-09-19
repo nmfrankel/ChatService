@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 19, 2022 Update
+
+### Added
+
+- Added pusher across the app to confirm viability
+
 ## Sep 18, 2022 Update
 
 ### Added

@@ -1,6 +1,7 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { prisma } from '$lib/utils/db'
+import { pusher } from '$lib/utils/pusher'
 
 // GET:    loads messages between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
@@ -101,6 +102,14 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 		},
 		select: {
 			id: true,
+			sender: {
+				select: {
+					id: true,
+					handle: true,
+					first: true,
+					last: true
+				}
+			},
 			receiver: {
 				select: {
 					id: true,
@@ -115,6 +124,13 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 			metadata: true
 		}
 	})
+
+	// broadcast new message to partnerId
+	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
+	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
+	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
+	pusher.trigger(`private-chat-${partnerId}`, 'msg', result)
+
 	return json(result)
 }
 
