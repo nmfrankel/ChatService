@@ -57,7 +57,7 @@
 
 		pusher.signin()
 
-		let channel = pusher.subscribe(`private-chat-${handle}`)
+		let channel = pusher.subscribe(`private-chat-${$userState.user.id}`)
 		channel.bind('msg', (msg: Msg) => {
 			msgs = [...msgs, msg]
 			// console.log(msg, msgs)
