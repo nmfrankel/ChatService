@@ -129,7 +129,7 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
-	pusher.trigger(`private-chat-${partnerId}`, 'msg', result)
+	await pusher.trigger(`private-chat-${partnerId}`, 'msg', result)
 
 	return json(result)
 }
