@@ -1,40 +1,76 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte'
+	import { onMount } from 'svelte'
+	import type { PageData } from './$types'
+	import { page } from '$app/stores'
+	import { userState } from '../../../../userState'
 	import { readableTime, colorHash } from '$lib/utils/formatting'
-	import { userState } from '../../userState'
+	import Button from '$lib/Button.svelte'
+	import Pusher from 'pusher-js'
 
-	let data: Promise<Msg[]>,
+	export let data: PageData | Msg
+
+	let handle = $page.params.handle,
+		loading = true,
+		msgs: Msg[] = [],
 		msgContainer: HTMLDivElement,
-		sending: object[] = [],
 		messageValue = ''
-	const loadMsgs = () =>
-			(data = fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`).then((res) =>
-				res.json()
-			)),
-		toggleTime = (id: string) => {
+
+	// on initial page load remove loading message
+	$: if (!msgs.length) {
+		msgs = [...msgs, ...Object.values(data)]
+		loading = false
+	}
+
+	// scroll to bottom msg (newest)
+	$: if (!msgs.length)
+		setTimeout(() => {
+			msgContainer.scrollTop = msgContainer.scrollHeight
+		}, 25)
+
+	const toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
 		},
-		sendMsg = () => {
+		sendMsg = async () => {
 			const body = {
 				content: messageValue.trim()
 			}
 			messageValue = ''
 
-			fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`, {
+			const newMsg: Msg = await fetch(`/api/${$userState.user.id}/messages/${handle}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
-			}).then((res) => console.log(res))
+			}).then((res) => res.json())
 
-			sending.push(body)
-			console.log(sending)
+			// show message while sending with sending timestamp
+			msgs = [...msgs, newMsg]
 		}
 
-	$: if (msgContainer)
-		setTimeout(() => {
-			msgContainer.scrollTop = msgContainer.scrollHeight
-		}, 25)
-	$: loadMsgs()
+	onMount(() => {
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true
+
+		let pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
+			cluster: 'eu',
+			// userAuthentication: {
+			// endpoint: "/api/pusher/auth_user",
+			// transport: "ajax",
+			// },
+			channelAuthorization: {
+				endpoint: '/api/pusher/auth_channel',
+				transport: 'ajax'
+			}
+		})
+
+		pusher.signin()
+
+		let channel = pusher.subscribe(`private-chat-${$userState.user.id}`)
+		channel.bind('msg', (msg: Msg) => {
+			msgs = [...msgs, msg]
+			// console.log(msg, msgs)
+		})
+		// console.log(channel.members)
+	})
 </script>
 
 <svelte:head>
@@ -44,18 +80,12 @@
 		  content="default-src 'self'; img-src https://*; child-src 'none';"> -->
 </svelte:head>
 
-<!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
-
-<div
-	class="container test"
-	bind:this={msgContainer}
-	on:contextmenu|preventDefault={() => loadMsgs()}
->
-	{#await data}
+<div class="container" bind:this={msgContainer}>
+	{#if loading}
 		<div class="trueCenter">Loading...</div>
-	{:then msgs}
+	{:else}
 		<div class="scrollContainer">
-			{#each msgs.reverse() as msg, id}
+			{#each msgs as msg, id}
 				{@const timeSpread =
 					new Date(msgs[id - 1]?.posted ?? 0).getTime() / 1000 <
 					new Date(msg.posted).getTime() / 1000 - 3600}
@@ -111,9 +141,7 @@
 				<div class="trueCenter">No messages found</div>
 			{/each}
 		</div>
-	{:catch err}
-		<div class="trueCenter">An error occured <br /> {err}</div>
-	{/await}
+	{/if}
 </div>
 
 <div id="inputOptions">

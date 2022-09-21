@@ -1,68 +1,40 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import type { PageData } from './$types'
-	import { page } from '$app/stores'
-	import { userState } from '../../../userState'
-	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import Button from '$lib/Button.svelte'
-	import Pusher from 'pusher-js'
+	import { readableTime, colorHash } from '$lib/utils/formatting'
+	import { userState } from '../../../userState'
 
-	export let data: PageData | Msg
-
-	let handle = $page.params.handle,
-		loading = true,
-		msgs: Msg[] = [],
+	let data: Promise<Msg[]>,
 		msgContainer: HTMLDivElement,
+		sending: object[] = [],
 		messageValue = ''
-
-	$: if (!msgs.length) {
-		msgs = [...msgs, ...Object.values(data)]
-		loading = false
-	}
-
-	const toggleTime = (id: string) => {
+	const loadMsgs = () =>
+			(data = fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`).then((res) =>
+				res.json()
+			)),
+		toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
 			classList?.contains('showTime') ? classList?.remove('showTime') : classList?.add('showTime')
 		},
-		sendMsg = async () => {
+		sendMsg = () => {
 			const body = {
 				content: messageValue.trim()
 			}
 			messageValue = ''
 
-			const newMsg: Msg = await fetch(`/api/${$userState.user.id}/messages/${handle}`, {
+			fetch(`/api/${$userState.user.id}/messages/${$userState.otherUser.id}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
-			}).then((res) => res.json())
+			}).then((res) => console.log(res))
 
-			// show message while sending with sending timestamp
-			msgs = [...msgs, newMsg]
+			sending.push(body)
+			console.log(sending)
 		}
 
-	onMount(() => {
-		// Enable pusher logging - don't include this in production
-		Pusher.logToConsole = true
-
-		let pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
-			cluster: 'eu',
-			// userAuthentication: {
-			// endpoint: "/api/pusher/auth_user",
-			// transport: "ajax",
-			// },
-			channelAuthorization: {
-				endpoint: '/api/pusher/auth_channel',
-				transport: 'ajax'
-			}
-		})
-
-		pusher.signin()
-
-		let channel = pusher.subscribe(`private-chat-${$userState.user.id}`)
-		channel.bind('msg', (msg: Msg) => {
-			msgs = [...msgs, msg]
-			// console.log(msg, msgs)
-		})
-	})
+	$: if (msgContainer)
+		setTimeout(() => {
+			msgContainer.scrollTop = msgContainer.scrollHeight
+		}, 25)
+	$: loadMsgs()
 </script>
 
 <svelte:head>
@@ -72,12 +44,18 @@
 		  content="default-src 'self'; img-src https://*; child-src 'none';"> -->
 </svelte:head>
 
-<div class="container" bind:this={msgContainer}>
-	{#if loading}
+<!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
+
+<div
+	class="container test"
+	bind:this={msgContainer}
+	on:contextmenu|preventDefault={() => loadMsgs()}
+>
+	{#await data}
 		<div class="trueCenter">Loading...</div>
-	{:else}
+	{:then msgs}
 		<div class="scrollContainer">
-			{#each msgs as msg, id}
+			{#each msgs.reverse() as msg, id}
 				{@const timeSpread =
 					new Date(msgs[id - 1]?.posted ?? 0).getTime() / 1000 <
 					new Date(msg.posted).getTime() / 1000 - 3600}
@@ -133,7 +111,9 @@
 				<div class="trueCenter">No messages found</div>
 			{/each}
 		</div>
-	{/if}
+	{:catch err}
+		<div class="trueCenter">An error occured <br /> {err}</div>
+	{/await}
 </div>
 
 <div id="inputOptions">

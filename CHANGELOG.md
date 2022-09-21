@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 21, 2022 Update
+
+### Added
+
+- Grouped client routes without affecting URL route
+
 ## Sep 19, 2022 Update
 
 ### Added
