@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 23, 2022 Update
+
+### Added
+
+- Login route working [preview]
+
 ## Sep 22, 2022 Update
 
 ### Added
