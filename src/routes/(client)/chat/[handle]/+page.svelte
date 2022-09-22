@@ -3,6 +3,7 @@
 	import type { PageData } from './$types'
 	import { page } from '$app/stores'
 	import { userState } from '../../../../userState'
+	import { userToken } from '../../../../userToken'
 	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import Button from '$lib/Button.svelte'
 	import Pusher from 'pusher-js'
@@ -25,7 +26,7 @@
 	$: if (!msgs.length)
 		setTimeout(() => {
 			msgContainer.scrollTop = msgContainer.scrollHeight
-		}, 25)
+		}, 50)
 
 	const toggleTime = (id: string) => {
 			const classList = document.querySelector('#' + id)?.classList
@@ -37,7 +38,7 @@
 			}
 			messageValue = ''
 
-			const newMsg: Msg = await fetch(`/api/${$userState.user.id}/messages/${handle}`, {
+			const newMsg: Msg = await fetch(`/api/${$userToken.sub}/messages/${handle}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
 			}).then((res) => res.json())
@@ -64,7 +65,7 @@
 
 		pusher.signin()
 
-		let channel = pusher.subscribe(`private-chat-${$userState.user.id}`)
+		let channel = pusher.subscribe(`private-chat-${$userToken.sub}`)
 		channel.bind('msg', (msg: Msg) => {
 			msgs = [...msgs, msg]
 			// console.log(msg, msgs)
@@ -99,7 +100,7 @@
 
 				<div
 					id={msg.id}
-					class="{msg.sender.id === $userState.user.id ? 'outgoing' : 'incoming'} row"
+					class="{msg.sender.id === $userToken.sub ? 'outgoing' : 'incoming'} row"
 					class:first={msgs[id - 1]?.sender.id !== msg.sender.id || timeSpread}
 					class:last={msgs[id + 1]?.sender.id !== msg.sender.id || nextTimeSpread}
 					class:showTime={msgs.length === id + 1}
@@ -118,7 +119,7 @@
 								{/if}
 							</div>
 							<div class="timestamp">
-								{#if msg.sender.id !== $userState.user.id}
+								{#if msg.sender.id !== $userToken.sub}
 									{readableTime(msg.posted, true)}
 								{:else if msg.metadata.search(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/) >= 0}
 									Read •

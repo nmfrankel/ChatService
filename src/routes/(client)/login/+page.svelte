@@ -1,11 +1,33 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
+	import { userToken } from '../../../userToken'
 
 	let showLogin = true,
 		email = '',
 		emailErr = '',
 		pswd = '',
 		pswdErr = 'There was an issue reading your password, try again later.'
+
+	const login = async () => {
+		let attemptLogin = await fetch('/api/auth/login', {
+			method: 'POST',
+			body: JSON.stringify({
+				email,
+				pswd: 'Testing123!'
+			})
+		})
+
+		if (attemptLogin.status !== 200) return
+
+		let res = await attemptLogin.clone().json()
+		if (res.sub) {
+			$userToken = await attemptLogin.json()
+			console.log('Logged in: ' + $userToken.sub)
+			window.location.href = '/threads'
+		} else {
+			console.log(res)
+		}
+	}
 </script>
 
 <svelte:head>
@@ -39,11 +61,7 @@
 				<div class="err">{pswdErr}&nbsp;</div>
 			</div>
 
-			<Button
-				text="Login"
-				style="width: 348px;justify-content: center"
-				on:click={() => (window.location.href = '/threads')}
-			/>
+			<Button text="Login" style="width: 348px;justify-content: center" on:click={login} />
 			<Button
 				text="Signup"
 				classes="link"

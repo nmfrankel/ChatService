@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import { userState } from '../../../userState'
+	import { userToken } from '../../../userToken'
 
 	let data: Thread[] | Promise<Thread[]> = []
 	const loadThreads = () =>
-		(data = fetch(`/api/${$userState.user.id}/messages`).then((res) => res.json()))
-
+		(data = fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
+	console.log($userToken, $userToken.sub)
 	$: loadThreads()
 </script>
 
@@ -54,7 +55,7 @@
 			<div class="trueCenter">No threads, start chatting</div>
 		{/each}
 	{:catch err}
-		<div class="trueCenter">An error occured <br /> {err}</div>
+		<div class="trueCenter">An error occured <br /> try reloading the page<!-- {err} --></div>
 	{/await}
 </div>
 
