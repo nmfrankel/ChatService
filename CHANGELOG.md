@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 22, 2022 Update
+
+### Added
+
+- Added JWT-like userTokens to handle authentication, more work comming soon with a rough frontend implementation
+
+### Changes
+
+- Enforce server modules by appending .server.ts to $lib modules
+
 ## Sep 21, 2022 Update
 
 ### Added

@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { pusher } from '$lib/utils/pusher'
+import { pusher } from '$lib/utils/pusher.server'
 
 export const POST: RequestHandler = async ({ request }) => {
 	const body = await request.text()

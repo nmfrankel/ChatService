@@ -1,6 +1,6 @@
 import type { Prisma } from '@prisma/client'
-import { prisma } from '$lib/utils/db'
-import { hash } from '$lib/utils/encryption'
+import { prisma } from '$lib/utils/db.server'
+import { hash } from '$lib/utils/encryption.server'
 
 const currentTime = new Date().getTime(),
 	generateTimestamp = (secondsOffset: number) => {

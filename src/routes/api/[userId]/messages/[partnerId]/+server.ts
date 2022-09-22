@@ -1,7 +1,7 @@
 import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { prisma } from '$lib/utils/db'
-import { pusher } from '$lib/utils/pusher'
+import { prisma } from '$lib/utils/db.server'
+import { pusher } from '$lib/utils/pusher.server'
 
 // GET:    loads messages between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
@@ -60,15 +60,15 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 	})
 
 	// mark messages as read
-	// if (messages[0] /* && messages[0].id !== my_id */ && !messages[0].metadata.match('read')) {
+	// if (messages[0] /* && messages[0].id !== userId */ && !messages[0].metadata.match('read')) {
 	// 	await prisma.$transaction(
 	// 		messages.map((msg) =>
 	// 			prisma.msg.update({
 	// 				data: {
 	// 					metadata: {
 	// 						set: msg.metadata.length
-	// 							? `${msg.metadata},read|${my_id}|${new Date().toISOString()}`
-	// 							: `read|${my_id}|${new Date().toISOString()}`
+	// 							? `${msg.metadata},read|${userId}|${new Date().toISOString()}`
+	// 							: `read|${userId}|${new Date().toISOString()}`
 	// 					}
 	// 				},
 	// 				where: { id: msg.id }
@@ -76,6 +76,47 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 	// 		)
 	// 	)
 	// }
+	if (messages[0] /* && messages[0].id !== userId */ && !messages[0].metadata.match('read')) {
+		// 		import { User } from "prisma"
+		// declare module "prisma" {
+		//   interface User {
+		//     computeFullName(): string
+		//   }
+		// }
+		// User.prototype.computeFullName = function () {
+		//   return this.user.firstName + ' ' + this.user.lastName,
+		// };
+
+		// async function main() {
+		//   const user = await prisma.user.findUnique({ where: 1 })
+		//   user.computeFullName() // This now works, because we extended `User`
+		//   user.firstName // Still works
+		// }
+
+		prisma.msg.updateMany({
+			where: {
+				receiverId: {
+					not: userId
+				}
+			},
+			data: {}
+		})
+
+		// await prisma.$transaction(
+		// 	messages.map((msg) =>
+		// 		prisma.msg.update({
+		// 			data: {
+		// 				metadata: {
+		// 					set: msg.metadata.length
+		// 						? `${msg.metadata},read|${my_id}|${new Date().toISOString()}`
+		// 						: `read|${my_id}|${new Date().toISOString()}`
+		// 				}
+		// 			},
+		// 			where: { id: msg.id }
+		// 		})
+		// 	)
+		// )
+	}
 
 	return json(messages)
 }
@@ -129,6 +170,8 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
 	// CHECK IF partnerId IS ONLINE, to save on broadcast quota
+	// await pusher.sendToUser("user-id", "msg", result)
+
 	await pusher.trigger(`private-chat-${partnerId}`, 'msg', result)
 
 	return json(result)

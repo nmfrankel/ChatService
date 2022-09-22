@@ -1,18 +1,19 @@
 import type { Handle } from '@sveltejs/kit'
 import * as cookie from 'cookie'
+import { readPayload, validateToken, generateToken } from '$lib/utils/token.server'
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '')
-	event.locals.userid = cookies['userid'] || crypto.randomUUID()
+	const cookies = cookie.parse(event.request.headers.get('cookie') || ''),
+		user = readPayload(cookies.user)
+	event.locals.user = user
 
 	const response = await resolve(event)
 
-	if (!cookies['userid']) {
-		// if this is the first time the user has visited this app,
-		// set a cookie so that we recognise them when they return
+	// refresh exp on userToken
+	if (event.locals.user?.sub) {
 		response.headers.set(
 			'set-cookie',
-			cookie.serialize('userid', event.locals.userid, {
+			cookie.serialize('user', generateToken(event.locals.user), {
 				path: '/',
 				httpOnly: true
 			})
