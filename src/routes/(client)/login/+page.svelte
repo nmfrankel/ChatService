@@ -1,4 +1,6 @@
 <script lang="ts">
+	const prerender = true
+
 	import Button from '$lib/Button.svelte'
 	import { userToken } from '../../../userToken'
 
@@ -13,7 +15,7 @@
 			method: 'POST',
 			body: JSON.stringify({
 				email,
-				pswd: 'Testing123!'
+				pswd: 'Testing123!' || 'S3curE!10'
 			})
 		})
 
