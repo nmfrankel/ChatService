@@ -28,22 +28,22 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 		include: {
 			sender: {
 				select: {
-					id: true,
-					email: true,
+					sub: true,
+					// email: true,
 					handle: true,
-					first: true,
-					last: true,
-					phone: true
+					given_name: true,
+					family_name: true,
+					// phone: true
 				}
 			},
 			receiver: {
 				select: {
-					id: true,
-					email: true,
+					sub: true,
+					// email: true,
 					handle: true,
-					first: true,
-					last: true,
-					phone: true
+					given_name: true,
+					family_name: true,
+					// phone: true
 				}
 			}
 		}
@@ -53,17 +53,17 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 	const modifiedMessages = await Promise.all(
 		messages
 			.map(async (thread) => {
-				const outgoing = thread.sender.id === userId,
-					otherUser = outgoing ? thread.receiver : thread.sender
+				const outgoing = thread.sender.sub === userId,
+					partner = outgoing ? thread.receiver : thread.sender
 
-				// keep track if otherUser is unique
-				if (distinct.indexOf(otherUser.id) >= 0) return distinct.push(false)
-				distinct.push(otherUser.id)
+				// keep track if partner is unique
+				if (distinct.indexOf(partner.sub) >= 0) return distinct.push(false)
+				distinct.push(partner.sub)
 
 				// run query to check whether thread is unread
 				const isRead = await prisma.msg.findFirst({
 					where: {
-						senderId: otherUser.id,
+						senderId: partner.sub,
 						receiverId: userId
 					},
 					orderBy: {
@@ -78,7 +78,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 					...thread,
 					isRead: isRead ? isRead.metadata.search(userId) >= 0 : false,
 					outgoing,
-					otherUser,
+					partner,
 					sender: undefined,
 					receiver: undefined
 				}

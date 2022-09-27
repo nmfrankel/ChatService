@@ -5,19 +5,19 @@ interface Msg {
 	posted: string
 	metadata: string
 	sender: {
-		id: string
+		sub: string
 		email: string
 		handle: string | null
-		first: string
-		last: string
+		given_name: string
+		family_name: string
 		phone: string
 	}
 	receiver: {
-		id: string
+		sub: string
 		email: string
 		handle: string | null
-		first: string
-		last: string
+		given_name: string
+		family_name: string
 		phone: string
 	}
 }

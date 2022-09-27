@@ -34,21 +34,21 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 			id: true,
 			sender: {
 				select: {
-					id: true,
+					sub: true,
 					email: true,
 					handle: true,
-					first: true,
-					last: true,
+					given_name: true,
+					family_name: true,
 					phone: true
 				}
 			},
 			receiver: {
 				select: {
-					id: true,
+					sub: true,
 					email: true,
 					handle: true,
-					first: true,
-					last: true,
+					given_name: true,
+					family_name: true,
 					phone: true
 				}
 			},
@@ -145,18 +145,18 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 			id: true,
 			sender: {
 				select: {
-					id: true,
+					sub: true,
 					handle: true,
-					first: true,
-					last: true
+					given_name: true,
+					family_name: true
 				}
 			},
 			receiver: {
 				select: {
-					id: true,
+					sub: true,
 					handle: true,
-					first: true,
-					last: true
+					given_name: true,
+					family_name: true
 				}
 			},
 			msgType: true,

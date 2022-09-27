@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
-	import { userState } from '../userState'
+	import { partnerToken } from '../userToken'
 
 	export let title = 'ChatService',
 		path: string
 
 	$: title = path.startsWith('/chat')
-		? `${$userState.otherUser.first} ${$userState.otherUser.last}`
+		? `${$partnerToken.given_name} ${$partnerToken.family_name}`
 		: 'ChatService'
 </script>
 

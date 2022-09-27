@@ -8,7 +8,10 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter({ out: 'build' })
+		adapter: adapter({ out: 'build' }),
+		alias: {
+			src: 'src'
+		}
 	},
 	prerender: {
 		// This can be false if you're using a fallback (i.e. SPA mode)

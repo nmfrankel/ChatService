@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { readableTime, colorHash } from '$lib/utils/formatting'
-	import { userState } from '../../../userState'
-	import { userToken } from '../../../userToken'
+	import { userToken, partnerToken } from 'src/userToken'
 
 	let data: Thread[] | Promise<Thread[]> = []
 	const loadThreads = () =>
 		(data = fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
-	console.log($userToken, $userToken.sub)
+
 	$: loadThreads()
 </script>
 
@@ -21,21 +20,21 @@
 	{:then threads}
 		{#each threads as thread}
 			<a
-				href={'chat/' + thread.otherUser.id}
+				href={'chat/' + thread.partner.sub}
 				class="thread row"
 				class:unread={!thread.isRead}
-				on:click|once={() => ($userState.otherUser = thread.otherUser)}
+				on:click|once={() => ($partnerToken = thread.partner)}
 			>
 				<div class="imgContainer">
 					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
-					<div class={colorHash(thread.otherUser.first[0] ?? '_')}>
-						{thread.otherUser.first[0]}
+					<div class={colorHash(thread.partner.given_name[0] ?? '_')}>
+						{thread.partner.given_name[0]}
 					</div>
 				</div>
 				<div class="info row">
 					<div class="threadDetails">
 						<div class="receiver">
-							{thread.otherUser.first + ' ' + thread.otherUser.last}
+							{thread.partner.given_name + ' ' + thread.partner.family_name}
 						</div>
 						<div class="content">
 							{#if thread.msgType === 'text/plain'}

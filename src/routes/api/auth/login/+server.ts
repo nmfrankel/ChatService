@@ -19,12 +19,12 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				}
 			},
 			select: {
-				id: true,
+				sub: true,
 				role: true,
 				pswd: true,
 				handle: false,
-				first: true,
-				last: true
+				given_name: true,
+				family_name: true
 			}
 		})
 
@@ -37,9 +37,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	// login user
 	locals.user = {
-		sub: user.id,
-		given_name: user.first,
-		family_name: user.last,
+		sub: user.sub,
+		given_name: user.given_name,
+		family_name: user.family_name,
 		role: user.role
 	}
 

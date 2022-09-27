@@ -10,23 +10,23 @@ datasource db {
 }
 
 model User {
-	id			String		@id @default(cuid())
+	sub			String		@id @default(cuid())
 	role		String		@default("USER")
 	email		String
 	pswd		String		@default("reset_pswd")
 	handle		String?
-	first		String
-	last		String
-	phone		String		@unique
+	given_name	String
+	family_name	String
+	phone		String
 	asSender	Msg[]		@relation("asSender")
 	asReceiver	Msg[]		@relation("asReceiver")
 }
 
 model Msg {
 	id			String		@id @default(cuid())
-	sender		User		@relation("asSender", fields: [senderId], references: [id])
+	sender		User		@relation("asSender", fields: [senderId], references: [sub])
 	senderId	String
-	receiver	User		@relation("asReceiver", fields: [receiverId], references: [id])
+	receiver	User		@relation("asReceiver", fields: [receiverId], references: [sub])
 	receiverId	String
 	msgType		String		@default("text/plain")
 	content		String

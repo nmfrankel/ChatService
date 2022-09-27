@@ -34,21 +34,21 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 				id: true,
 				sender: {
 					select: {
-						id: true,
+						sub: true,
 						email: true,
 						handle: true,
-						first: true,
-						last: true,
+						given_name: true,
+						family_name: true,
 						phone: true
 					}
 				},
 				receiver: {
 					select: {
-						id: true,
+						sub: true,
 						email: true,
 						handle: true,
-						first: true,
-						last: true,
+						given_name: true,
+						family_name: true,
 						phone: true
 					}
 				},

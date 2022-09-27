@@ -1,5 +1,3 @@
-/// <reference types="@sveltejs/kit" />
-
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 // and what to do when importing types
@@ -11,15 +9,6 @@ declare namespace App {
 	// interface PageData {}
 
 	// interface Platform {}
-}
-
-interface User {
-	id: string
-	email: string
-	handle: string | null
-	first: string
-	last: string
-	phone: string
 }
 
 interface UserToken {

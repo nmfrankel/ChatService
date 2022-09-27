@@ -1,15 +1,14 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
 	import { readableTime, colorHash } from '$lib/utils/formatting'
-	import { userState } from '../../../userState'
-	import { userToken } from '../../../userToken'
+	import { userToken, partnerToken } from 'src/userToken'
 
 	let data: Promise<Msg[]>,
 		msgContainer: HTMLDivElement,
 		sending: object[] = [],
 		messageValue = ''
 	const loadMsgs = () =>
-			(data = fetch(`/api/${$userToken.sub}/messages/${$userState.otherUser.id}`).then((res) =>
+			(data = fetch(`/api/${$userToken.sub}/messages/${$partnerToken.sub}`).then((res) =>
 				res.json()
 			)),
 		toggleTime = (id: string) => {
@@ -22,7 +21,7 @@
 			}
 			messageValue = ''
 
-			fetch(`/api/${$userToken.sub}/messages/${$userState.otherUser.id}`, {
+			fetch(`/api/${$userToken.sub}/messages/${$partnerToken.sub}`, {
 				method: 'POST',
 				body: JSON.stringify(body)
 			}).then((res) => console.log(res))
@@ -39,13 +38,13 @@
 </script>
 
 <svelte:head>
-	<title>{$userState.otherUser.first} {$userState.otherUser.last} | Chat | ChatService</title>
+	<title>{$partnerToken.given_name} {$partnerToken.family_name} | Chat | ChatService</title>
 	<meta name="description" content="See all the threads you have between your friends." />
 	<!-- <meta http-equiv="Content-Security-Policy"
 		  content="default-src 'self'; img-src https://*; child-src 'none';"> -->
 </svelte:head>
 
-<!-- <div>User info: {JSON.stringify($userState.otherUser)}<br /></div> -->
+<!-- <div>User info: {JSON.stringify($partnerToken)}<br /></div> -->
 
 <div
 	class="container test"
@@ -70,15 +69,15 @@
 
 				<div
 					id={msg.id}
-					class="{msg.sender.id === $userToken.sub ? 'outgoing' : 'incoming'} row"
-					class:first={msgs[id - 1]?.sender.id !== msg.sender.id || timeSpread}
-					class:last={msgs[id + 1]?.sender.id !== msg.sender.id || nextTimeSpread}
+					class="{msg.sender.sub === $userToken.sub ? 'outgoing' : 'incoming'} row"
+					class:first={msgs[id - 1]?.sender.sub !== msg.sender.sub || timeSpread}
+					class:last={msgs[id + 1]?.sender.sub !== msg.sender.sub || nextTimeSpread}
 					class:showTime={msgs.length === id + 1}
 					on:click={() => toggleTime(msg.id)}
 				>
 					<div class="row">
-						<div class="avatar {colorHash(msg.sender.first[0] ?? '_')}">
-							{msg.sender.first[0] || '_'}
+						<div class="avatar {colorHash(msg.sender.given_name[0] ?? '_')}">
+							{msg.sender.given_name[0] || '_'}
 						</div>
 						<div class="column">
 							<div class="msg" on:click={() => false}>
@@ -89,7 +88,7 @@
 								{/if}
 							</div>
 							<div class="timestamp">
-								{#if msg.sender.id !== $userToken.sub}
+								{#if msg.sender.sub !== $userToken.sub}
 									{readableTime(msg.posted, true)}
 								{:else if msg.metadata.search(/\d{4}-\d{2}-\d{2}\w\d{2}:\d{2}:\d{2}.\d{3}\w/) >= 0}
 									Read •

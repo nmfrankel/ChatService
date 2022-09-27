@@ -7,3 +7,11 @@ export const userToken = storage<UserToken>('userToken', {
 	handle: '',
 	role: 'UNAUTHENTICATED'
 })
+
+export const partnerToken = storage<UserToken>('partnerToken', {
+	sub: '',
+	given_name: 'Unknown',
+	family_name: 'conversation',
+	handle: 'missing',
+	role: 'N/A'
+})

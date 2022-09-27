@@ -10,73 +10,73 @@ const currentTime = new Date().getTime(),
 let pushedUsers: Prisma.UserCreateInput[] = []
 const userData = [
 	{
-		id: '1',
+		sub: '1',
 		role: 'USER',
 		email: 'nosson_frankel@gmail.com',
 		pswd: hash('Testing123!'),
 		handle: 'nmfrankel',
-		first: 'Nosson',
-		last: 'Frankel',
+		given_name: 'Nosson',
+		family_name: 'Frankel',
 		phone: '0534733971'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'USER',
 		email: 'leue__@gmail.com',
 		pswd: hash('S3curE!10'),
 		handle: 'nm_frankel',
-		first: 'Dev',
-		last: 'Frankel',
+		given_name: 'Dev',
+		family_name: 'Frankel',
 		phone: '534733971'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'USER',
 		email: 'nachibohen@gmail.com',
 		pswd: 'must_reset',
 		handle: 'DJ Nachman',
-		first: 'Nachman',
-		last: 'Tester',
+		given_name: 'Nachman',
+		family_name: 'Tester',
 		phone: '7189304820'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'USER',
 		email: 'pmingber@gmail.com',
 		pswd: 'must_reset',
 		handle: 'PM Ingber',
-		first: 'PM',
-		last: 'Ingber',
+		given_name: 'PM',
+		family_name: 'Ingber',
 		phone: '0533180351'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'USER',
 		email: 'another_person@gmail.com',
 		pswd: 'must_reset',
 		handle: 'Another Person',
-		first: 'Another',
-		last: 'Person',
+		given_name: 'Another',
+		family_name: 'Person',
 		phone: '7182534630'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'ADMIN',
 		email: 'aharin26@gmail.com',
 		pswd: 'must_reset',
 		handle: 'AM Leonard',
-		first: 'Aharon Meir',
-		last: 'Leonard',
+		given_name: 'Aharon Meir',
+		family_name: 'Leonard',
 		phone: '3235615952'
 	},
 	{
-		id: undefined,
+		sub: undefined,
 		role: 'USER',
 		email: 'ajlichtschein@gmail.com',
 		pswd: 'must_reset',
 		handle: 'AJ 23',
-		first: 'AJ',
-		last: 'Lichtshein',
+		given_name: 'AJ',
+		family_name: 'Lichtshein',
 		phone: '9179692634'
 	}
 ]
@@ -89,19 +89,19 @@ async function main() {
 			data: u
 		})
 		pushedUsers.push(user)
-		console.log(`Created user with id: ${user.id}`)
+		console.log(`Created user with sub: ${user.sub}`)
 	}
 
 	const msgData: Prisma.MsgCreateInput[] = [
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[2].id
+					sub: pushedUsers[2].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -112,12 +112,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[2].id
+					sub: pushedUsers[2].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -128,12 +128,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[3].id
+					sub: pushedUsers[3].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -144,12 +144,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[1].id
+					sub: pushedUsers[1].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -160,12 +160,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[2].id
+					sub: pushedUsers[2].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -176,12 +176,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[2].id
+					sub: pushedUsers[2].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -192,12 +192,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[5].id
+					sub: pushedUsers[5].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[6].id
+					sub: pushedUsers[6].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -208,12 +208,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[6].id
+					sub: pushedUsers[6].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[4].id
+					sub: pushedUsers[4].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -224,12 +224,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[5].id
+					sub: pushedUsers[5].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -240,12 +240,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[3].id
+					sub: pushedUsers[3].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -256,12 +256,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[1].id
+					sub: pushedUsers[1].sub
 				}
 			},
 			msgType: 'text/plain',
@@ -272,12 +272,12 @@ async function main() {
 		{
 			sender: {
 				connect: {
-					id: pushedUsers[0].id
+					sub: pushedUsers[0].sub
 				}
 			},
 			receiver: {
 				connect: {
-					id: pushedUsers[3].id
+					sub: pushedUsers[3].sub
 				}
 			},
 			msgType: 'text/plain',

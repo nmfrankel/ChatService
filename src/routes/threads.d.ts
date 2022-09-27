@@ -1,6 +1,6 @@
 interface Thread {
 	id: string
-	otherUser: User
+	partner: UserToken
 	msgType: string
 	content: string
 	posted: string
