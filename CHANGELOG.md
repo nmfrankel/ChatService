@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Changed $userState.otherUser to $partnerToken, now only user being updated/read will be changed
 - Changed db schema to follow UserToken type (User.id => User.sub, first => given_name, last => family_name)
+- Testing SSR for `/threads` [preview]
 
 ## Sep 23, 2022 Update
 

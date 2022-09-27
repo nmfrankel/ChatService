@@ -1,12 +1,16 @@
 <script lang="ts">
+	import type { PageData } from './$types'
 	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import { userToken, partnerToken } from 'src/userToken'
 
-	let data: Thread[] | Promise<Thread[]> = []
-	const loadThreads = () =>
-		(data = fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
+	export let data: PageData | Thread[]
+	$: data = [...Object.values(data)]
+	// let data: Thread[] | Promise<Thread[]> = []
 
-	$: loadThreads()
+	const loadThreads = async () =>
+		(data = await fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
+
+	// $: loadThreads()
 </script>
 
 <svelte:head>
@@ -15,10 +19,10 @@
 </svelte:head>
 
 <div class="container" on:contextmenu|preventDefault={() => loadThreads()}>
-	{#await data}
+	<!-- {#await data}
 		<div class="trueCenter">Loading...</div>
-	{:then threads}
-		{#each threads as thread}
+	{:then threads} -->
+		{#each data as thread}
 			<a
 				href={'chat/' + thread.partner.sub}
 				class="thread row"
@@ -53,9 +57,9 @@
 		{:else}
 			<div class="trueCenter">No threads, start chatting</div>
 		{/each}
-	{:catch err}
-		<div class="trueCenter">An error occured <br /> try reloading the page<!-- {err} --></div>
-	{/await}
+	<!-- {:catch err}
+		<div class="trueCenter">An error occured <br /> try reloading the page<!-- {err} --</div>
+	{/await} -->
 </div>
 
 <style>
