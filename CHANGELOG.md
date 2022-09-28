@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 ## Sep 28, 2022 Update
 
 ### Added
+
 - Implemented basic authentication check through `(client)/+layout.server.ts` [initial]
+- Fleshed out a register/login page @ `/login` [preview]
 
 ## Sep 27, 2022 Update
 

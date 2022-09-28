@@ -4,32 +4,56 @@
 	import Button from '$lib/Button.svelte'
 	import { userToken } from '../../userToken'
 
-	let showLogin = true,
+	let registerFormValues = {
+			given_name: '',
+			family_name: '',
+			email: '',
+			phone: '',
+			pswd: ''
+		},
+		showLogin = true,
 		email = '',
 		emailErr = '',
 		pswd = '',
 		pswdErr = 'There was an issue reading your password, try again later.'
 
-	const login = async () => {
-		let attemptLogin = await fetch('/api/auth/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				email,
-				pswd: 'Testing123!' || 'S3curE!10'
+	const register = async () => {
+			let attemptRegister = await fetch('/api/auth/register', {
+				method: 'POST',
+				body: JSON.stringify(registerFormValues)
 			})
-		})
 
-		if (attemptLogin.status !== 200) return
+			const res = await attemptRegister.json()
 
-		let res = await attemptLogin.clone().json()
-		if (res.sub) {
-			$userToken = await attemptLogin.json()
-			console.log('Logged in: ' + $userToken.sub)
+			if (!res.sub) {
+				console.log(attemptRegister)
+				return
+			}
+
+			$userToken = res
+			console.log('User created: ' + $userToken.sub)
 			window.location.href = '/threads'
-		} else {
-			console.log(res)
+		},
+		login = async () => {
+			let attemptLogin = await fetch('/api/auth/login', {
+				method: 'POST',
+				body: JSON.stringify({
+					email,
+					pswd
+				})
+			})
+
+			if (attemptLogin.status !== 200) return
+
+			let res = await attemptLogin.clone().json()
+			if (res.sub) {
+				$userToken = await attemptLogin.json()
+				console.log('Logged in: ' + $userToken.sub)
+				window.location.href = '/threads'
+			} else {
+				console.log(res)
+			}
 		}
-	}
 </script>
 
 <svelte:head>
@@ -59,7 +83,7 @@
 			</div>
 			<div class="inputContainer">
 				<label for="pswd">Password</label>
-				<input id="pswd" type="text" autocomplete="current-password" bind:value={pswd} />
+				<input id="pswd" type="password" autocomplete="current-password" bind:value={pswd} />
 				<div class="err">{pswdErr}&nbsp;</div>
 			</div>
 
@@ -74,33 +98,60 @@
 			<h1>Start chatting with your friends</h1>
 			<p>Get on the platform that everyone moved to and claim your handle before it gets taken.</p>
 
-			<!-- <div class="inputContainer">
-				<label for="email">First name</label>
-				<input id="email" type="text" autocomplete="given-name">
-				<div class="err">&nbsp;</div>
-			</div>
-			<div class="inputContainer">
-				<label for="email">Last name</label>
-				<input id="email" type="text" autocomplete="family-name">
-				<div class="err">&nbsp;</div>
-			</div>
-			<div class="inputContainer">
-				<label for="email">Email address</label>
-				<input id="email" type="text" autocomplete="email">
-				<div class="err">&nbsp;</div>
-			</div>
-			<div class="inputContainer">
-				<label for="phone">Phone number</label>
-				<input id="phone" type="text" autocomplete="phone">
-				<div class="err">&nbsp;</div>
-			</div>
-			<div class="inputContainer">
-				<label for="pswd">Choose a password</label>
-				<input id="pswd" type="password" autocomplete="new-password">
-				<div class="err">&nbsp;</div>
-			</div> -->
+			<form>
+				<div class="inputContainer">
+					<label for="given-name">First name</label>
+					<input
+						id="given-name"
+						type="text"
+						autocomplete="given-name"
+						bind:value={registerFormValues.given_name}
+					/>
+					<div class="err">&nbsp;</div>
+				</div>
+				<div class="inputContainer">
+					<label for="family-name">Last name</label>
+					<input
+						id="family-name"
+						type="text"
+						autocomplete="family-name"
+						bind:value={registerFormValues.family_name}
+					/>
+					<div class="err">&nbsp;</div>
+				</div>
+				<div class="inputContainer">
+					<label for="email">Email address</label>
+					<input
+						id="email"
+						type="text"
+						autocomplete="email"
+						bind:value={registerFormValues.email}
+					/>
+					<div class="err">&nbsp;</div>
+				</div>
+				<div class="inputContainer">
+					<label for="phone">Phone number</label>
+					<input
+						id="phone"
+						type="text"
+						autocomplete="phone"
+						bind:value={registerFormValues.phone}
+					/>
+					<div class="err">&nbsp;</div>
+				</div>
+				<div class="inputContainer">
+					<label for="pswd">Choose a password</label>
+					<input
+						id="pswd"
+						type="password"
+						autocomplete="new-password"
+						bind:value={registerFormValues.pswd}
+					/>
+					<div class="err">&nbsp;</div>
+				</div>
+			</form>
 
-			<Button text="Signup" style="width: 348px;justify-content: center" />
+			<Button text="Signup" style="width: 348px;justify-content: center" on:click={register} />
 			<Button
 				text="Login"
 				classes="link"

@@ -31,7 +31,7 @@ model Msg {
 	msgType		String		@default("text/plain")
 	content		String
 	posted		DateTime	@default(now())
-	metadata	String
+	metadata	String		@default("")
 }
 
 // npx prisma migrate dev --name init

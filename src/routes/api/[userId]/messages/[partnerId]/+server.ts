@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 	const { user } = locals
 
 	if (!user || user.sub !== params.userId) {
-		throw redirect(203, '/login')
+		throw redirect(302, '/login')
 	}
 
 	const userId = params.userId,
@@ -128,7 +128,7 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 	const { user } = locals
 
 	if (!user || user.sub !== params.userId) {
-		throw redirect(203, '/login')
+		throw redirect(302, '/login')
 	}
 
 	const userId = params.userId,
