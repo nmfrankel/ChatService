@@ -1,13 +1,8 @@
-import { json, error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import { prisma } from '$lib/utils/db.server'
 
 // GET:    pre-load messages between current [user] and [partner]'s id
 export const load: PageServerLoad = async ({ locals, params }) => {
-	// SECURITY CHECK: confirm user has access
-	// SECURITY CHECK: confirm user has access
-	// read locals.userid cookie to confirm user, use JWT or encrypted data for cookie
-
 	const userId = locals.user?.sub,
 		partnerId = params.handle
 
@@ -28,7 +23,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			// skip: 0,
 			// take: 20,
 			orderBy: {
-				posted: 'desc'
+				posted: 'asc'
 			},
 			select: {
 				id: true,
@@ -62,5 +57,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			return { err: err }
 		})
 
-	return Object.values(messages).reverse()
+	return {
+		msgs: messages
+	}
 }

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sep 28, 2022 Update
+
+### Added
+- Implemented basic authentication check through `(client)/+layout.server.ts` [initial]
+
 ## Sep 27, 2022 Update
 
 ### Changes

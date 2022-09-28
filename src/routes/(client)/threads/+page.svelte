@@ -3,12 +3,11 @@
 	import { readableTime, colorHash } from '$lib/utils/formatting'
 	import { userToken, partnerToken } from 'src/userToken'
 
-	export let data: PageData | Thread[]
-	$: data = [...Object.values(data)]
+	export let data: PageData
 	// let data: Thread[] | Promise<Thread[]> = []
 
 	const loadThreads = async () =>
-		(data = await fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
+		(data.threads = await fetch(`/api/${$userToken.sub}/messages`).then((res) => res.json()))
 
 	// $: loadThreads()
 </script>
@@ -22,41 +21,41 @@
 	<!-- {#await data}
 		<div class="trueCenter">Loading...</div>
 	{:then threads} -->
-		{#each data as thread}
-			<a
-				href={'chat/' + thread.partner.sub}
-				class="thread row"
-				class:unread={!thread.isRead}
-				on:click|once={() => ($partnerToken = thread.partner)}
-			>
-				<div class="imgContainer">
-					<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
-					<div class={colorHash(thread.partner.given_name[0] ?? '_')}>
-						{thread.partner.given_name[0]}
+	{#each data.threads as thread}
+		<a
+			href={'chat/' + thread.partner.sub}
+			class="thread row"
+			class:unread={!thread.isRead}
+			on:click|once={() => ($partnerToken = thread.partner)}
+		>
+			<div class="imgContainer">
+				<!-- {#if}<img src="" alt="" on:error={() => this.style.display = 'none'}>{/if} -->
+				<div class={colorHash(thread.partner.given_name[0] ?? '_')}>
+					{thread.partner.given_name[0]}
+				</div>
+			</div>
+			<div class="info row">
+				<div class="threadDetails">
+					<div class="receiver">
+						{thread.partner.given_name + ' ' + thread.partner.family_name}
+					</div>
+					<div class="content">
+						{#if thread.msgType === 'text/plain'}
+							{thread.outgoing ? 'You: ' : ''}{thread.content}
+						{:else}
+							{thread.outgoing ? 'You: ' : ''}sent a {thread.msgType}
+						{/if}
 					</div>
 				</div>
-				<div class="info row">
-					<div class="threadDetails">
-						<div class="receiver">
-							{thread.partner.given_name + ' ' + thread.partner.family_name}
-						</div>
-						<div class="content">
-							{#if thread.msgType === 'text/plain'}
-								{thread.outgoing ? 'You: ' : ''}{thread.content}
-							{:else}
-								{thread.outgoing ? 'You: ' : ''}sent a {thread.msgType}
-							{/if}
-						</div>
-					</div>
-					<div class="metaData">
-						<div class="timestamp">{readableTime(thread.posted)}</div>
-						<div class="unreadCount" />
-					</div>
+				<div class="metaData">
+					<div class="timestamp">{readableTime(thread.posted)}</div>
+					<div class="unreadCount" />
 				</div>
-			</a>
-		{:else}
-			<div class="trueCenter">No threads, start chatting</div>
-		{/each}
+			</div>
+		</a>
+	{:else}
+		<div class="trueCenter">No threads, start chatting</div>
+	{/each}
 	<!-- {:catch err}
 		<div class="trueCenter">An error occured <br /> try reloading the page<!-- {err} --</div>
 	{/await} -->

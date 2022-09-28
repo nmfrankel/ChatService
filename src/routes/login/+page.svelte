@@ -2,7 +2,7 @@
 	const prerender = true
 
 	import Button from '$lib/Button.svelte'
-	import { userToken } from '../../../userToken'
+	import { userToken } from '../../userToken'
 
 	let showLogin = true,
 		email = '',

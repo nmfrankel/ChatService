@@ -1,13 +1,8 @@
-import { json, error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import { prisma } from '$lib/utils/db.server'
 
 // GET:    loads distinct messages (threads) between current [user] and [partner]'s id
-export const load: PageServerLoad = async ({ locals, params }) => {
-	// SECURITY CHECK: confirm user has access
-	// SECURITY CHECK: confirm user has access
-	// read locals.userid cookie to confirm user, use JWT or encrypted data for cookie
-
+export const load: PageServerLoad = async ({ locals }) => {
 	const userId = locals.user?.sub ?? ''
 
 	let messages = await prisma.msg.findMany({
@@ -32,7 +27,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 					// email: true,
 					handle: true,
 					given_name: true,
-					family_name: true,
+					family_name: true
 					// phone: true
 				}
 			},
@@ -42,7 +37,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 					// email: true,
 					handle: true,
 					given_name: true,
-					family_name: true,
+					family_name: true
 					// phone: true
 				}
 			}
@@ -86,5 +81,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			.filter((undefined, i) => distinct[i] !== false)
 	)
 
-	return Object.values(modifiedMessages)
+	return {
+		threads: modifiedMessages
+	}
 }

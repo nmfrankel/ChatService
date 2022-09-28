@@ -7,7 +7,7 @@
 	import Button from '$lib/Button.svelte'
 	import Pusher from 'pusher-js'
 
-	export let data: PageData | Msg
+	export let data: PageData | Msg[]
 
 	let handle = $page.params.handle,
 		loading = true,
@@ -17,7 +17,7 @@
 
 	// on initial page load remove loading message
 	$: if (!msgs.length) {
-		msgs = [...msgs, ...Object.values(data)]
+		msgs = [...msgs, ...data.msgs]
 		loading = false
 	}
 

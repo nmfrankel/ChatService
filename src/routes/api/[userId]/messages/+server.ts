@@ -1,12 +1,14 @@
-import { json, error } from '@sveltejs/kit'
+import { json, error, redirect } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { prisma } from '$lib/utils/db.server'
 
 // GET:    loads distinct messages (threads) between current [user] and [partner]'s id
 export const GET: RequestHandler = async ({ locals, params }) => {
-	// SECURITY CHECK: confirm user has access
-	// SECURITY CHECK: confirm user has access
-	// read locals.userid cookie to confirm user, use JWT or encrypted data for cookie
+	const { user } = locals
+
+	if (!user || user.sub !== params.userId) {
+		throw redirect(203, '/login')
+	}
 
 	const userId = params.userId
 
@@ -32,7 +34,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 					// email: true,
 					handle: true,
 					given_name: true,
-					family_name: true,
+					family_name: true
 					// phone: true
 				}
 			},
@@ -42,7 +44,7 @@ export const GET: RequestHandler = async ({ locals, params }) => {
 					// email: true,
 					handle: true,
 					given_name: true,
-					family_name: true,
+					family_name: true
 					// phone: true
 				}
 			}
