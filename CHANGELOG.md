@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Implemented basic authentication check through `(client)/+layout.server.ts` [initial]
 - Fleshed out a register/login page @ `/login` [preview]
+- Prevented UNAUTHENTICATED users staying in the system
 
 ## Sep 27, 2022 Update
 
