@@ -1,17 +1,25 @@
 <svelte:head>
-	<meta http-equiv="refresh" content="10; url=https://romemus.org/yehudareich">
+	<!-- <meta http-equiv="refresh" content="10; url=https://romemus.org/yehudareich"> -->
 </svelte:head>
 
 <div />
 
 <style>
+	:global(html, body) {
+		max-height: 100vh;
+		max-width: 100vw;
+		overflow: hidden;
+	}
+	:global(header) {
+		display: none;
+	}
 	div {
 		position: relative;
-		top: -66px;
+		top: -1px;
 		height: 100vh;
 		width: 100vw;
 		content: '';
-		background: url('/billy.jpg') no-repeat center center;
+		background: url('/billy.jpg') no-repeat 60% center;
 		background-size: cover;
 		z-index: 10;
 	}
