@@ -1,5 +1,5 @@
 <svelte:head>
-	<!-- <meta http-equiv="refresh" content="10; url=https://romemus.org/yehudareich"> -->
+	<!-- <meta http-equiv="refresh" content="5; url=https://"> -->
 </svelte:head>
 
 <div />

@@ -1,19 +1,11 @@
 <script lang="ts">
-	import { webVitals } from '$lib/utils/vitals'
-	import { browser } from '$app/environment'
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
 	import { page } from '$app/stores'
 	import Header from '$lib/Header.svelte'
 	import '../app.css'
 
-	const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID
-
-	$: if (browser && analyticsId) {
-		webVitals({
-			path: $page.url.pathname,
-			params: $page.params,
-			analyticsId
-		})
-	}
+	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <Header path={$page.url.pathname} />
