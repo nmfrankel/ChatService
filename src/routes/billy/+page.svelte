@@ -1,5 +1,5 @@
 <svelte:head>
-	<!-- <meta http-equiv="refresh" content="5; url=https://"> -->
+	<meta http-equiv="refresh" content="3; url=https://docs.google.com/forms/d/e/1FAIpQLSdX0tVvQ2iNcrh5uE16PX7euzE-TPTuIlLbyxsmGn_gkfRJ2Q/viewform">
 </svelte:head>
 
 <div />
